@@ -549,8 +549,23 @@
     <script type="module">
       import { Application } from "https://unpkg.com/@splinetool/runtime@1.12.52/build/runtime.js";
 
-      const GOOGLE_SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbzOHU9AB4klAo5-zMNd4Wwz3eJtvmQNhnvDzzyU72hmYlreQjm4VWSMq6BCyRlLBiAN/exec";
+      // ==========================================
+      // ระบบสลับฐานข้อมูลอัตโนมัติ (Auto-Switch)
+      // ==========================================
+      let GOOGLE_SCRIPT_URL = "";
+
+      if (window.location.hostname.includes("onrender.com")) {
+        // 🔴 โหมด LIVE (เว็บจริงบน Render) -> ส่งข้อมูลเข้าชีต IMPACT_Live
+        GOOGLE_SCRIPT_URL =
+          "https://script.google.com/macros/s/AKfycbw5g7yPiqRj1FhsW2FyiylJ88hqEFix6dgFDrSp3FgPBZKrjG-Nlvq6dSUM2RYJWVeQhA/exec";
+        console.log("🌐 Connected to LIVE Database");
+      } else {
+        // 🟡 โหมด TEST (เทสในคอมตัวเอง) -> ส่งข้อมูลเข้าชีต IMPACT_Test
+        GOOGLE_SCRIPT_URL =
+          "https://script.google.com/macros/s/AKfycbwV15IcFOMr9tf5xlyom3AzEiwtnrwLL_PQeL3K1vWBCht2zbNMnlzqyOM6YfcvLjvAng/exec";
+        console.log("🛠️ Connected to TEST Database");
+      }
+      // ==========================================
 
       const urlParams = new URLSearchParams(window.location.search);
       const eventName = urlParams.get("event") || "Custom Event";
