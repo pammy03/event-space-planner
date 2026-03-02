@@ -3,12 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IMPACT Design Service</title>
-
+    <title>IMPACT Carbon Calculator</title>
     <link rel="stylesheet" href="style.css" />
-
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -19,34 +17,51 @@
   <body>
     <header>
       <div class="logo">
-        <img src="images/logo-impact.svg" alt="IMPACT Logo" height="50" />
+        <img
+          src="images/logo-impact.svg"
+          alt="IMPACT Logo"
+          height="50"
+          onerror="
+            this.src =
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/IMPACT_Muang_Thong_Thani_Logo.png/800px-IMPACT_Muang_Thong_Thani_Logo.png'
+          "
+        />
       </div>
       <div class="top-menu">
         <button class="lang-btn"><i class="fa-solid fa-globe"></i> ไทย</button>
-        <a href="#" class="menu-link">ออกแบบตั้งแต่เริ่มต้น</a>
+        <a href="#" class="menu-link">เกี่ยวกับเรา</a>
       </div>
     </header>
 
     <main class="container">
       <div class="content-left">
-        <h1>ออกแบบพื้นที่จัดงานออนไลน์</h1>
+        <div class="eco-badge">
+          <i class="fa-solid fa-leaf"></i> Eco-Friendly Event Planner
+        </div>
+        <h1>
+          IMPACT Carbon Calculator<br /><span class="highlight-green"
+            >วางแผนจัดงานอย่างยั่งยืน</span
+          >
+        </h1>
         <p>
-          เนรมิตงานอีเว้นต์ในฝันของคุณได้ง่ายๆ ด้วยโปรแกรมออกแบบผังงานเสมือนจริง
-          (Virtual Planner)
-          รองรับทุกรูปแบบงานตั้งแต่การประชุมไปจนถึงคอนเสิร์ตระดับโลก
+          ร่วมเป็นส่วนหนึ่งในการลดการปล่อยก๊าซเรือนกระจก
+          เครื่องมือจำลองพื้นที่และคำนวณคาร์บอนฟุตพริ้นท์สำหรับการจัดงานที่
+          IMPACT รองรับทุกรูปแบบงานเพื่อให้งานของคุณรักษ์โลกมากยิ่งขึ้น
         </p>
-
         <div class="button-group">
-          <button class="btn btn-outline">
-            <i class="fa-regular fa-user"></i> แบบที่บันทึกไว้
-          </button>
-          <a href="#" class="btn btn-black" onclick="openModal(event)">
-            <i class="fa-solid fa-pen"></i> เริ่มออกแบบ
+          <a href="#" class="btn btn-primary" onclick="openModal(event)">
+            <i class="fa-solid fa-calculator"></i> เริ่มต้นคำนวณ
           </a>
+          <button class="btn btn-outline">
+            <i class="fa-regular fa-folder-open"></i> ประวัติการคำนวณ
+          </button>
         </div>
       </div>
       <div class="content-right">
-        <img src="images/Home1.jpg" alt="Impact Hall" />
+        <img
+          src="https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=80&w=2070&auto=format&fit=crop"
+          alt="Eco Friendly Event"
+        />
       </div>
     </main>
 
@@ -54,16 +69,17 @@
       <div class="modal-content">
         <div class="modal-header">
           <div>
-            <h2>เลือกประเภทอีเว้นต์</h2>
-            <p>เลือกรูปแบบงานที่คุณต้องการจัด เพื่อเริ่มต้นออกแบบพื้นที่</p>
+            <h2>เลือกประเภทอีเวนต์</h2>
+            <p>
+              เลือกรูปแบบงานที่คุณต้องการจัด เพื่อเริ่มต้นคำนวณคาร์บอนฟุตพริ้นท์
+            </p>
           </div>
           <span class="close-btn" onclick="closeModal()">&times;</span>
         </div>
-
         <div class="modal-body">
           <div class="event-grid">
             <a
-              href="design.html?event=Exhibition at IMPACT"
+              href="design.html?event=exhibition"
               class="event-card green-card"
             >
               <div class="card-image">
@@ -73,15 +89,11 @@
                 />
               </div>
               <div class="card-footer">
-                <h4>สำหรับการจัดงานแสดงสินค้าและนิทรรศการ</h4>
+                <h4>งานแสดงสินค้าและนิทรรศการ</h4>
                 <span>Exhibition at IMPACT</span>
               </div>
             </a>
-
-            <a
-              href="design.html?event=Meeting at IMPACT"
-              class="event-card blue-card"
-            >
+            <a href="design.html?event=meeting" class="event-card blue-card">
               <div class="card-image">
                 <img
                   src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1932&auto=format&fit=crop"
@@ -89,15 +101,11 @@
                 />
               </div>
               <div class="card-footer">
-                <h4>สำหรับการจัดงานประชุม</h4>
+                <h4>งานประชุมและสัมมนา</h4>
                 <span>Meeting at IMPACT</span>
               </div>
             </a>
-
-            <a
-              href="design.html?event=Concert at IMPACT"
-              class="event-card red-card"
-            >
+            <a href="design.html?event=concert" class="event-card red-card">
               <div class="card-image">
                 <img
                   src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070&auto=format&fit=crop"
@@ -105,44 +113,8 @@
                 />
               </div>
               <div class="card-footer">
-                <h4>สำหรับการจัดงานคอนเสิร์ต</h4>
+                <h4>งานคอนเสิร์ต</h4>
                 <span>Concert at IMPACT</span>
-              </div>
-            </a>
-
-            <a
-              href="design.html?event=Wedding at IMPACT"
-              class="event-card pink-card"
-            >
-              <div class="card-image">
-                <img
-                  src="images/wedding.jpg"
-                  onerror="
-                    this.src =
-                      'https://images.unsplash.com/photo-1519225421980-715cb0200d89?q=80&w=2070&auto=format&fit=crop'
-                  "
-                  alt="Wedding"
-                />
-              </div>
-              <div class="card-footer">
-                <h4>สำหรับการจัดงานมงคลสมรส</h4>
-                <span>Wedding at IMPACT</span>
-              </div>
-            </a>
-
-            <a
-              href="design.html?event=Party at IMPACT"
-              class="event-card purple-card"
-            >
-              <div class="card-image">
-                <img
-                  src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070&auto=format&fit=crop"
-                  alt="Party"
-                />
-              </div>
-              <div class="card-footer">
-                <h4>สำหรับการจัดงานเลี้ยงสังสรรค์</h4>
-                <span>Party at IMPACT</span>
               </div>
             </a>
           </div>
