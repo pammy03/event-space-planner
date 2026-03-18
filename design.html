@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IMPACT 2D Event Planner - Carbon Calc</title>
-
+    <title>IMPACT Sustain Event Calculator</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap"
       rel="stylesheet"
@@ -13,241 +12,527 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="style.css" />
-  </head>
+    <style>
+      :root {
+        --impact-blue: #1e52a8;
+        --impact-light-bg: #f4f7fa;
+        --sustain-green: #28a745;
+        --danger-red: #d93025;
+        --border-color: #e2e8f0;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Noto Sans Thai", sans-serif;
+        background-color: #ffffff;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      /* --- NAVIGATION (ดีไซน์เป๊ะตามภาพ) --- */
+      .top-nav {
+        height: 80px;
+        background: #fff;
+        padding: 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #eee;
+        z-index: 100;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        flex: 1;
+      }
+      /* 💡 เปลี่ยนโลโก้กลับมาใช้รูปภาพ */
+      .nav-logo-img {
+        height: 40px;
+        object-fit: contain;
+      }
+      .btn-new-event {
+        background: #f1f5f9;
+        color: var(--impact-blue);
+        border: none;
+        padding: 10px 18px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: 0.2s;
+        font-family: "Noto Sans Thai", sans-serif;
+      }
+      .btn-new-event:hover {
+        background: #e2e8f0;
+      }
+      .nav-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+      }
+      .nav-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--impact-blue);
+      }
+      .nav-badge {
+        background: #dcfce7;
+        color: #166534;
+        padding: 4px 14px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-top: 6px;
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 24px;
+        flex: 1;
+      }
+      .nav-link {
+        color: #475569;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.2s;
+      }
+      .nav-link:hover {
+        color: var(--impact-blue);
+      }
+      .nav-link i {
+        font-size: 18px;
+      }
+      .btn-save {
+        background: #4caf50;
+        color: #fff;
+        border: none;
+        padding: 10px 22px;
+        border-radius: 25px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.2s;
+        box-shadow: 0 4px 6px rgba(76, 175, 80, 0.2);
+        font-family: "Noto Sans Thai", sans-serif;
+      }
+      .btn-save:hover {
+        background: #43a047;
+        box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+      }
 
-  <body class="design-page">
+      /* --- MODAL (หน้าต่างบันทึกข้อมูล) --- */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        backdrop-filter: blur(2px);
+      }
+      .modal-box {
+        background: #fff;
+        padding: 40px;
+        border-radius: 20px;
+        width: 440px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+      .modal-title {
+        color: var(--impact-blue);
+        text-align: center;
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 8px;
+      }
+      .modal-subtitle {
+        text-align: center;
+        color: #64748b;
+        font-size: 14px;
+        margin-bottom: 25px;
+      }
+      .form-group {
+        margin-bottom: 18px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 14px;
+        font-weight: 700;
+        color: #334155;
+        margin-bottom: 8px;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        font-size: 15px;
+        font-family: inherit;
+        outline: none;
+        transition: 0.2s;
+      }
+      .form-group input:focus {
+        border-color: var(--impact-blue);
+      }
+      .form-group input[readonly] {
+        background: #f8fafc;
+        color: var(--impact-blue);
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+      .modal-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 30px;
+      }
+      .btn-cancel {
+        flex: 1;
+        padding: 14px;
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        font-weight: 700;
+        color: #334155;
+        cursor: pointer;
+        font-family: inherit;
+        transition: 0.2s;
+      }
+      .btn-cancel:hover {
+        background: #f1f5f9;
+      }
+      .btn-confirm {
+        flex: 1;
+        padding: 14px;
+        background: var(--impact-blue);
+        border: none;
+        border-radius: 10px;
+        font-weight: 700;
+        color: #fff;
+        cursor: pointer;
+        font-family: inherit;
+        transition: 0.2s;
+      }
+      .btn-confirm:hover {
+        background: #153c7c;
+      }
+
+      /* 💡 เพิ่มสไตล์สำหรับสถานะกำลังโหลดตอนกดบันทึก */
+      .btn-confirm:disabled {
+        background: #94a3b8;
+        cursor: not-allowed;
+      }
+
+      /* --- MAIN WORKSPACE --- */
+      .main-workspace {
+        display: flex;
+        flex: 1;
+        height: calc(100vh - 80px);
+      }
+
+      /* SIDEBAR LEFT */
+      .sidebar-left {
+        width: 500px;
+        background: #fff;
+        border-right: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+        z-index: 10;
+        position: relative;
+      }
+      .sidebar-header {
+        padding: 20px 25px;
+        transition: padding 0.3s;
+      }
+      .sidebar-header label {
+        font-size: 13px;
+        font-weight: 700;
+        color: #888;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .custom-select {
+        width: 100%;
+        padding: 15px 20px;
+        background-color: var(--impact-light-bg);
+        border: none;
+        border-radius: 15px;
+        font-size: 16px;
+        font-weight: 700;
+        color: #334155;
+        cursor: pointer;
+        outline: none;
+        margin-bottom: 20px;
+        transition: margin 0.3s;
+      }
+
+      .tabs-wrapper {
+        display: flex;
+        gap: 8px;
+        padding: 0 25px 15px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .tab-pill {
+        white-space: nowrap;
+        padding: 8px 18px;
+        background: #f1f5f9;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        color: #64748b;
+        transition: 0.3s;
+      }
+      .tab-pill.active {
+        background: var(--impact-blue);
+        color: #fff;
+      }
+
+      /* Level 3: Item Cards */
+      .options-container {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px 25px;
+        margin-bottom: 20px;
+      }
+      .item-card {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 18px;
+        padding: 18px;
+        margin-bottom: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .item-card.active {
+        border-color: var(--impact-blue);
+        box-shadow: 0 4px 12px rgba(0, 88, 163, 0.08);
+      }
+      .card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .item-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .item-checkbox {
+        width: 22px;
+        height: 22px;
+        cursor: pointer;
+        accent-color: var(--impact-blue);
+      }
+
+      /* ปรับแต่งชื่อและคำอธิบาย ให้ห่างกัน 8px */
+      .item-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: #334155;
+        word-break: break-word;
+        white-space: normal;
+        max-width: 280px;
+        line-height: 1.2;
+      }
+      .item-desc {
+        font-size: 12px;
+        color: #64748b;
+        margin-top: 8px;
+        display: block;
+        line-height: 1.2;
+      }
+
+      .unit-carbon {
+        background: #f1f5f9;
+        color: #64748b;
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .card-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .qty-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .qty-field {
+        width: 70px;
+        padding: 6px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+      }
+      .line-total {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--sustain-green);
+      }
+      .line-total.normal {
+        color: var(--danger-red);
+      }
+
+      /* TOTAL FOOTER & CLEAR BUTTON */
+      .sticky-total {
+        padding: 20px;
+        background: var(--impact-blue);
+        color: white;
+        text-align: center;
+        border-radius: 20px 20px 0 0;
+        position: relative;
+      }
+      .total-num {
+        font-size: 32px;
+        font-weight: 700;
+      }
+
+      .btn-clear {
+        position: absolute;
+        top: -45px;
+        right: 25px;
+        background: #fff;
+        color: var(--danger-red);
+        border: 1px solid #ffcdd2;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .btn-clear:hover {
+        background: #fff5f5;
+        border-color: var(--danger-red);
+      }
+
+      /* --- PREVIEW RIGHT --- */
+      .viewer-right {
+        flex: 1;
+        position: relative;
+        background: #000;
+        overflow: hidden;
+      }
+      .base-bg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+      }
+      #layer-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .preview-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
     <nav class="top-nav">
       <div class="nav-left">
         <img
           src="images/logo-impact.svg"
-          alt="IMPACT"
-          height="35"
-          onerror="
-            this.src =
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/IMPACT_Muang_Thong_Thani_Logo.png/800px-IMPACT_Muang_Thong_Thani_Logo.png'
-          "
+          alt="IMPACT Sustain Logo"
+          class="nav-logo-img"
         />
       </div>
+
       <div class="nav-center">
-        <div class="nav-title" id="page-title">Event Name</div>
-        <div class="nav-subtitle mode-new" id="page-mode">สร้างงานใหม่</div>
+        <div class="nav-title">งานแสดงสินค้าและนิทรรศการ</div>
+        <div class="nav-badge">สร้างงานใหม่</div>
       </div>
+
       <div class="nav-right">
-        <div
-          class="btn-nav-text"
-          onclick="window.location.href = 'index.html'"
-          title="กลับหน้าหลัก"
+        <button class="btn-new-event">
+          <i class="fas fa-plus"></i> งานใหม่
+        </button>
+        <a href="index.html" class="nav-link"
+          ><i class="fas fa-home"></i> หน้าหลัก</a
         >
-          <i class="fa-solid fa-house"></i><span>หน้าหลัก</span>
-        </div>
-        <div
-          class="tool-icon"
-          onclick="toggleHistory()"
-          title="ประวัติการออกแบบ"
-        >
-          <i class="fa-regular fa-folder-open"></i>
-        </div>
-        <div
-          class="btn-save-action"
-          id="save-btn"
-          onclick="openCustomerForm()"
-          title="บันทึกงาน"
-        >
-          <i class="fa-regular fa-floppy-disk"></i>
-          <span id="save-btn-text">บันทึก</span>
-        </div>
-        <div
-          class="btn-new-job"
-          onclick="resetToNew()"
-          title="ล้างค่าเพื่อเริ่มงานใหม่"
-        >
-          <i class="fa-solid fa-plus"></i><span>งานใหม่</span>
-        </div>
+        <a href="#" class="nav-link"><i class="fas fa-folder"></i></a>
+        <button class="btn-save" onclick="openSaveModal()">
+          <i class="fas fa-save"></i> บันทึก
+        </button>
       </div>
     </nav>
 
-    <div class="main-workspace">
-      <div class="sidebar-left">
-        <div class="sidebar-header">
-          <div class="event-selector-box">
-            <label>ประเภทการจัดงาน (Event Type)</label>
-            <select id="event-type-selector" onchange="changeEventType()">
-              <option value="exhibition">งานแสดงสินค้าและนิทรรศการ</option>
-              <option value="meeting">งานประชุมและสัมมนา</option>
-              <option value="concert">งานคอนเสิร์ต</option>
-              <option value="wedding">งานมงคลสมรส</option>
-              <option value="party">งานเลี้ยงสังสรรค์</option>
-            </select>
-          </div>
-          <h3><i class="fa-solid fa-leaf"></i> Carbon Calculator</h3>
-          <p>เลือกอุปกรณ์และยานพาหนะเพื่อคำนวณการปล่อยก๊าซเรือนกระจก</p>
-        </div>
+    <div id="saveModal" class="modal-overlay">
+      <div class="modal-box">
+        <h2 class="modal-title">บันทึกข้อมูล</h2>
+        <p class="modal-subtitle">กรุณาตรวจสอบความถูกต้องก่อนยืนยัน</p>
 
-        <div class="item-list">
-          <div class="category-title">
-            <i class="fa-solid fa-car"></i> หมวดยานพาหนะจำลอง
-          </div>
-
-          <div class="item-row" id="row-car">
-            <div class="item-top">
-              <label class="item-name">
-                <input
-                  type="checkbox"
-                  id="chk-car"
-                  onchange="toggleItem('car')"
-                />
-                รถยนต์ส่วนตัว
-              </label>
-              <span class="item-unit-carbon">15.0 kgCO2e</span>
-            </div>
-            <div class="item-bottom">
-              <div class="qty-control">
-                <span>จำนวน:</span>
-                <input
-                  type="number"
-                  id="qty-car"
-                  class="qty-input"
-                  min="1"
-                  value="1"
-                  disabled
-                  oninput="calculateTotal()"
-                />
-              </div>
-              <div class="item-total-carbon" id="total-car">0.00</div>
-            </div>
-          </div>
-
-          <div class="item-row" id="row-taxi">
-            <div class="item-top">
-              <label class="item-name">
-                <input
-                  type="checkbox"
-                  id="chk-taxi"
-                  onchange="toggleItem('taxi')"
-                />
-                รถแท็กซี่
-              </label>
-              <span class="item-unit-carbon">12.5 kgCO2e</span>
-            </div>
-            <div class="item-bottom">
-              <div class="qty-control">
-                <span>จำนวน:</span>
-                <input
-                  type="number"
-                  id="qty-taxi"
-                  class="qty-input"
-                  min="1"
-                  value="1"
-                  disabled
-                  oninput="calculateTotal()"
-                />
-              </div>
-              <div class="item-total-carbon" id="total-taxi">0.00</div>
-            </div>
-          </div>
-
-          <div class="item-row" id="row-van">
-            <div class="item-top">
-              <label class="item-name">
-                <input
-                  type="checkbox"
-                  id="chk-van"
-                  onchange="toggleItem('van')"
-                />
-                รถตู้โดยสาร
-              </label>
-              <span class="item-unit-carbon">25.0 kgCO2e</span>
-            </div>
-            <div class="item-bottom">
-              <div class="qty-control">
-                <span>จำนวน:</span>
-                <input
-                  type="number"
-                  id="qty-van"
-                  class="qty-input"
-                  min="1"
-                  value="1"
-                  disabled
-                  oninput="calculateTotal()"
-                />
-              </div>
-              <div class="item-total-carbon" id="total-van">0.00</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="carbon-summary-box">
-          <p>ปริมาณคาร์บอนฟุตพริ้นท์รวมโดยประมาณ</p>
-          <div class="carbon-total-val" id="grand-total">
-            0.00 <span>kgCO₂e</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="viewer-right">
-        <div class="image-viewer-container">
-          <img src="images/road.png" alt="Road Background" class="layer-bg" />
-
-          <img src="images/car.png" alt="Car" class="layer-item" id="img-car" />
-          <img
-            src="images/taxi.png"
-            alt="Taxi"
-            class="layer-item"
-            id="img-taxi"
-          />
-          <img src="images/van.png" alt="Van" class="layer-item" id="img-van" />
-
-          <div class="labels-container">
-            <div id="label-car" class="floating-label pos-car">
-              รถยนต์: <span id="label-val-car">0.00 kgCO₂e</span>
-            </div>
-            <div id="label-taxi" class="floating-label pos-taxi">
-              แท็กซี่: <span id="label-val-taxi">0.00 kgCO₂e</span>
-            </div>
-            <div id="label-van" class="floating-label pos-van">
-              รถตู้: <span id="label-val-van">0.00 kgCO₂e</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="customerForm" class="form-overlay">
-      <div class="form-box">
-        <div class="form-header">
-          <h2 id="form-title">บันทึกข้อมูล</h2>
-          <p>กรุณาตรวจสอบความถูกต้องก่อนยืนยัน</p>
-        </div>
         <div class="form-group">
           <label>Booking ID</label>
-          <input
-            type="text"
-            id="cus-booking-id"
-            class="readonly-input"
-            readonly
-          />
+          <input type="text" id="booking-id" readonly />
         </div>
+
         <div class="form-group">
           <label>ชื่อ-นามสกุล</label>
-          <input type="text" id="cus-name" placeholder="ระบุชื่อผู้ติดต่อ" />
+          <input type="text" id="cust-name" placeholder="ระบุชื่อผู้ติดต่อ" />
         </div>
+
         <div class="form-group">
           <label>เบอร์โทรศัพท์</label>
-          <input type="tel" id="cus-phone" placeholder="เช่น 081-234-5678" />
+          <input type="text" id="cust-phone" placeholder="เช่น 081-234-5678" />
         </div>
+
         <div class="form-group">
           <label>อีเมล</label>
-          <input type="email" id="cus-email" placeholder="name@company.com" />
+          <input type="email" id="cust-email" placeholder="name@company.com" />
         </div>
-        <div class="form-actions">
-          <button class="btn-cancel" onclick="closeCustomerForm()">
-            ยกเลิก
-          </button>
+
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeSaveModal()">ยกเลิก</button>
           <button
-            class="btn-submit"
-            id="btn-submit-form"
-            onclick="confirmSubmit()"
+            id="btn-confirm-save"
+            class="btn-confirm"
+            onclick="confirmSave()"
           >
             ยืนยัน
           </button>
@@ -255,356 +540,605 @@
       </div>
     </div>
 
-    <div
-      id="historyModal"
-      class="history-overlay"
-      onclick="if (event.target == this) toggleHistory();"
-    >
-      <div class="modal-sidebar">
+    <div class="main-workspace">
+      <div class="sidebar-left">
         <div class="sidebar-header">
-          <h3 style="color: #000; font-size: 20px; font-weight: 700; margin: 0">
-            ประวัติการออกแบบ
-          </h3>
-          <span
-            class="close-history"
-            onclick="toggleHistory()"
-            style="
-              cursor: pointer;
-              font-size: 24px;
-              color: #000;
-              font-weight: bold;
-            "
-            >&times;</span
-          >
+          <label>หมวดหมู่การประเมิน</label>
+          <select id="main-select" class="custom-select" onchange="initApp()">
+            <option value="fb">บริการอาหารและเครื่องดื่ม (F&B)</option>
+            <option value="venue">อาคารและสถานที่ (Venue)</option>
+            <option value="waste">การจัดการของเสีย (Waste)</option>
+            <option value="pkg">แพ็คเกจตามประเภทงาน (Packages)</option>
+          </select>
         </div>
-        <div id="history-list" class="history-list"></div>
+
+        <div class="tabs-wrapper" id="sub-tabs"></div>
+
+        <div class="options-container" id="options-list"></div>
+
+        <div class="sticky-total">
+          <button class="btn-clear" onclick="clearSelections()">
+            <i class="fas fa-trash-alt"></i> ล้างค่า
+          </button>
+
+          <p style="font-size: 11px; opacity: 0.8; margin-bottom: 5px">
+            คาร์บอนฟุตพริ้นท์รวมทั้งหมด
+          </p>
+          <div class="total-num" id="grand-total">0.00 kgCO₂e</div>
+        </div>
+      </div>
+
+      <div class="viewer-right">
+        <img
+          id="category-bg"
+          src="images/White background.png"
+          class="base-bg"
+          alt="Background"
+        />
+        <div id="layer-container"></div>
       </div>
     </div>
-    <div id="toast" class="toast"></div>
 
     <script>
-      // ==========================================
-      // ลิงก์เชื่อมต่อ Google Sheets ของคุณแพมมี่
-      // ==========================================
-      const GOOGLE_SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbzC7ikhXdR3ZGGY24L1Cr-7ZvZ8ipUNUNyAa-S9INqLXH3czTEneKTa4IcbrynBm8E-fg/exec";
-
-      // ==========================================
-      // ตัวแปร URL / Event Type
-      // ==========================================
-      let eventName = "Custom Event";
-
-      window.changeEventType = function () {
-        const selector = document.getElementById("event-type-selector");
-        const selectedText = selector.options[selector.selectedIndex].text;
-        eventName = selectedText.replace(/^[\p{Emoji}\s]+/gu, "").trim();
-        document.getElementById("page-title").innerText = eventName;
+      const database = {
+        fb: {
+          bg: "images/White background.png",
+          subs: {
+            none: [
+              {
+                id: "food_normal",
+                name: "อาหารหลักปกติ",
+                desc: "จำนวนชุดอาหารรวมตลอดการจัดงาน",
+                img: "images/อาหารหลักปกติ .png",
+                carbon: 3.93,
+                isSustain: false,
+              },
+              {
+                id: "food_veg",
+                name: "อาหารหลักมังสวิรัติ",
+                desc: "จำนวนชุดอาหารรวมตลอดการจัดงาน",
+                img: "images/อาหารหลักมังสวิรัติ.png",
+                carbon: 1.12,
+                isSustain: true,
+              },
+              {
+                id: "snack_normal",
+                name: "อาหารว่างปกติและเครื่องดื่ม",
+                desc: "จำนวนชุดอาหารรวมตลอดการจัดงาน",
+                img: "images/อาหารว่างปกติและเครื่องดื่ม.png",
+                carbon: 0.22,
+                isSustain: false,
+              },
+              {
+                id: "snack_veg",
+                name: "อาหารว่างมังสวิรัติและเครื่องดื่ม",
+                desc: "จำนวนชุดอาหารรวมตลอดการจัดงาน",
+                img: "images/อาหารว่างมังสวิรัติและเครื่องดื่ม.png",
+                carbon: 0.15,
+                isSustain: true,
+              },
+              {
+                id: "pack_food",
+                name: "ภาชนะบรรจุอาหารที่ใช้แล้วทิ้ง (คิดเฉพาะพลาสติก)",
+                desc: "จำนวนที่ใช้บรรจุภัณฑ์อาหารแบบใช้แล้วทิ้ง",
+                img: "images/ภาชนะบรรจุอาหารที่ใช้แล้วทิ้ง (คิดเฉพาะพลาสติก).png",
+                carbon: 0.13,
+                isSustain: false,
+              },
+              {
+                id: "pack_drink",
+                name: "ภาชนะบรรจุเครื่องดื่มที่ใช้แล้วทิ้ง (คิดเฉพาะพลาสติก)",
+                desc: "จำนวนที่ใช้บรรจุภัณฑ์เครื่องดื่มแบบใช้แล้วทิ้ง",
+                img: "images/ภาชนะบรรจุเครื่องดื่มที่ใช้แล้วทิ้ง (คิดเฉพาะพลาสติก).png",
+                carbon: 0.16,
+                isSustain: false,
+              },
+            ],
+          },
+        },
+        venue: {
+          bg: "images/White background.png",
+          subs: {
+            none: [
+              {
+                id: "elec_lighting",
+                name: "ไฟฟ้าสำหรับระบบแสงสว่าง",
+                desc: "ค่าจาก 8 ชม./185 ตร.ม.",
+                img: "images/ไฟฟ้าสำหรับระบบแสงสว่าง .png",
+                carbon: 5.55,
+                isSustain: false,
+              },
+              {
+                id: "elec_ac",
+                name: "ไฟฟ้าสำหรับเครื่องปรับอากาศ",
+                desc: "ค่าจาก 8 ชม./185 ตร.ม.",
+                img: "images/ไฟฟ้าสำหรับเครื่องปรับอากาศ.png",
+                carbon: 47.72,
+                isSustain: false,
+              },
+            ],
+          },
+        },
+        waste: {
+          bg: "images/White background.png",
+          subs: {
+            แยกขยะตามประเภท: [
+              {
+                id: "waste_paper",
+                name: "กระดาษ",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
+                img: "images/กระดาษ.png",
+                carbon: 0.67,
+                isSustain: true,
+              },
+              {
+                id: "waste_plastic",
+                name: "พลาสติก",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
+                img: "images/พลาสติก.png",
+                carbon: 0.3,
+                isSustain: true,
+              },
+              {
+                id: "waste_fabric",
+                name: "ผ้า",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
+                img: "images/ผ้า.png",
+                carbon: 2.0,
+                isSustain: true,
+              },
+              {
+                id: "waste_food_scrap",
+                name: "เศษอาหาร",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
+                img: "images/เศษอาหาร.png",
+                carbon: 2.53,
+                isSustain: true,
+              },
+              {
+                id: "waste_wood",
+                name: "ไม้",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
+                img: "images/ไม้.png",
+                carbon: 3.33,
+                isSustain: true,
+              },
+              {
+                id: "waste_others",
+                name: "อื่นๆ",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
+                img: "",
+                carbon: 2.32,
+                isSustain: false,
+              },
+            ],
+            ไม่แยกขยะสู่บ่อฝังกลบ: [
+              {
+                id: "waste_no_sep",
+                name: "ไม่แยกขยะสู่บ่อฝังกลบ",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
+                img: "images/ไม่แยกขยะสู่บ่อฝังกลบ.png",
+                carbon: 2.32,
+                isSustain: false,
+              },
+            ],
+          },
+        },
+        pkg: {
+          bg: "images/White background.png",
+          subs: {
+            "คอนเสิร์ต (Concert)": [
+              {
+                id: "concert_plastic",
+                name: "ใช้กล่องพลาสติกใส่ข้าว",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/ใช้กล่องพลาสติกใส่ข้าว.png",
+                carbon: 2.58,
+                isSustain: false,
+              },
+              {
+                id: "concert_bio",
+                name: "ใช้กล่องข้าวที่ย่อยสลายได้",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/ใช้กล่องข้าวที่ย่อยสลายได้.png",
+                carbon: -2.58,
+                isSustain: true,
+              },
+            ],
+            "นิทรรศการ (Exhibition)": [
+              {
+                id: "ex_decor_1",
+                name: "วัสดุตกแต่งที่ใช้ครั้งเดียว/ 30 ตร.ม.",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/วัสดุตกแต่งที่ใช้ครั้งเดียว.png",
+                carbon: 913.5,
+                isSustain: false,
+              },
+              {
+                id: "ex_decor_reuse",
+                name: "วัสดุตกแต่งที่ใช้ซ้ำหลายครั้ง/30 ตร.ม.",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/วัสดุตกแต่งที่ใช้ซ้ำหลายครั้ง.png",
+                carbon: -913.5,
+                isSustain: true,
+              },
+              {
+                id: "ex_doc_1",
+                name: "แจกเอกสารให้ผู้เข้าร่วมงาน (1)",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/แจกเอกสารให้ผู้เข้าร่วมงาน (1).png",
+                carbon: 0.009,
+                isSustain: false,
+              },
+              {
+                id: "ex_doc_digital",
+                name: "Digital Catalog แทนกระดาษ",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "",
+                carbon: -0.009,
+                isSustain: true,
+              },
+              {
+                id: "ex_sign_wood",
+                name: "ใช้ไม้อัดทำป้าย /30 ตร.ม.",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/ใช้ไม้อัดทำป้าย.png",
+                carbon: 60.0,
+                isSustain: false,
+              },
+              {
+                id: "ex_sign_digital",
+                name: "ใช้ป้ายดิจิทัลหรือนวัตกรรมอื่น ๆ /30 ตร.ม.",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/ใช้ป้ายดิจิทัลหรือนวัตกรรมอื่น ๆ.png",
+                carbon: -60.0,
+                isSustain: true,
+              },
+            ],
+            "งานประชุม (Meeting)": [
+              {
+                id: "meet_doc_2",
+                name: "แจกเอกสารให้ผู้เข้าร่วมงาน (2)",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/แจกเอกสารให้ผู้เข้าร่วมงาน (2).png",
+                carbon: 0.009,
+                isSustain: false,
+              },
+              {
+                id: "meet_no_doc",
+                name: "ไม่แจกเอกสารให้ผู้เข้าร่วมงาน",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/ไม่แจกเอกสารให้ผู้เข้าร่วมงาน.png",
+                carbon: -0.009,
+                isSustain: true,
+              },
+              {
+                id: "meet_donate",
+                name: "มีการบริจาคอาหารส่วนเกิน",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/มีการบริจาคอาหารส่วนเกิน.png",
+                carbon: -2.44,
+                isSustain: true,
+              },
+              {
+                id: "meet_straw",
+                name: "ใช้หลอด",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/ใช้หลอด.png",
+                carbon: 0.001,
+                isSustain: false,
+              },
+              {
+                id: "meet_no_straw",
+                name: "งดใช้หลอด",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/งดใช้หลอด.png",
+                carbon: 0.0,
+                isSustain: true,
+              },
+            ],
+            "งานมงคลสมรส (Wedding)": [
+              {
+                id: "wed_flower",
+                name: "ใช้ดอกไม้สด",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/ใช้ดอกไม้สด.png",
+                carbon: 0.5,
+                isSustain: false,
+              },
+              {
+                id: "wed_flower_fake",
+                name: "ใช้ดอกไม้ประดิษฐ์ใช้ได้มากกว่า 5 ครั้ง",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ) Polyester (fossil)",
+                img: "images/ใช้ดอกไม้ประดิษฐ์ใช้ได้มากกว่า 5 ครั้ง.png",
+                carbon: 0.62,
+                isSustain: true,
+              },
+            ],
+            "งานเลี้ยงสังสรรค์ (Party)": [
+              {
+                id: "party_flower",
+                name: "ใช้ดอกไม้สด",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                img: "images/ใช้ดอกไม้สด.png",
+                carbon: 0.5,
+                isSustain: false,
+              },
+              {
+                id: "party_flower_fake",
+                name: "ใช้ดอกไม้ประดิษฐ์ใช้ได้มากกว่า 5 ครั้ง",
+                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ) Polyester (fossil)",
+                img: "images/ใช้ดอกไม้ประดิษฐ์ใช้ได้มากกว่า 5 ครั้ง.png",
+                carbon: 0.62,
+                isSustain: true,
+              },
+            ],
+          },
+        },
       };
 
-      const urlParams = new URLSearchParams(window.location.search);
-      const eventFromURL = urlParams.get("event");
-      if (eventFromURL) {
-        const selector = document.getElementById("event-type-selector");
-        for (let i = 0; i < selector.options.length; i++) {
-          if (selector.options[i].value === eventFromURL) {
-            selector.selectedIndex = i;
-            break;
-          }
+      let selections = {};
+
+      function initApp() {
+        const mainId = document.getElementById("main-select").value;
+        const subTabs = document.getElementById("sub-tabs");
+        const data = database[mainId];
+        document.getElementById("category-bg").src = data.bg;
+
+        subTabs.innerHTML = "";
+        const subNames = Object.keys(data.subs);
+
+        const sidebarHeader = document.querySelector(".sidebar-header");
+        const customSelect = document.querySelector(".custom-select");
+
+        if (mainId === "fb" || mainId === "venue") {
+          subTabs.style.display = "none";
+          sidebarHeader.style.paddingBottom = "0px";
+          customSelect.style.marginBottom = "22px";
+
+          renderItems(mainId, "none");
+        } else {
+          subTabs.style.display = "flex";
+          sidebarHeader.style.paddingBottom = "0px";
+          customSelect.style.marginBottom = "32px";
+
+          subNames.forEach((name, index) => {
+            const tab = document.createElement("div");
+            tab.className = `tab-pill ${index === 0 ? "active" : ""}`;
+            tab.innerText = name;
+            tab.onclick = () => {
+              document
+                .querySelectorAll(".tab-pill")
+                .forEach((t) => t.classList.remove("active"));
+              tab.classList.add("active");
+
+              renderItems(mainId, name);
+            };
+            subTabs.appendChild(tab);
+
+            if (index === 0) renderItems(mainId, name);
+          });
         }
       }
-      changeEventType();
 
-      // ==========================================
-      // ระบบ Carbon & 2D Image Toggle
-      // ==========================================
-      const CARBON_RATES = { car: 15.0, taxi: 12.5, van: 25.0 };
-      let states = { car: false, taxi: false, van: false };
-      let savedDesigns = JSON.parse(localStorage.getItem("tableDesigns")) || [];
-      let editingBookingID = null;
+      function renderItems(mainId, subName) {
+        const container = document.getElementById("options-list");
+        const items = database[mainId].subs[subName];
+        container.innerHTML = "";
 
-      // โหลดประวัติเมื่อเปิดหน้าเว็บ
-      renderHistory();
-
-      window.toggleItem = function (itemKey) {
-        const isChecked = document.getElementById(`chk-${itemKey}`).checked;
-        const qtyInput = document.getElementById(`qty-${itemKey}`);
-        const rowDiv = document.getElementById(`row-${itemKey}`);
-
-        states[itemKey] = isChecked;
-        qtyInput.disabled = !isChecked;
-        if (!isChecked) qtyInput.value = 1;
-
-        if (isChecked) rowDiv.classList.add("active");
-        else rowDiv.classList.remove("active");
-
-        calculateTotal();
-        update2DModel();
-      };
-
-      // ฟังก์ชันคำนวณและแสดงจำนวน (x จำนวน) บนป้ายชี้
-      window.calculateTotal = function () {
-        let grandTotal = 0;
-        ["car", "taxi", "van"].forEach((item) => {
-          let subTotal = 0;
-          let qty = 1;
-
-          if (states[item]) {
-            qty = parseInt(document.getElementById(`qty-${item}`).value) || 0;
-            subTotal = qty * CARBON_RATES[item];
-            grandTotal += subTotal;
-          }
-          document.getElementById(`total-${item}`).innerText =
-            subTotal.toFixed(2);
-
-          // อัปเดตตัวเลขในป้ายชี้บนรูปภาพ พร้อมจำนวน
-          if (document.getElementById(`label-val-${item}`)) {
-            if (states[item]) {
-              // ถ้าติ๊กถูก ให้แสดง (x จำนวน) ด้วย
-              document.getElementById(`label-val-${item}`).innerText =
-                `(x${qty}) ${subTotal.toFixed(2)} kgCO₂e`;
-            } else {
-              document.getElementById(`label-val-${item}`).innerText =
-                `0.00 kgCO₂e`;
-            }
-          }
-        });
-        document.getElementById("grand-total").innerHTML =
-          `${grandTotal.toFixed(2)} <span>kgCO₂e</span>`;
-      };
-
-      // ฟังก์ชันเปิดปิดรูปภาพซ้อนทับ
-      window.update2DModel = function () {
-        ["car", "taxi", "van"].forEach((item) => {
-          document.getElementById(`img-${item}`).style.display = states[item]
-            ? "block"
-            : "none";
-          document.getElementById(`label-${item}`).style.display = states[item]
-            ? "block"
-            : "none";
-        });
-      };
-
-      function syncUIWithStates() {
-        ["car", "taxi", "van"].forEach((item) => {
-          const chk = document.getElementById(`chk-${item}`);
-          if (chk) {
-            chk.checked = states[item];
-            toggleItem(item);
-          }
-        });
-      }
-
-      // ==========================================
-      // ระบบ Form, Save & Google Sheets
-      // ==========================================
-      function generateInstantID() {
-        const date = new Date();
-        return `BK-${date.getFullYear().toString().substr(-2)}${(date.getMonth() + 1).toString().padStart(2, "0")}${date.getDate().toString().padStart(2, "0")}-${Math.floor(1000 + Math.random() * 9000)}`;
-      }
-
-      window.openCustomerForm = function () {
-        document.getElementById("customerForm").style.display = "flex";
-        if (!editingBookingID) {
-          document.getElementById("cus-booking-id").value = generateInstantID();
-        }
-      };
-
-      window.closeCustomerForm = function () {
-        document.getElementById("customerForm").style.display = "none";
-      };
-
-      window.confirmSubmit = function () {
-        const name = document.getElementById("cus-name").value;
-        const phone = document.getElementById("cus-phone").value;
-        const email = document.getElementById("cus-email").value;
-        const currentBookingID =
-          document.getElementById("cus-booking-id").value;
-
-        if (!name || !phone) {
-          alert("กรุณากรอกชื่อและเบอร์โทร");
+        if (!items || items.length === 0) {
+          container.innerHTML =
+            "<p style='text-align:center; color:#999; margin-top:30px;'>กำลังปรับปรุงข้อมูล...</p>";
           return;
         }
-        closeCustomerForm();
 
-        showToast('<i class="fa-solid fa-spinner fa-spin"></i> กำลังบันทึก...');
+        items.forEach((item) => {
+          const state = selections[item.id] || { active: false, qty: 1 };
 
-        // 1. ดึงจำนวนรถที่ลูกค้ากรอกมา
-        const qtyCar = states.car
-          ? parseInt(document.getElementById("qty-car").value) || 0
-          : 0;
-        const qtyTaxi = states.taxi
-          ? parseInt(document.getElementById("qty-taxi").value) || 0
-          : 0;
-        const qtyVan = states.van
-          ? parseInt(document.getElementById("qty-van").value) || 0
-          : 0;
+          const lineTotalValue = item.carbon * state.qty;
+          let lineTotalDisplay = lineTotalValue.toFixed(2);
 
-        // 2. คำนวณคาร์บอนรวม
-        const totalCarbon =
-          qtyCar * CARBON_RATES.car +
-          qtyTaxi * CARBON_RATES.taxi +
-          qtyVan * CARBON_RATES.van;
-
-        // 3. แพ็คข้อมูลใส่กล่องเตรียมส่งไป Google Sheets
-        const formData = new FormData();
-        formData.append("bookingID", currentBookingID);
-        formData.append("name", name);
-        formData.append("phone", phone);
-        formData.append("email", email);
-        formData.append("eventName", eventName);
-        formData.append("qtyCar", qtyCar);
-        formData.append("qtyTaxi", qtyTaxi);
-        formData.append("qtyVan", qtyVan);
-        formData.append("totalCarbon", totalCarbon.toFixed(2));
-
-        if (editingBookingID) {
-          formData.append("status", "แก้ไขข้อมูล (Updated)");
-          const index = savedDesigns.findIndex(
-            (d) => d.bookingID === editingBookingID,
-          );
-          if (index !== -1) {
-            savedDesigns[index] = {
-              ...savedDesigns[index],
-              states: { ...states },
-              name,
-              phone,
-              email,
-            };
+          if (state.active && lineTotalValue > 0) {
+            lineTotalDisplay = "+" + lineTotalDisplay;
           }
-          resetToNew();
+
+          const textClass = item.isSustain
+            ? "var(--sustain-green)"
+            : "var(--danger-red)";
+
+          const descHtml = item.desc
+            ? `<span class="item-desc">${item.desc}</span>`
+            : "";
+
+          container.innerHTML += `
+            <div class="item-card ${state.active ? "active" : ""}">
+              <div class="card-top">
+                <div class="item-info">
+                  <input type="checkbox" class="item-checkbox" ${state.active ? "checked" : ""} onchange="toggleItem('${item.id}', '${mainId}', '${subName}')">
+                  <div style="display: flex; flex-direction: column;">
+                     <span class="item-name">${item.name}</span>
+                     ${descHtml}
+                  </div>
+                </div>
+                <span class="unit-carbon">${item.carbon > 0 ? "+" + item.carbon.toFixed(2) : item.carbon.toFixed(2)} kg</span>
+              </div>
+              <div class="card-bottom">
+                <div class="qty-group">
+                  <label style="font-size:12px; font-weight:600; color:#666;">จำนวน:</label>
+                  <input type="number" class="qty-field" value="${state.qty}" min="1" onchange="updateQty('${item.id}', this.value, '${mainId}', '${subName}')">
+                </div>
+                <div class="line-total" style="color: ${state.active ? textClass : "#ddd"}">
+                  ${state.active ? lineTotalDisplay : "0.00"}
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        updateLayeredPreview(mainId, subName);
+        calcTotal();
+      }
+
+      function toggleItem(itemId, main, sub) {
+        if (!selections[itemId]) selections[itemId] = { active: true, qty: 1 };
+        else selections[itemId].active = !selections[itemId].active;
+        renderItems(main, sub);
+      }
+
+      function updateQty(itemId, val, main, sub) {
+        const q = parseInt(val) || 1;
+        if (!selections[itemId]) selections[itemId] = { active: false, qty: q };
+        else selections[itemId].qty = q;
+        renderItems(main, sub);
+      }
+
+      function clearSelections() {
+        selections = {};
+
+        const mainId = document.getElementById("main-select").value;
+
+        if (mainId === "fb" || mainId === "venue") {
+          renderItems(mainId, "none");
         } else {
-          formData.append("status", "รายการใหม่ (New)");
-          savedDesigns.unshift({
-            id: Date.now(),
-            bookingID: currentBookingID,
-            eventName,
-            states: { ...states },
-            name,
-            phone,
-            email,
-            time: new Date().toLocaleTimeString("th-TH", {
-              hour: "2-digit",
-              minute: "2-digit",
-            }),
+          const activeTab = document.querySelector(".tab-pill.active");
+          const subName = activeTab
+            ? activeTab.innerText
+            : Object.keys(database[mainId].subs)[0];
+          renderItems(mainId, subName);
+        }
+      }
+
+      function updateLayeredPreview(mainId, subName) {
+        const container = document.getElementById("layer-container");
+        container.innerHTML = "";
+
+        let finalImageSrc = null;
+        let showWasteGroupImage = false;
+
+        if (database[mainId].subs[subName]) {
+          database[mainId].subs[subName].forEach((item) => {
+            if (selections[item.id] && selections[item.id].active) {
+              if (mainId === "waste" && subName === "แยกขยะตามประเภท") {
+                showWasteGroupImage = true;
+              }
+
+              if (item.img && item.img.trim() !== "") {
+                const img = document.createElement("img");
+                img.src = item.img;
+                img.className = "preview-layer";
+                img.onerror = function () {
+                  this.style.display = "none";
+                };
+                container.appendChild(img);
+              }
+            }
           });
         }
 
-        // บันทึกลงแถบประวัติด้านขวา
-        localStorage.setItem("tableDesigns", JSON.stringify(savedDesigns));
-        renderHistory();
-
-        // 4. ส่งข้อมูลขึ้น Google Sheets!
-        if (
-          typeof GOOGLE_SCRIPT_URL !== "undefined" &&
-          GOOGLE_SCRIPT_URL !== ""
-        ) {
-          fetch(GOOGLE_SCRIPT_URL, { method: "POST", body: formData })
-            .then((response) => response.text())
-            .then((data) => {
-              setTimeout(
-                () =>
-                  showToast(
-                    '<i class="fa-solid fa-circle-check"></i> บันทึกสำเร็จ (' +
-                      currentBookingID +
-                      ")",
-                  ),
-                800,
-              );
-            })
-            .catch((error) => {
-              console.error("Error sending to Google Sheets:", error);
-              setTimeout(
-                () => showToast("⚠️ บันทึกประวัติแล้ว แต่ส่งออนไลน์ไม่ผ่าน"),
-                800,
-              );
-            });
-        } else {
-          setTimeout(
-            () =>
-              showToast(
-                '<i class="fa-solid fa-circle-check"></i> บันทึกลงเครื่องสำเร็จ (ไม่มีลิงก์ส่ง)',
-              ),
-            800,
-          );
+        if (showWasteGroupImage) {
+          const groupImg = document.createElement("img");
+          groupImg.src = "images/แยกขยะตามประเภท.png";
+          groupImg.className = "preview-layer";
+          groupImg.onerror = function () {
+            this.style.display = "none";
+          };
+          container.appendChild(groupImg);
         }
-      };
-
-      function showToast(msg) {
-        const toast = document.getElementById("toast");
-        toast.innerHTML = msg;
-        toast.style.opacity = "1";
-        toast.style.transform = "translate(-50%, 20px)";
-        setTimeout(() => {
-          toast.style.opacity = "0";
-          toast.style.transform = "translate(-50%, 0)";
-        }, 3000);
       }
 
-      // ==========================================
-      // History
-      // ==========================================
-      window.editDesign = function (id) {
-        const item = savedDesigns.find((d) => d.id === id);
-        if (!item) return;
-        states = item.states || { car: false, taxi: false, van: false };
-        syncUIWithStates();
-        editingBookingID = item.bookingID;
-        showToast('<i class="fa-solid fa-pen"></i> เข้าสู่โหมดแก้ไข');
-        document.getElementById("page-mode").innerText =
-          "กำลังแก้ไข: " + item.bookingID;
-        document.getElementById("page-mode").className =
-          "nav-subtitle mode-edit";
-        toggleHistory();
-      };
-
-      window.resetToNew = function () {
-        editingBookingID = null;
-        states = { car: false, taxi: false, van: false };
-        syncUIWithStates();
-        document.getElementById("page-mode").innerText = "สร้างงานใหม่";
-        document.getElementById("page-mode").className =
-          "nav-subtitle mode-new";
-        showToast('<i class="fa-solid fa-file-circle-plus"></i> เริ่มงานใหม่');
-      };
-
-      window.deleteDesign = function (id) {
-        if (!confirm("ต้องการลบรายการนี้?")) return;
-        savedDesigns = savedDesigns.filter((d) => d.id !== id);
-        localStorage.setItem("tableDesigns", JSON.stringify(savedDesigns));
-        renderHistory();
-      };
-
-      window.toggleHistory = function () {
-        const modal = document.getElementById("historyModal");
-        modal.style.display = modal.style.display === "flex" ? "none" : "flex";
-      };
-
-      function renderHistory() {
-        const list = document.getElementById("history-list");
-        list.innerHTML = "";
-        savedDesigns.forEach((d) => {
-          let detail = [];
-          if (d.states?.car) detail.push("รถยนต์");
-          if (d.states?.taxi) detail.push("แท็กซี่");
-          if (d.states?.van) detail.push("รถตู้");
-
-          let div = document.createElement("div");
-          div.className = "history-item";
-          div.innerHTML = `
-            <span class="booking-id-badge">${d.bookingID}</span>
-            <div class="history-content" onclick="editDesign(${d.id})">
-                <h4 style="margin: 8px 0 5px 0; font-size: 18px; color: #000;">${d.eventName}</h4>
-                <div style="font-size: 15px; color: #000; margin-bottom: 5px;">${detail.join("+") || "พื้นที่ว่าง"} (${d.time})</div>
-                <div style="font-size: 15px; color: #0058a3; margin-bottom: 12px;">${d.name || "ไม่ระบุชื่อ"}</div>
-            </div>
-            <div class="history-actions">
-                <button class="action-btn btn-edit" onclick="editDesign(${d.id})"><i class="fa-solid fa-pen"></i> แก้ไข</button>
-                <button class="action-btn btn-delete" onclick="deleteDesign(${d.id})"><i class="fa-solid fa-trash"></i> ลบ</button>
-            </div>
-          `;
-          list.appendChild(div);
-        });
+      function calcTotal() {
+        let total = 0;
+        for (let mId in database) {
+          Object.values(database[mId].subs).forEach((subList) => {
+            subList.forEach((item) => {
+              if (selections[item.id] && selections[item.id].active) {
+                total += item.carbon * selections[item.id].qty;
+              }
+            });
+          });
+        }
+        document.getElementById("grand-total").innerText =
+          total.toFixed(2) + " kgCO₂e";
       }
+
+      // --- ฟังก์ชันเปิด/ปิด Modal บันทึก ---
+      function openSaveModal() {
+        const date = new Date();
+        const dateStr =
+          String(date.getDate()).padStart(2, "0") +
+          String(date.getMonth() + 1).padStart(2, "0") +
+          String(date.getFullYear()).substring(2);
+        const randomNum = Math.floor(1000 + Math.random() * 9000);
+        document.getElementById("booking-id").value =
+          `BK-${dateStr}-${randomNum}`;
+
+        document.getElementById("saveModal").style.display = "flex";
+      }
+
+      function closeSaveModal() {
+        document.getElementById("saveModal").style.display = "none";
+      }
+
+      // --- ฟังก์ชันส่งข้อมูลไปยัง Google Apps Script ---
+      function confirmSave() {
+        // ดึงค่าต่างๆ มาจากหน้าจอ
+        const bookingId = document.getElementById("booking-id").value;
+        const name = document.getElementById("cust-name").value;
+        const phone = document.getElementById("cust-phone").value;
+        const email = document.getElementById("cust-email").value;
+        const totalCarbon = document
+          .getElementById("grand-total")
+          .innerText.replace(" kgCO₂e", "");
+
+        // เช็คว่ากรอกข้อมูลครบไหมเบื้องต้น
+        if (!name || !phone || !email) {
+          alert("กรุณากรอกข้อมูลให้ครบถ้วนก่อนบันทึก");
+          return;
+        }
+
+        // เปลี่ยนปุ่มเป็นสถานะกำลังโหลด
+        const btn = document.getElementById("btn-confirm-save");
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังบันทึก...';
+        btn.disabled = true;
+
+        // ดึง Event Name (สมมติว่าเป็นค่าคงที่ตามหัวเว็บ)
+        const eventName = "งานแสดงสินค้าและนิทรรศการ";
+
+        // กำหนด URL Web App
+        const scriptUrl =
+          "https://script.google.com/macros/s/AKfycbwZH3zV6E0OYZ51fFN2iolZq0v7BpbDfel3etgsyE9Xx1b4nEKzF0FzJpgThfHHESqBKA/exec";
+
+        // สร้าง URL พารามิเตอร์แบบใช้ query string สำหรับส่งแบบ GET/POST
+        // 💡 ส่งพารามิเตอร์ status ด้วย (สมมติว่าเป็น "รายการใหม่" ตามที่ขอ)
+        const targetUrl = `${scriptUrl}?bookingID=${encodeURIComponent(bookingId)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&eventName=${encodeURIComponent(eventName)}&totalCarbon=${encodeURIComponent(totalCarbon)}&status=${encodeURIComponent("รายการใหม่")}`;
+
+        fetch(targetUrl, { method: "POST" })
+          .then((response) => response.text())
+          .then((result) => {
+            // แจ้งเตือนสำเร็จ
+            alert(
+              "บันทึกข้อมูลเข้า Google Sheets เรียบร้อยแล้ว!\nBooking ID: " +
+                bookingId,
+            );
+            closeSaveModal();
+
+            // ล้างช่องกรอก
+            document.getElementById("cust-name").value = "";
+            document.getElementById("cust-phone").value = "";
+            document.getElementById("cust-email").value = "";
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("เกิดข้อผิดพลาดในการบันทึก กรุณาลองใหม่อีกครั้ง");
+          })
+          .finally(() => {
+            // คืนค่าปุ่มกลับมาเหมือนเดิม
+            btn.innerHTML = "ยืนยัน";
+            btn.disabled = false;
+          });
+      }
+
+      window.onload = initApp;
     </script>
   </body>
 </html>

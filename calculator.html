@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IMPACT - Carbon Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="nav-left">
+        <img
+          src="images/logo-impact.svg"
+          alt="IMPACT"
+          height="35"
+          onerror="
+            this.src =
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/IMPACT_Muang_Thong_Thani_Logo.png/800px-IMPACT_Muang_Thong_Thani_Logo.png'
+          "
+        />
+      </div>
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link">
+          <i class="fas fa-home"></i> หน้าหลัก
+        </a>
+        <a href="calculator.html" class="nav-link active">
+          <i class="fas fa-leaf"></i> Sustainable Event Design
+        </a>
+        <a href="#" class="nav-link">
+          <i class="fas fa-images"></i> Event Succession Showcase
+        </a>
+        <a href="#" class="nav-link">
+          <i class="fas fa-network-wired"></i> Networkfor Knowledge
+        </a>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="content-left">
+        <div class="eco-badge">
+          <i class="fa-solid fa-leaf"></i> Eco-Friendly Event Planner
+        </div>
+        <h1>
+          IMPACT Carbon<br />
+          Calculator<br />
+          <span class="highlight-green">วางแผนจัดงานอย่างยั่งยืน</span>
+        </h1>
+        <p class="description">
+          ร่วมเป็นส่วนหนึ่งในการลดการปล่อยก๊าซเรือนกระจก
+          เครื่องมือจำลองพื้นที่และคำนวณคาร์บอนฟุตพริ้นท์สำหรับการจัดงานที่
+          IMPACT รองรับทุกรูปแบบงานเพื่อให้งานของคุณรักษ์โลกมากยิ่งขึ้น
+        </p>
+        <div class="button-group">
+          <a href="design.html" class="btn btn-primary">
+            <i class="fa-solid fa-calculator"></i> เริ่มต้นคำนวณ
+          </a>
+          <button class="btn btn-outline" onclick="window.location.href = '#'">
+            <i class="fa-regular fa-folder-open"></i> ประวัติการคำนวณ
+          </button>
+        </div>
+      </div>
+
+      <div class="content-right">
+        <img
+          src="images/home-new-bg.jpg"
+          alt="Forest Visualization"
+          class="hero-image"
+          onerror="
+            this.src =
+              'https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=80&w=2070&auto=format&fit=crop'
+          "
+        />
+      </div>
+    </main>
+  </body>
+</html>

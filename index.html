@@ -3,136 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IMPACT Carbon Calculator</title>
+    <title>IMPACT - หน้าหลัก</title>
     <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
   </head>
   <body>
-    <header>
-      <div class="logo">
+    <header class="navbar">
+      <div class="nav-left">
         <img
           src="images/logo-impact.svg"
-          alt="IMPACT Logo"
-          height="50"
+          alt="IMPACT"
+          height="35"
           onerror="
             this.src =
               'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/IMPACT_Muang_Thong_Thani_Logo.png/800px-IMPACT_Muang_Thong_Thani_Logo.png'
           "
         />
       </div>
-      <div class="top-menu">
-        <button class="lang-btn"><i class="fa-solid fa-globe"></i> ไทย</button>
-        <a href="#" class="menu-link">เกี่ยวกับเรา</a>
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link active">
+          <i class="fas fa-home"></i> หน้าหลัก
+        </a>
+
+        <a href="calculator.html" class="nav-link">
+          <i class="fas fa-leaf"></i> Sustainable Event Design
+        </a>
+
+        <a href="event.html" class="nav-link">
+          <i class="fas fa-images"></i> Event Succession Showcase
+        </a>
+
+        <a href="network.html" class="nav-link">
+          <i class="fas fa-network-wired"></i> Network for Knowledge
+        </a>
       </div>
     </header>
-
-    <main class="container">
-      <div class="content-left">
-        <div class="eco-badge">
-          <i class="fa-solid fa-leaf"></i> Eco-Friendly Event Planner
-        </div>
-        <h1>
-          IMPACT Carbon Calculator<br /><span class="highlight-green"
-            >วางแผนจัดงานอย่างยั่งยืน</span
-          >
-        </h1>
+    <main>
+      <section class="hero-section">
+        <h1>ยินดีต้อนรับสู่หน้าหลัก</h1>
         <p>
-          ร่วมเป็นส่วนหนึ่งในการลดการปล่อยก๊าซเรือนกระจก
-          เครื่องมือจำลองพื้นที่และคำนวณคาร์บอนฟุตพริ้นท์สำหรับการจัดงานที่
-          IMPACT รองรับทุกรูปแบบงานเพื่อให้งานของคุณรักษ์โลกมากยิ่งขึ้น
+          นี่คือพื้นที่ตัวอย่างสำหรับแสดงภาพรวมของเว็บไซต์
+          คุณสามารถปรับเปลี่ยนข้อความและรูปภาพแบนเนอร์ได้ตามต้องการ
         </p>
-        <div class="button-group">
-          <a href="#" class="btn btn-primary" onclick="openModal(event)">
-            <i class="fa-solid fa-calculator"></i> เริ่มต้นคำนวณ
-          </a>
-          <button class="btn btn-outline">
-            <i class="fa-regular fa-folder-open"></i> ประวัติการคำนวณ
-          </button>
+      </section>
+
+      <section class="content-section">
+        <div class="info-card">
+          <h2>อัปเดตข่าวสาร</h2>
+          <p>
+            พื้นที่สำหรับใส่รายละเอียดเนื้อหา บทความ
+            หรือข่าวสารล่าสุดที่ต้องการให้ผู้ใช้งานเห็นเป็นอันดับแรก
+          </p>
         </div>
-      </div>
-      <div class="content-right">
-        <img
-          src="https://images.unsplash.com/photo-1511884642898-4c92249e20b6?q=80&w=2070&auto=format&fit=crop"
-          alt="Eco Friendly Event"
-        />
-      </div>
+        <div class="info-card">
+          <h2>กิจกรรมที่น่าสนใจ</h2>
+          <p>
+            รวบรวมข้อมูลงานอีเวนต์ โชว์เคส หรือโครงการต่างๆ
+            ที่กำลังจะเกิดขึ้นในเร็วๆ นี้
+          </p>
+        </div>
+      </section>
     </main>
-
-    <div id="eventModal" class="modal-overlay">
-      <div class="modal-content">
-        <div class="modal-header">
-          <div>
-            <h2>เลือกประเภทอีเวนต์</h2>
-            <p>
-              เลือกรูปแบบงานที่คุณต้องการจัด เพื่อเริ่มต้นคำนวณคาร์บอนฟุตพริ้นท์
-            </p>
-          </div>
-          <span class="close-btn" onclick="closeModal()">&times;</span>
-        </div>
-        <div class="modal-body">
-          <div class="event-grid">
-            <a
-              href="design.html?event=exhibition"
-              class="event-card green-card"
-            >
-              <div class="card-image">
-                <img
-                  src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?q=80&w=2070&auto=format&fit=crop"
-                  alt="Exhibition"
-                />
-              </div>
-              <div class="card-footer">
-                <h4>งานแสดงสินค้าและนิทรรศการ</h4>
-                <span>Exhibition at IMPACT</span>
-              </div>
-            </a>
-            <a href="design.html?event=meeting" class="event-card blue-card">
-              <div class="card-image">
-                <img
-                  src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1932&auto=format&fit=crop"
-                  alt="Meeting"
-                />
-              </div>
-              <div class="card-footer">
-                <h4>งานประชุมและสัมมนา</h4>
-                <span>Meeting at IMPACT</span>
-              </div>
-            </a>
-            <a href="design.html?event=concert" class="event-card red-card">
-              <div class="card-image">
-                <img
-                  src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070&auto=format&fit=crop"
-                  alt="Concert"
-                />
-              </div>
-              <div class="card-footer">
-                <h4>งานคอนเสิร์ต</h4>
-                <span>Concert at IMPACT</span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      function openModal(e) {
-        e.preventDefault();
-        document.getElementById("eventModal").style.display = "flex";
-      }
-      function closeModal() {
-        document.getElementById("eventModal").style.display = "none";
-      }
-      window.onclick = function (e) {
-        if (e.target == document.getElementById("eventModal")) closeModal();
-      };
-    </script>
   </body>
 </html>

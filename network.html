@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IMPACT Sustain Knowledge Center</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --impact-blue: #1e52a8;
+        --impact-light-bg: #f4f7fa;
+        --border-color: #cbd5e1;
+        --text-main: #334155;
+        --text-muted: #64748b;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Noto Sans Thai", sans-serif;
+        background-color: #f8fafc;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      /* --- NAVIGATION BAR --- */
+      .top-nav {
+        height: 80px;
+        background: #fff;
+        padding: 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #eee;
+        z-index: 100;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        flex: 1;
+      }
+      .nav-logo-img {
+        height: 40px;
+        object-fit: contain;
+      }
+      .nav-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+      }
+      .nav-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--impact-blue);
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 24px;
+        flex: 1;
+      }
+      .nav-link {
+        color: #475569;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.2s;
+      }
+      .nav-link:hover {
+        color: var(--impact-blue);
+      }
+      .nav-link i {
+        font-size: 18px;
+      }
+
+      /* --- MAIN LAYOUT (3 Columns) --- */
+      .main-content {
+        display: flex;
+        gap: 20px;
+        padding: 20px 40px;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      /* 1. LEFT SIDEBAR MENU */
+      .sidebar {
+        width: 260px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        overflow-y: auto;
+        padding-right: 10px;
+      }
+
+      /* Scrollbar ปรับแต่งให้ดูสวยงาม */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      .menu-btn {
+        background-color: var(--impact-blue);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 15px;
+        box-shadow: 0 4px 6px rgba(30, 82, 168, 0.2);
+        cursor: pointer;
+        border: none;
+        width: 100%;
+        justify-content: space-between;
+      }
+      .menu-btn .menu-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .menu-btn i {
+        font-size: 18px;
+      }
+
+      .submenu {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding-left: 20px;
+        margin-top: -5px;
+        margin-bottom: 10px;
+      }
+      .submenu-link {
+        text-decoration: none;
+        color: var(--text-main);
+        font-weight: 600;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: 0.2s;
+      }
+      .submenu-link:hover {
+        color: var(--impact-blue);
+      }
+      .submenu-link i {
+        color: #64748b;
+        font-size: 16px;
+        width: 20px;
+        text-align: center;
+      }
+
+      /* 2. MIDDLE COLUMN */
+      .middle-col {
+        flex: 1.2;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        overflow-y: auto;
+        padding-right: 10px;
+      }
+
+      /* 3. RIGHT COLUMN */
+      .right-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        overflow-y: auto;
+        padding-right: 10px;
+      }
+
+      /* --- COMMON BOX STYLES --- */
+      .content-box {
+        background: #fff;
+        border: 2px solid var(--border-color);
+        padding: 20px;
+      }
+      .box-title {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .box-title i {
+        color: #64748b;
+      }
+      .box-title-blue {
+        color: var(--impact-blue);
+      }
+
+      /* Grid for Cards inside boxes */
+      .card-grid {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+      .mock-card {
+        background: #f1f5f9;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px;
+        flex: 1;
+        min-width: 140px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+      }
+      .mock-card img {
+        width: 100%;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 4px;
+        background: #e2e8f0;
+      }
+      .mock-card p {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-main);
+      }
+
+      /* Video specific layout */
+      .video-grid {
+        display: flex;
+        gap: 15px;
+      }
+      .video-card {
+        background: #000;
+        flex: 1;
+        height: 120px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+      }
+
+      /* Logos grid */
+      .logo-grid {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .logo-grid .mock-logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #e2e8f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: #94a3b8;
+      }
+
+      /* --- FAQ BOXES --- */
+      .faq-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .faq-item {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .faq-q {
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--text-main);
+        display: flex;
+        gap: 8px;
+      }
+      .faq-a {
+        background: #fff;
+        border: 2px solid var(--impact-blue);
+        border-radius: 20px;
+        padding: 12px 15px;
+        font-size: 13px;
+        color: var(--text-muted);
+        display: flex;
+        gap: 8px;
+      }
+      .label-q {
+        color: var(--text-main);
+        font-weight: 800;
+        white-space: nowrap;
+      }
+      .label-a {
+        color: var(--impact-blue);
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      /* --- ABOUT US BOX --- */
+      .about-grid {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .about-info {
+        flex: 1;
+        font-size: 13px;
+        color: var(--text-main);
+        line-height: 1.6;
+      }
+      .about-info strong {
+        font-size: 14px;
+      }
+      .cert-logos {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .cert-box {
+        width: 30px;
+        height: 30px;
+        background: #e2e8f0;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="top-nav">
+      <div class="nav-left">
+        <img
+          src="images/logo-impact.svg"
+          alt="IMPACT Sustain Logo"
+          class="nav-logo-img"
+        />
+      </div>
+
+      <div class="nav-center">
+        <div class="nav-title">Sustain Event Calculator</div>
+      </div>
+
+      <div class="nav-right">
+        <a href="index.html" class="nav-link"
+          ><i class="fas fa-home"></i> หน้าหลัก</a
+        >
+      </div>
+    </nav>
+
+    <div class="main-content">
+      <aside class="sidebar">
+        <button class="menu-btn">
+          <div class="menu-left">
+            <i class="fas fa-book-open"></i> แหล่งความรู้ทั้งหมด
+          </div>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+
+        <div class="submenu">
+          <a href="#" class="submenu-link">
+            <i class="far fa-lightbulb"></i> สื่อการเรียนรู้
+          </a>
+          <a href="#" class="submenu-link">
+            <i class="fab fa-youtube"></i> วิดีโอ
+          </a>
+          <a href="#" class="submenu-link">
+            <i class="fas fa-gavel"></i> กฎหมายที่เกี่ยวข้อง
+          </a>
+        </div>
+
+        <button class="menu-btn">
+          <div class="menu-left">
+            <i class="fas fa-leaf" style="color: #4caf50"></i>
+            อิมแพ็คกับความยั่งยืน
+          </div>
+        </button>
+
+        <button class="menu-btn">
+          <div class="menu-left">
+            <i class="fas fa-question-circle"></i> คำถามที่พบบ่อย
+          </div>
+        </button>
+
+        <button class="menu-btn">
+          <div class="menu-left">
+            <i class="fas fa-info-circle"></i> เกี่ยวกับเรา
+          </div>
+        </button>
+
+        <button
+          class="menu-btn"
+          style="
+            background: #fff;
+            color: var(--impact-blue);
+            border: 2px solid var(--impact-blue);
+          "
+        >
+          <div class="menu-left"><i class="fas fa-link"></i> แหล่งอ้างอิง</div>
+        </button>
+      </aside>
+
+      <main class="middle-col">
+        <div class="content-box">
+          <div class="box-title box-title-blue">แหล่งความรู้ทั้งหมด</div>
+
+          <div class="box-title" style="font-size: 16px; margin-top: 10px">
+            <i class="far fa-lightbulb"></i> สื่อการเรียนรู้
+            <span
+              style="
+                font-size: 12px;
+                color: #3b82f6;
+                margin-left: 10px;
+                font-weight: 400;
+              "
+              >*ขึ้นภาพแบบ Link</span
+            >
+          </div>
+          <div class="card-grid">
+            <div class="mock-card">
+              <img src="" alt="Thumbnail 1" />
+              <p>
+                คาร์บอนเครดิต (Carbon Credit)
+                คือสิทธิในการปล่อยก๊าซเรือนกระจก...
+              </p>
+            </div>
+            <div class="mock-card">
+              <img src="" alt="Thumbnail 2" />
+              <p>
+                ข้อมูลคาร์บอนฟุตพริ้นท์ขององค์กร และผลิตภัณฑ์
+                สามารถใช้ร่วมกันได้มั้ย
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-box">
+          <div class="box-title" style="font-size: 16px">
+            <i class="fab fa-youtube"></i> วิดีโอ
+            <span
+              style="
+                font-size: 12px;
+                color: #3b82f6;
+                margin-left: 10px;
+                font-weight: 400;
+              "
+              >*ขึ้นภาพแบบ Link</span
+            >
+          </div>
+          <div class="video-grid">
+            <div class="video-card">
+              <i class="fas fa-play-circle" style="font-size: 30px"></i>
+            </div>
+            <div class="video-card">
+              <i class="fas fa-play-circle" style="font-size: 30px"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-box">
+          <div class="box-title" style="font-size: 16px">
+            <i class="fas fa-gavel"></i> กฎหมายที่เกี่ยวข้อง
+            <span
+              style="
+                font-size: 12px;
+                color: #3b82f6;
+                margin-left: 10px;
+                font-weight: 400;
+              "
+              >*ขึ้นภาพแบบ Link กฎหมาย</span
+            >
+          </div>
+          <div class="card-grid">
+            <div class="mock-card" style="background: #fff; border: none">
+              <i
+                class="far fa-file-pdf"
+                style="font-size: 40px; color: #94a3b8; margin-bottom: 10px"
+              ></i>
+              <p>
+                พระราชบัญญัติส่งเสริมและรักษาคุณภาพสิ่งแวดล้อมแห่งชาติ พ.ศ. 2535
+              </p>
+            </div>
+            <div class="mock-card" style="background: #fff; border: none">
+              <i
+                class="far fa-file-pdf"
+                style="font-size: 40px; color: #94a3b8; margin-bottom: 10px"
+              ></i>
+              <p>
+                พระราชบัญญัติส่งเสริมและรักษาคุณภาพสิ่งแวดล้อมแห่งชาติ (ฉบับที่
+                2) พ.ศ. 2561
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-box" style="border-radius: 40px">
+          <div
+            class="box-title"
+            style="font-size: 16px; justify-content: center"
+          >
+            <i class="fas fa-search"></i> แหล่งอ้างอิง
+            <span
+              style="
+                font-size: 12px;
+                color: #3b82f6;
+                margin-left: 10px;
+                font-weight: 400;
+              "
+              >แปะ Link ชื่อหน่วยงานที่เกี่ยวข้อง</span
+            >
+          </div>
+          <div class="logo-grid">
+            <div class="mock-logo">Logo</div>
+            <div class="mock-logo">Logo</div>
+            <div class="mock-logo">Logo</div>
+            <div class="mock-logo">Logo</div>
+          </div>
+        </div>
+      </main>
+
+      <aside class="right-col">
+        <div class="content-box">
+          <div class="box-title">
+            อิมแพ็คกับความยั่งยืน
+            <span
+              style="
+                font-size: 12px;
+                color: #3b82f6;
+                margin-left: 10px;
+                font-weight: 400;
+              "
+              >*ขึ้นภาพ Preview และ Upload file</span
+            >
+          </div>
+          <div class="card-grid">
+            <div
+              class="mock-card"
+              style="background: transparent; border: none"
+            >
+              <i
+                class="far fa-file-alt"
+                style="font-size: 30px; color: #94a3b8"
+              ></i>
+              <p style="font-weight: 400">นโยบายการจัดงาน<br />อย่างยั่งยืน</p>
+            </div>
+            <div
+              class="mock-card"
+              style="background: transparent; border: none"
+            >
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 1fr 1fr;
+                  gap: 2px;
+                  width: 60px;
+                  height: 60px;
+                "
+              >
+                <div style="background: #e2e8f0"></div>
+                <div style="background: #e2e8f0"></div>
+                <div style="background: #e2e8f0"></div>
+                <div style="background: #e2e8f0"></div>
+              </div>
+              <p style="font-weight: 400">
+                การให้บริการจัดเลี้ยง<br />อย่างยั่งยืน
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-box">
+          <div class="box-title">คำถามที่พบบ่อย</div>
+          <div class="faq-container">
+            <div class="faq-item">
+              <div class="faq-q">
+                <span class="label-q">คำถาม :</span> งาน Sustainable Event
+                คืออะไร และต่างจากงานอีเวนต์ทั่วไปอย่างไร?
+              </div>
+              <div class="faq-a">
+                <span class="label-a">คำตอบ :</span> งาน Sustainable Event
+                คือการจัดงานที่คำนึงถึงผลกระทบต่อสิ่งแวดล้อม สังคม
+                และการใช้ทรัพยากรอย่างคุ้มค่า
+                ต่างจากงานทั่วไปที่มักเน้นความสำเร็จของงานเป็นหลัก 🌱
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">
+                <span class="label-q">คำถาม :</span> จัดงาน Sustainable Event
+                ที่ IMPACT ได้อะไรบ้าง
+              </div>
+              <div class="faq-a">
+                <span class="label-a">คำตอบ :</span>
+                ได้เอกสารขอบคุณการเข้าร่วมงาน รายงาน Carbon Footprint
+                ได้ลดก๊าซเรือนกระจกจากการจัดงาน สนับสนุนชุมชน
+                และส่งมอบโลกที่ดีต่อไปให้แก่รุ่นหลัง
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-box">
+          <div class="box-title">
+            <i
+              class="fas fa-info-circle"
+              style="color: #000; font-size: 24px"
+            ></i>
+            เกี่ยวกับเรา
+          </div>
+          <div class="about-grid">
+            <div style="width: 120px">
+              <img
+                src="images/logo-impact.svg"
+                alt="IMPACT Logo"
+                style="width: 100%"
+              />
+            </div>
+            <div class="about-info">
+              <strong>Standard Control Department</strong><br />
+              02- 8336372, 6373, 6374<br />
+              qa_sdgroup@impact.co.th
+              <div class="cert-logos">
+                <div class="cert-box"></div>
+                <div class="cert-box"></div>
+                <div class="cert-box"></div>
+                <div class="cert-box"></div>
+                <div class="cert-box"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </body>
+</html>
