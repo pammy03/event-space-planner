@@ -9,6 +9,110 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <style>
+      /* --- CSS สำหรับส่วนเนื้อหา (Main Content) --- */
+
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-color: #f8f9fa;
+        overflow-x: hidden;
+      }
+
+      main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        font-family: "Noto Sans Thai", sans-serif;
+      }
+
+      /* --- เลย์เอาต์ส่วนบน โลโก้ และ ข้อความ --- */
+      .sen-header-row {
+        display: flex;
+        align-items: center;
+        /* เปลี่ยนจาก center เป็น flex-start เพื่อดันชิดซ้าย */
+        justify-content: flex-start;
+        gap: 50px;
+        /* เพิ่ม padding ซ้ายให้เว้นระยะจากขอบจอ (ปรับเพิ่ม/ลดได้) */
+        padding: 0 50px 0 7vw;
+        /* เพิ่ม margin-top ให้เลื่อนต่ำลงมา (จาก 5vh เป็น 15vh) */
+        margin-top: 10vh;
+        max-width: 1440px;
+        /* เปลี่ยนจาก center เป็น flex-start */
+        align-self: flex-start;
+        /* ดันให้อยู่เหนือรูปภาพด้านล่าง (ป้องกันรูปทับข้อความถ้าดึงรูปขึ้นมาเยอะ) */
+        z-index: 10;
+        position: relative;
+      }
+
+      .sen-logo-img {
+        width: 280px;
+        height: auto;
+        flex-shrink: 0;
+      }
+
+      .sen-description {
+        color: #4a4a4a;
+        font-size: 22px;
+        line-height: 1.6;
+        font-weight: 400;
+      }
+
+      .sen-description .highlight-red {
+        color: #cc0000;
+        font-weight: 500;
+      }
+
+      /* --- เลย์เอาต์ส่วนรูปภาพด้านล่าง --- */
+      .sen-illustration-row {
+        width: 100%;
+        line-height: 0;
+        /* รักษาระยะที่ดึงรูปขึ้นมาตามโค้ดเดิมของคุณ */
+        margin-top: -50vh;
+        position: relative;
+        z-index: 1; /* ให้อยู่ใต้ข้อความ */
+      }
+
+      .sen-illustration-img {
+        width: 100vw;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        object-position: bottom;
+      }
+
+      /* สำหรับหน้าจอมือถือ */
+      @media (max-width: 768px) {
+        .sen-header-row {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          justify-content: center;
+          align-self: center;
+          gap: 20px;
+          margin-top: 40px;
+          padding: 0 20px;
+        }
+        .sen-logo-img {
+          width: 220px;
+        }
+        .sen-description {
+          font-size: 18px;
+        }
+        main {
+          justify-content: flex-start;
+          gap: 30px;
+        }
+        .sen-illustration-row {
+          margin-top: auto;
+        }
+      }
+    </style>
   </head>
   <body>
     <header class="navbar">
@@ -41,31 +145,30 @@
         </a>
       </div>
     </header>
-    <main>
-      <section class="hero-section">
-        <h1>ยินดีต้อนรับสู่หน้าหลัก</h1>
-        <p>
-          นี่คือพื้นที่ตัวอย่างสำหรับแสดงภาพรวมของเว็บไซต์
-          คุณสามารถปรับเปลี่ยนข้อความและรูปภาพแบนเนอร์ได้ตามต้องการ
-        </p>
-      </section>
 
-      <section class="content-section">
-        <div class="info-card">
-          <h2>อัปเดตข่าวสาร</h2>
-          <p>
-            พื้นที่สำหรับใส่รายละเอียดเนื้อหา บทความ
-            หรือข่าวสารล่าสุดที่ต้องการให้ผู้ใช้งานเห็นเป็นอันดับแรก
-          </p>
+    <main>
+      <div class="sen-header-row">
+        <img
+          src="images/Logo SEN.png"
+          alt="SEN SUSTAINEVENT NAVIGATOR"
+          class="sen-logo-img"
+        />
+        <div class="sen-description">
+          คือ การพัฒนาแพลตฟอร์มที่ช่วยให้การจัดงาน Event<br />
+          ตามมาตรฐาน ISO 20121
+          <span class="highlight-red">ให้เป็นเรื่องง่าย ใช้งานได้จริง</span
+          ><br />
+          ยกระดับองค์กรสู่การจัดงานอย่างยั่งยืนในระดับสากล
         </div>
-        <div class="info-card">
-          <h2>กิจกรรมที่น่าสนใจ</h2>
-          <p>
-            รวบรวมข้อมูลงานอีเวนต์ โชว์เคส หรือโครงการต่างๆ
-            ที่กำลังจะเกิดขึ้นในเร็วๆ นี้
-          </p>
-        </div>
-      </section>
+      </div>
+
+      <div class="sen-illustration-row">
+        <img
+          src="images/SEN คืออะไร.png"
+          alt="SEN Illustration"
+          class="sen-illustration-img"
+        />
+      </div>
     </main>
   </body>
 </html>

@@ -111,6 +111,7 @@
         align-items: center;
         gap: 8px;
         transition: 0.2s;
+        cursor: pointer;
       }
       .nav-link:hover {
         color: var(--impact-blue);
@@ -471,6 +472,133 @@
         height: 100%;
         object-fit: contain;
       }
+
+      /* --- ส่วนที่เพิ่มใหม่: CSS ของแถบประวัติ (History Sidebar) --- */
+      .history-sidebar {
+        position: fixed;
+        top: 80px;
+        right: -420px; /* ซ่อนไว้ด้านขวา */
+        width: 400px;
+        height: calc(100vh - 80px);
+        background: #fff;
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.08);
+        z-index: 99;
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        border-left: 1px solid var(--border-color);
+      }
+      .history-sidebar.open {
+        right: 0; /* แสดงออกมา */
+      }
+      .history-header {
+        padding: 20px 25px;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #f8fafc;
+      }
+      .history-header h3 {
+        font-size: 18px;
+        color: var(--impact-blue);
+        font-weight: 800;
+      }
+      .close-history {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #64748b;
+        transition: 0.2s;
+      }
+      .close-history:hover {
+        color: var(--danger-red);
+      }
+      .history-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 25px;
+      }
+      .history-item {
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        transition: 0.2s;
+      }
+      .history-item:hover {
+        border-color: var(--impact-blue);
+        box-shadow: 0 4px 12px rgba(30, 82, 168, 0.08);
+      }
+      .history-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        border-bottom: 1px dashed #e2e8f0;
+        padding-bottom: 10px;
+      }
+      .history-item h4 {
+        font-size: 15px;
+        color: var(--impact-blue);
+        font-weight: 700;
+      }
+      .history-item .badge-carbon {
+        background: #dcfce7;
+        color: #166534;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .history-item p {
+        font-size: 13px;
+        color: #64748b;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .history-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+      }
+      .btn-h-edit {
+        flex: 1;
+        padding: 8px;
+        background: #f1f5f9;
+        color: var(--impact-blue);
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .btn-h-edit:hover {
+        background: var(--impact-blue);
+        color: #fff;
+      }
+      .btn-h-del {
+        flex: 1;
+        padding: 8px;
+        background: #fff;
+        color: var(--danger-red);
+        border: 1px solid #ffcdd2;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .btn-h-del:hover {
+        background: #fff5f5;
+        border-color: var(--danger-red);
+      }
     </style>
   </head>
   <body>
@@ -484,27 +612,69 @@
       </div>
 
       <div class="nav-center">
-        <div class="nav-title">งานแสดงสินค้าและนิทรรศการ</div>
-        <div class="nav-badge">สร้างงานใหม่</div>
+        <div class="nav-title">IMPACT Carbon Calculator</div>
       </div>
 
       <div class="nav-right">
-        <button class="btn-new-event">
-          <i class="fas fa-plus"></i> งานใหม่
-        </button>
         <a href="index.html" class="nav-link"
           ><i class="fas fa-home"></i> หน้าหลัก</a
         >
-        <a href="#" class="nav-link"><i class="fas fa-folder"></i></a>
-        <button class="btn-save" onclick="openSaveModal()">
-          <i class="fas fa-save"></i> บันทึก
+
+        <a
+          class="nav-link"
+          title="ดูประวัติการสร้าง"
+          onclick="toggleHistorySidebar()"
+        >
+          <i class="fas fa-folder"></i>
+        </a>
+
+        <button id="main-save-btn" class="btn-save" onclick="openSaveModal()">
+          <i class="fas fa-save"></i> <span>บันทึก</span>
         </button>
       </div>
     </nav>
 
+    <div id="history-sidebar" class="history-sidebar">
+      <div class="history-header">
+        <h3>
+          <i class="fas fa-history" style="margin-right: 8px"></i
+          >ประวัติการสร้าง
+        </h3>
+        <button class="close-history" onclick="toggleHistorySidebar()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="history-list" id="history-list"></div>
+    </div>
+
+    <div id="deleteConfirmModal" class="modal-overlay" style="z-index: 2000">
+      <div class="modal-box" style="width: 360px; text-align: center">
+        <i
+          class="fas fa-exclamation-triangle"
+          style="font-size: 45px; color: var(--danger-red); margin-bottom: 15px"
+        ></i>
+        <h3 style="margin-bottom: 10px; color: #334155">ยืนยันการลบ?</h3>
+        <p style="color: #64748b; margin-bottom: 25px; font-size: 14px">
+          คุณต้องการลบรายการนี้ใช่หรือไม่?<br />การกระทำนี้ไม่สามารถย้อนกลับได้
+        </p>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeDeleteConfirm()">
+            ยกเลิก
+          </button>
+          <button
+            class="btn-confirm"
+            style="background: var(--danger-red)"
+            onclick="executeDelete()"
+          >
+            ยืนยันการลบ
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div id="saveModal" class="modal-overlay">
       <div class="modal-box">
-        <h2 class="modal-title">บันทึกข้อมูล</h2>
+        <h2 class="modal-title" id="modal-action-title">บันทึกข้อมูล</h2>
         <p class="modal-subtitle">กรุณาตรวจสอบความถูกต้องก่อนยืนยัน</p>
 
         <div class="form-group">
@@ -911,7 +1081,6 @@
                 .querySelectorAll(".tab-pill")
                 .forEach((t) => t.classList.remove("active"));
               tab.classList.add("active");
-
               renderItems(mainId, name);
             };
             subTabs.appendChild(tab);
@@ -934,7 +1103,6 @@
 
         items.forEach((item) => {
           const state = selections[item.id] || { active: false, qty: 1 };
-
           const lineTotalValue = item.carbon * state.qty;
           let lineTotalDisplay = lineTotalValue.toFixed(2);
 
@@ -945,7 +1113,6 @@
           const textClass = item.isSustain
             ? "var(--sustain-green)"
             : "var(--danger-red)";
-
           const descHtml = item.desc
             ? `<span class="item-desc">${item.desc}</span>`
             : "";
@@ -994,9 +1161,7 @@
 
       function clearSelections() {
         selections = {};
-
         const mainId = document.getElementById("main-select").value;
-
         if (mainId === "fb" || mainId === "venue") {
           renderItems(mainId, "none");
         } else {
@@ -1012,7 +1177,6 @@
         const container = document.getElementById("layer-container");
         container.innerHTML = "";
 
-        let finalImageSrc = null;
         let showWasteGroupImage = false;
 
         if (database[mainId].subs[subName]) {
@@ -1061,17 +1225,136 @@
           total.toFixed(2) + " kgCO₂e";
       }
 
-      // --- ฟังก์ชันเปิด/ปิด Modal บันทึก ---
-      function openSaveModal() {
-        const date = new Date();
-        const dateStr =
-          String(date.getDate()).padStart(2, "0") +
-          String(date.getMonth() + 1).padStart(2, "0") +
-          String(date.getFullYear()).substring(2);
-        const randomNum = Math.floor(1000 + Math.random() * 9000);
-        document.getElementById("booking-id").value =
-          `BK-${dateStr}-${randomNum}`;
+      // -------------------------------------------------------------------
+      // ส่วนของสคริปต์ที่เพิ่มเข้ามาใหม่เพื่อจัดการระบบ History (ประวัติการสร้าง)
+      // -------------------------------------------------------------------
 
+      let savedHistory =
+        JSON.parse(localStorage.getItem("impact_history_db")) || [];
+      let currentEditingId = null; // ตัวแปรเก็บสถานะว่ากำลังแก้ไขรายการไหนอยู่
+      let pendingDeleteId = null; // ตัวแปรเก็บรหัสรายการที่กำลังจะโดนลบ
+
+      // เปิด/ปิด แถบประวัติ
+      function toggleHistorySidebar() {
+        const sidebar = document.getElementById("history-sidebar");
+        sidebar.classList.toggle("open");
+        if (sidebar.classList.contains("open")) {
+          renderHistoryList();
+        }
+      }
+
+      // วาดรายการประวัติลงบน Sidebar
+      function renderHistoryList() {
+        const list = document.getElementById("history-list");
+        list.innerHTML = "";
+
+        if (savedHistory.length === 0) {
+          list.innerHTML = `
+            <div style="text-align: center; color: #94a3b8; margin-top: 40px;">
+              <i class="fas fa-folder-open" style="font-size: 40px; margin-bottom: 15px; opacity: 0.5;"></i>
+              <p>ยังไม่มีประวัติการบันทึกข้อมูล</p>
+            </div>
+          `;
+          return;
+        }
+
+        savedHistory.forEach((item) => {
+          list.innerHTML += `
+            <div class="history-item">
+              <div class="history-item-header">
+                <h4>${item.bookingId}</h4>
+                <span class="badge-carbon">${item.carbon} kgCO₂e</span>
+              </div>
+              <p><i class="fas fa-user"></i> ${item.name}</p>
+              <p><i class="fas fa-envelope"></i> ${item.email}</p>
+              <div class="history-actions">
+                <button class="btn-h-edit" onclick="loadHistoryToEdit('${item.id}')"><i class="fas fa-edit"></i> แก้ไข</button>
+                <button class="btn-h-del" onclick="openDeleteConfirm('${item.id}')"><i class="fas fa-trash-alt"></i> ลบ</button>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // ฟังก์ชันเมื่อกดแก้ไขรายการจากประวัติ
+      function loadHistoryToEdit(id) {
+        const item = savedHistory.find((i) => i.id === id);
+        if (item) {
+          currentEditingId = id;
+
+          // เปลี่ยนชื่อปุ่มบันทึกเป็น อัพเดต
+          document.getElementById("main-save-btn").innerHTML =
+            '<i class="fas fa-edit"></i> <span>อัพเดต</span>';
+          document.getElementById("modal-action-title").innerText =
+            "อัพเดตข้อมูล";
+
+          // โหลดข้อมูลเก่าลงฟอร์ม
+          document.getElementById("booking-id").value = item.bookingId;
+          document.getElementById("cust-name").value = item.name;
+          document.getElementById("cust-phone").value = item.phone;
+          document.getElementById("cust-email").value = item.email;
+
+          // โหลดค่า Selections เก่ากลับมา
+          selections = JSON.parse(JSON.stringify(item.selections || {}));
+
+          // รีเฟรชหน้าจอการคำนวณใหม่
+          initApp();
+
+          // ปิดหน้าต่าง Sidebar
+          toggleHistorySidebar();
+        }
+      }
+
+      // ฟังก์ชันเปิดป๊อปอัพยืนยันการลบ
+      function openDeleteConfirm(id) {
+        pendingDeleteId = id;
+        document.getElementById("deleteConfirmModal").style.display = "flex";
+      }
+
+      // ฟังก์ชันปิดป๊อปอัพยืนยันการลบ
+      function closeDeleteConfirm() {
+        pendingDeleteId = null;
+        document.getElementById("deleteConfirmModal").style.display = "none";
+      }
+
+      // ฟังก์ชันยืนยันการลบจริงๆ
+      function executeDelete() {
+        if (pendingDeleteId) {
+          savedHistory = savedHistory.filter((i) => i.id !== pendingDeleteId);
+          localStorage.setItem(
+            "impact_history_db",
+            JSON.stringify(savedHistory),
+          );
+
+          // วาดรายการใหม่
+          renderHistoryList();
+
+          // ถ้าบังเอิญลบตัวที่กำลังแก้ไขอยู่ ให้ล้างสถานะการแก้ไขทิ้งด้วย
+          if (currentEditingId === pendingDeleteId) {
+            currentEditingId = null;
+            document.getElementById("main-save-btn").innerHTML =
+              '<i class="fas fa-save"></i> <span>บันทึก</span>';
+            document.getElementById("modal-action-title").innerText =
+              "บันทึกข้อมูล";
+            clearSelections();
+          }
+
+          closeDeleteConfirm();
+        }
+      }
+
+      // เปิดหน้าต่างบันทึกข้อมูล (ปรับแต่งไม่ให้สร้าง Booking ID ใหม่ถ้ากำลังแก้ไขอยู่)
+      function openSaveModal() {
+        if (!currentEditingId) {
+          const date = new Date();
+          const dateStr =
+            String(date.getDate()).padStart(2, "0") +
+            String(date.getMonth() + 1).padStart(2, "0") +
+            String(date.getFullYear()).substring(2);
+          const randomNum = Math.floor(1000 + Math.random() * 9000);
+          document.getElementById("booking-id").value =
+            `BK-${dateStr}-${randomNum}`;
+        }
         document.getElementById("saveModal").style.display = "flex";
       }
 
@@ -1081,7 +1364,6 @@
 
       // --- ฟังก์ชันส่งข้อมูลไปยัง Google Apps Script ---
       function confirmSave() {
-        // ดึงค่าต่างๆ มาจากหน้าจอ
         const bookingId = document.getElementById("booking-id").value;
         const name = document.getElementById("cust-name").value;
         const phone = document.getElementById("cust-phone").value;
@@ -1090,36 +1372,85 @@
           .getElementById("grand-total")
           .innerText.replace(" kgCO₂e", "");
 
-        // เช็คว่ากรอกข้อมูลครบไหมเบื้องต้น
         if (!name || !phone || !email) {
           alert("กรุณากรอกข้อมูลให้ครบถ้วนก่อนบันทึก");
           return;
         }
 
-        // เปลี่ยนปุ่มเป็นสถานะกำลังโหลด
         const btn = document.getElementById("btn-confirm-save");
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังบันทึก...';
         btn.disabled = true;
 
-        // ดึง Event Name (สมมติว่าเป็นค่าคงที่ตามหัวเว็บ)
         const eventName = "งานแสดงสินค้าและนิทรรศการ";
 
-        // กำหนด URL Web App
-        const scriptUrl =
-          "https://script.google.com/macros/s/AKfycbwZH3zV6E0OYZ51fFN2iolZq0v7BpbDfel3etgsyE9Xx1b4nEKzF0FzJpgThfHHESqBKA/exec";
+        // ========================================================
+        // 🚨 ตัวสลับโหมดลิงก์ (Test / Production)
+        // ========================================================
+        const isTestMode = true; // ⚠️ เปลี่ยนค่านี้เป็น false เมื่ออัพขึ้นเว็บจริง
 
-        // สร้าง URL พารามิเตอร์แบบใช้ query string สำหรับส่งแบบ GET/POST
-        // 💡 ส่งพารามิเตอร์ status ด้วย (สมมติว่าเป็น "รายการใหม่" ตามที่ขอ)
-        const targetUrl = `${scriptUrl}?bookingID=${encodeURIComponent(bookingId)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&eventName=${encodeURIComponent(eventName)}&totalCarbon=${encodeURIComponent(totalCarbon)}&status=${encodeURIComponent("รายการใหม่")}`;
+        const testUrl =
+          "https://script.google.com/macros/s/AKfycbw9-vCKl8VmpQQrOG7YeDJXyjzt2pkiWetXQzLX-YdV2qLhNJeqVJ7HjspAk8i9_bVNdg/exec";
+        const realUrl =
+          "https://script.google.com/macros/s/AKfycbw3whLtIOq_6EETiXVjyJZRZtzJnOqT3koXV3EGlixxnoIPvB6GtAHhWJUdBmnSI8yBXQ/exec";
+
+        const scriptUrl = isTestMode ? testUrl : realUrl;
+        // ========================================================
+
+        // ถ้าเป็นการแก้ไข ให้ส่งสถานะว่าอัพเดต
+        const statusType = currentEditingId ? "อัพเดตข้อมูล" : "รายการใหม่";
+        const targetUrl = `${scriptUrl}?bookingID=${encodeURIComponent(bookingId)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&eventName=${encodeURIComponent(eventName)}&totalCarbon=${encodeURIComponent(totalCarbon)}&status=${encodeURIComponent(statusType)}`;
 
         fetch(targetUrl, { method: "POST" })
           .then((response) => response.text())
           .then((result) => {
-            // แจ้งเตือนสำเร็จ
             alert(
-              "บันทึกข้อมูลเข้า Google Sheets เรียบร้อยแล้ว!\nBooking ID: " +
+              (currentEditingId ? "อัพเดตข้อมูล" : "บันทึกข้อมูล") +
+                "เข้า Google Sheets เรียบร้อยแล้ว!\nBooking ID: " +
                 bookingId,
             );
+
+            // ----------------------------------------------------
+            // บันทึกลง Local Storage เพื่อให้ขึ้นใน Sidebar
+            // ----------------------------------------------------
+            if (currentEditingId) {
+              // กรณีแก้ไข อัพเดตข้อมูลเดิม
+              const index = savedHistory.findIndex(
+                (i) => i.id === currentEditingId,
+              );
+              if (index > -1) {
+                savedHistory[index] = {
+                  ...savedHistory[index],
+                  name,
+                  phone,
+                  email,
+                  carbon: totalCarbon,
+                  selections: JSON.parse(JSON.stringify(selections)),
+                };
+              }
+              currentEditingId = null; // คืนค่าสถานะ
+              document.getElementById("main-save-btn").innerHTML =
+                '<i class="fas fa-save"></i> <span>บันทึก</span>';
+              document.getElementById("modal-action-title").innerText =
+                "บันทึกข้อมูล";
+            } else {
+              // กรณีสร้างใหม่
+              const newItem = {
+                id: Date.now().toString(),
+                bookingId: bookingId,
+                name: name,
+                phone: phone,
+                email: email,
+                carbon: totalCarbon,
+                selections: JSON.parse(JSON.stringify(selections)), // เก็บตัวเลือกที่กดติ๊กไว้ด้วย
+              };
+              savedHistory.unshift(newItem); // แทรกไปไว้บนสุด
+            }
+            localStorage.setItem(
+              "impact_history_db",
+              JSON.stringify(savedHistory),
+            );
+            // ----------------------------------------------------
+
             closeSaveModal();
 
             // ล้างช่องกรอก
@@ -1132,7 +1463,6 @@
             alert("เกิดข้อผิดพลาดในการบันทึก กรุณาลองใหม่อีกครั้ง");
           })
           .finally(() => {
-            // คืนค่าปุ่มกลับมาเหมือนเดิม
             btn.innerHTML = "ยืนยัน";
             btn.disabled = false;
           });
