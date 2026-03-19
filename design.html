@@ -33,7 +33,7 @@
         flex-direction: column;
         overflow: hidden;
       }
-      /* --- NAVIGATION (ดีไซน์เป๊ะตามภาพ) --- */
+      /* --- NAVIGATION --- */
       .top-nav {
         height: 80px;
         background: #fff;
@@ -51,7 +51,6 @@
         gap: 25px;
         flex: 1;
       }
-      /* 💡 เปลี่ยนโลโก้กลับมาใช้รูปภาพ */
       .nav-logo-img {
         height: 40px;
         object-fit: contain;
@@ -140,7 +139,7 @@
         box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
       }
 
-      /* --- MODAL (หน้าต่างบันทึกข้อมูล) --- */
+      /* --- MODAL --- */
       .modal-overlay {
         position: fixed;
         top: 0;
@@ -238,8 +237,6 @@
       .btn-confirm:hover {
         background: #153c7c;
       }
-
-      /* 💡 เพิ่มสไตล์สำหรับสถานะกำลังโหลดตอนกดบันทึก */
       .btn-confirm:disabled {
         background: #94a3b8;
         cursor: not-allowed;
@@ -350,7 +347,6 @@
         accent-color: var(--impact-blue);
       }
 
-      /* ปรับแต่งชื่อและคำอธิบาย ให้ห่างกัน 8px */
       .item-name {
         font-size: 15px;
         font-weight: 700;
@@ -406,7 +402,6 @@
         color: var(--danger-red);
       }
 
-      /* TOTAL FOOTER & CLEAR BUTTON */
       .sticky-total {
         padding: 20px;
         background: var(--impact-blue);
@@ -473,11 +468,11 @@
         object-fit: contain;
       }
 
-      /* --- ส่วนที่เพิ่มใหม่: CSS ของแถบประวัติ (History Sidebar) --- */
+      /* --- HISTORY SIDEBAR --- */
       .history-sidebar {
         position: fixed;
         top: 80px;
-        right: -420px; /* ซ่อนไว้ด้านขวา */
+        right: -420px;
         width: 400px;
         height: calc(100vh - 80px);
         background: #fff;
@@ -489,7 +484,7 @@
         border-left: 1px solid var(--border-color);
       }
       .history-sidebar.open {
-        right: 0; /* แสดงออกมา */
+        right: 0;
       }
       .history-header {
         padding: 20px 25px;
@@ -1381,7 +1376,30 @@
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังบันทึก...';
         btn.disabled = true;
 
-        const eventName = "งานแสดงสินค้าและนิทรรศการ";
+        // ดึงชื่อหมวดหมู่และหมวดหมู่ย่อยปัจจุบัน
+        const mainSelectElement = document.getElementById("main-select");
+        let eventName =
+          mainSelectElement.options[mainSelectElement.selectedIndex].text;
+
+        const activeTab = document.querySelector(".tab-pill.active");
+        if (activeTab && activeTab.innerText !== "none") {
+          eventName += " - " + activeTab.innerText;
+        }
+
+        // รวบรวมรายการที่ถูกเลือก
+        let selectedItemsText = "";
+        let itemArray = [];
+
+        for (let mId in database) {
+          Object.values(database[mId].subs).forEach((subList) => {
+            subList.forEach((item) => {
+              if (selections[item.id] && selections[item.id].active) {
+                itemArray.push(`${item.name} (x${selections[item.id].qty})`);
+              }
+            });
+          });
+        }
+        selectedItemsText = itemArray.join(", ");
 
         // ========================================================
         // 🚨 ตัวสลับโหมดลิงก์อัตโนมัติ (Test / Production)
@@ -1392,16 +1410,16 @@
           window.location.hostname === "localhost";
 
         const testUrl =
-          "https://script.google.com/macros/s/AKfycbw9-vCKl8VmpQQrOG7YeDJXyjzt2pkiWetXQzLX-YdV2qLhNJeqVJ7HjspAk8i9_bVNdg/exec";
+          "https://script.google.com/macros/s/AKfycbxCoXXNatFynIbTz_Gq1LZ8PwQNPAqZCQhUJGS4UI0IiUnrdEb1URgEKDR-GF3AzThdhA/exec";
         const realUrl =
-          "https://script.google.com/macros/s/AKfycbw3whLtIOq_6EETiXVjyJZRZtzJnOqT3koXV3EGlixxnoIPvB6GtAHhWJUdBmnSI8yBXQ/exec";
+          "https://script.google.com/macros/s/AKfycbxJxEIfhczOCuD_2gPz0Mb3v6aX66NUcZVKYNE_42qK0qGLRzOPnU8gEgfDWSqG9gcQQw/exec";
 
         const scriptUrl = isTestMode ? testUrl : realUrl;
         // ========================================================
 
         // ถ้าเป็นการแก้ไข ให้ส่งสถานะว่าอัพเดต
         const statusType = currentEditingId ? "อัพเดตข้อมูล" : "รายการใหม่";
-        const targetUrl = `${scriptUrl}?bookingID=${encodeURIComponent(bookingId)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&eventName=${encodeURIComponent(eventName)}&totalCarbon=${encodeURIComponent(totalCarbon)}&status=${encodeURIComponent(statusType)}`;
+        const targetUrl = `${scriptUrl}?bookingID=${encodeURIComponent(bookingId)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&eventName=${encodeURIComponent(eventName)}&totalCarbon=${encodeURIComponent(totalCarbon)}&status=${encodeURIComponent(statusType)}&selectedItems=${encodeURIComponent(selectedItemsText)}`;
 
         fetch(targetUrl, { method: "POST" })
           .then((response) => response.text())
