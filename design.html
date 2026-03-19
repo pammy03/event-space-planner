@@ -1384,9 +1384,12 @@
         const eventName = "งานแสดงสินค้าและนิทรรศการ";
 
         // ========================================================
-        // 🚨 ตัวสลับโหมดลิงก์ (Test / Production)
+        // 🚨 ตัวสลับโหมดลิงก์อัตโนมัติ (Test / Production)
         // ========================================================
-        const isTestMode = true; // ⚠️ เปลี่ยนค่านี้เป็น false เมื่ออัพขึ้นเว็บจริง
+        // ระบบจะเช็คว่าเราเปิดจาก 127.0.0.1 หรือ localhost หรือไม่
+        const isTestMode =
+          window.location.hostname === "127.0.0.1" ||
+          window.location.hostname === "localhost";
 
         const testUrl =
           "https://script.google.com/macros/s/AKfycbw9-vCKl8VmpQQrOG7YeDJXyjzt2pkiWetXQzLX-YdV2qLhNJeqVJ7HjspAk8i9_bVNdg/exec";
