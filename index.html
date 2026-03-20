@@ -6,12 +6,52 @@
     <title>IMPACT - หน้าหลัก</title>
     <link rel="stylesheet" href="style.css" />
     <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <style>
-      /* --- CSS สำหรับส่วนเนื้อหา (Main Content) --- */
+      /* --- CSS สำหรับส่วน Navigation Bar (ปรับตาม network.html) --- */
+      body {
+        font-family: "Noto Sans Thai", sans-serif;
+      }
+      .navbar {
+        height: 80px;
+        background: #fff;
+        padding: 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #e2e8f0;
+        z-index: 100;
+        flex-shrink: 0;
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+      }
+      .nav-menu {
+        display: flex;
+        gap: 30px;
+      }
+      .nav-link {
+        color: #64748b;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .nav-link.active {
+        color: #2354a2;
+        font-weight: 700;
+      }
 
+      /* --- CSS สำหรับส่วนเนื้อหา (Main Content) เดิม 100% --- */
       body {
         margin: 0;
         padding: 0;
@@ -31,21 +71,15 @@
         font-family: "Noto Sans Thai", sans-serif;
       }
 
-      /* --- เลย์เอาต์ส่วนบน โลโก้ และ ข้อความ --- */
       .sen-header-row {
         display: flex;
         align-items: center;
-        /* เปลี่ยนจาก center เป็น flex-start เพื่อดันชิดซ้าย */
         justify-content: flex-start;
         gap: 50px;
-        /* เพิ่ม padding ซ้ายให้เว้นระยะจากขอบจอ (ปรับเพิ่ม/ลดได้) */
         padding: 0 50px 0 7vw;
-        /* เพิ่ม margin-top ให้เลื่อนต่ำลงมา (จาก 5vh เป็น 15vh) */
         margin-top: 10vh;
         max-width: 1440px;
-        /* เปลี่ยนจาก center เป็น flex-start */
         align-self: flex-start;
-        /* ดันให้อยู่เหนือรูปภาพด้านล่าง (ป้องกันรูปทับข้อความถ้าดึงรูปขึ้นมาเยอะ) */
         z-index: 10;
         position: relative;
       }
@@ -68,14 +102,12 @@
         font-weight: 500;
       }
 
-      /* --- เลย์เอาต์ส่วนรูปภาพด้านล่าง --- */
       .sen-illustration-row {
         width: 100%;
         line-height: 0;
-        /* รักษาระยะที่ดึงรูปขึ้นมาตามโค้ดเดิมของคุณ */
         margin-top: -50vh;
         position: relative;
-        z-index: 1; /* ให้อยู่ใต้ข้อความ */
+        z-index: 1;
       }
 
       .sen-illustration-img {
@@ -86,7 +118,6 @@
         object-position: bottom;
       }
 
-      /* สำหรับหน้าจอมือถือ */
       @media (max-width: 768px) {
         .sen-header-row {
           flex-direction: column;
@@ -131,15 +162,12 @@
         <a href="index.html" class="nav-link active">
           <i class="fas fa-home"></i> หน้าหลัก
         </a>
-
         <a href="calculator.html" class="nav-link">
           <i class="fas fa-leaf"></i> Sustainable Event Design
         </a>
-
         <a href="event.html" class="nav-link">
           <i class="fas fa-images"></i> Event Succession Showcase
         </a>
-
         <a href="network.html" class="nav-link">
           <i class="fas fa-network-wired"></i> Network for Knowledge
         </a>

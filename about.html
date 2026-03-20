@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Network for Knowledge - IMPACT Sustain</title>
+    <title>เกี่ยวกับเรา - IMPACT Sustain</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap"
       rel="stylesheet"
@@ -33,7 +33,6 @@
         overflow: hidden;
       }
 
-      /* --- NAVBAR --- */
       .navbar {
         height: 80px;
         background: #fff;
@@ -57,20 +56,18 @@
         color: #64748b;
         text-decoration: none;
         font-size: 16px;
-        /* คงความหนาไว้เท่าเดิมเพื่อไม่ให้กระดิกเวลา Hover */
         font-weight: 600;
         display: flex;
         align-items: center;
         gap: 8px;
-        /* เอา transition ออกตามที่ต้องการ */
+        transition: 0.2s;
       }
-      /* เปลี่ยนเฉพาะสีเมื่อ Hover หรือ Active โดยไม่เปลี่ยนความหนา */
       .nav-link:hover,
       .nav-link.active {
         color: var(--impact-blue);
+        font-weight: 700;
       }
 
-      /* --- MAIN LAYOUT & SIDEBAR --- */
       .main-content {
         display: flex;
         gap: 20px;
@@ -117,14 +114,12 @@
         justify-content: space-between;
         transition: 0.2s;
         cursor: pointer;
-        /* บังคับให้ปุ่มใช้ฟอนต์เดียวกับ body เพื่อแก้ปัญหาฟอนต์ไม่เหมือนเพื่อน */
-        font-family: inherit;
       }
       .menu-btn:hover {
         background-color: #1a407b;
         color: white;
       }
-      .menu-btn .menu-left {
+      .menu-left {
         display: flex;
         align-items: center;
         gap: 12px;
@@ -187,6 +182,56 @@
         overflow-y: auto;
         padding-right: 10px;
         padding-bottom: 20px;
+      }
+      .content-box {
+        background: #fff;
+        border: 2px solid var(--border-color);
+        padding: 40px;
+        border-radius: 8px;
+      }
+      .box-title {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .about-container {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        justify-content: center;
+        padding: 20px;
+      }
+      .about-logo {
+        width: 200px;
+      }
+      .about-logo img {
+        width: 100%;
+        object-fit: contain;
+      }
+      .about-details {
+        font-size: 18px;
+        color: var(--text-main);
+        line-height: 1.8;
+      }
+      .about-details strong {
+        font-size: 20px;
+        color: #000;
+      }
+      .cert-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .cert-item {
+        width: 40px;
+        height: 40px;
+        background: #e2e8f0;
+        border-radius: 4px;
       }
     </style>
   </head>
@@ -262,7 +307,10 @@
           >
         </div>
         <div class="sidebar-item">
-          <a href="about.html" class="menu-btn"
+          <a
+            href="about.html"
+            class="menu-btn"
+            style="background-color: #1a407b"
             ><div class="menu-left">
               <i class="fas fa-info-circle"></i> เกี่ยวกับเรา
             </div></a
@@ -284,9 +332,49 @@
         </div>
       </aside>
 
-      <main class="main-area"></main>
+      <main class="main-area">
+        <div class="content-box">
+          <div class="box-title">
+            <i
+              class="fas fa-info-circle"
+              style="color: #000; font-size: 30px"
+            ></i>
+            เกี่ยวกับเรา
+          </div>
+          <div class="about-container">
+            <div class="about-logo">
+              <img
+                src="images/logo-impact.svg"
+                alt="IMPACT Logo"
+                onerror="
+                  this.src =
+                    'https://via.placeholder.com/200x80?text=IMPACT+LOGO'
+                "
+              />
+            </div>
+            <div class="about-details">
+              <strong>Standard Control Department</strong><br />
+              <i
+                class="fas fa-phone-alt"
+                style="color: #64748b; margin-right: 8px"
+              ></i>
+              02- 8336372, 6373, 6374<br />
+              <i
+                class="fas fa-envelope"
+                style="color: #64748b; margin-right: 8px"
+              ></i>
+              qa_sdgroup@impact.co.th
+              <div class="cert-row">
+                <div class="cert-item"></div>
+                <div class="cert-item"></div>
+                <div class="cert-item"></div>
+                <div class="cert-item"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
-
     <script>
       function toggleKnowledgeMenu() {
         document

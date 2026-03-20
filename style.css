@@ -18,60 +18,68 @@ body {
   background-color: #f4f6f9;
   color: #333;
 }
+/* --- CSS สำหรับ Navigation Bar (ใช้ร่วมกันทุกหน้า) --- */
+:root {
+  --impact-blue: #2354a2; /* สีน้ำเงินตอน Active */
+}
 
-/* -------------------------------------
-   Navigation Bar Styles (อิงสไตล์จาก design.html)
-------------------------------------- */
+/* รีเซ็ตค่าพื้นฐานให้ตรงกันทุกหน้า เพื่อไม่ให้เลย์เอาต์กระโดด */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans Thai", sans-serif;
+}
+
 .navbar {
-  height: 72px;
+  height: 80px; /* ล็อกความสูงให้เป๊ะทุกหน้า */
+  width: 100%;
   background: #ffffff;
   padding: 0 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #e2e8f0; /* เปลี่ยนจากเงาเป็นเส้นขอบ */
+  border-bottom: 1px solid #e2e8f0;
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-.logo img {
-  height: 40px; /* ปรับขนาดโลโก้ให้พอดีกับความสูง 72px */
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.nav-left img {
+  height: 35px;
+  width: auto;
   object-fit: contain;
+  display: block; /* ป้องกันขอบล่างรูปเกิดช่องว่างเกินมา */
 }
 
 .nav-menu {
   display: flex;
-  gap: 12px; /* ปรับระยะห่างให้เหมือนดีไซน์ใหม่ */
+  gap: 30px;
   align-items: center;
 }
 
-/* สไตล์ตัวหนังสือเมนู (ปรับขนาด 14px และฟอนต์ให้ตรงกับหน้าดีไซน์) */
 .nav-link {
-  padding: 8px 16px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
   color: #64748b;
   text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: 0.2s;
 }
 
-.nav-link i {
-  font-size: 16px;
-}
-
-/* เอฟเฟกต์เวลาเมาส์ชี้ หรือหน้าปัจจุบัน */
-.nav-link:hover {
-  transform: translateY(-1px);
-  opacity: 0.9;
-  color: var(--impact-blue);
-  background: #f1f5f9; /* มีพื้นหลังสีเทาอ่อนๆ เวลากด */
-}
-
+/* ไม่มีเอฟเฟกต์ Transition ตามที่สั่ง เปลี่ยนแค่สีตรงๆ */
+.nav-link:hover,
 .nav-link.active {
   color: var(--impact-blue);
 }

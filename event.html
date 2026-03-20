@@ -37,19 +37,17 @@
         min-height: 100vh;
       }
 
-      /* --- NAVIGATION BAR (เหมือน index.html เป๊ะ) --- */
+      /* --- NAVIGATION BAR (ปรับตาม network.html) --- */
       .navbar {
-        height: 75px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #ffffff;
+        height: 80px;
+        background: #fff;
         padding: 0 40px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #e2e8f0;
+        z-index: 100;
+        flex-shrink: 0;
       }
       .nav-left {
         display: flex;
@@ -61,33 +59,23 @@
       }
       .nav-menu {
         display: flex;
-        gap: 10px;
+        gap: 30px;
       }
       .nav-link {
+        color: #64748b;
         text-decoration: none;
-        color: #475569;
-        font-weight: 700;
-        font-size: 15px;
-        padding: 10px 16px;
-        border-radius: 12px;
-        transition: all 0.3s ease;
+        font-size: 16px;
+        font-weight: 600;
         display: flex;
         align-items: center;
         gap: 8px;
       }
-      .nav-link:hover {
-        background-color: #f1f5f9;
-        color: var(--impact-blue);
-      }
       .nav-link.active {
-        color: var(--impact-blue);
-        background-color: #e0f2fe;
-      }
-      .nav-link i {
-        font-size: 16px;
+        color: #2354a2;
+        font-weight: 700;
       }
 
-      /* --- MAIN LAYOUT --- */
+      /* --- MAIN LAYOUT (ส่วนเนื้อหาเดิม 100%) --- */
       .showcase-container {
         display: flex;
         gap: 50px;

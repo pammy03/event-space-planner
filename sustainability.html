@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Network for Knowledge - IMPACT Sustain</title>
+    <title>อิมแพ็คกับความยั่งยืน - IMPACT Sustain</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap"
       rel="stylesheet"
@@ -33,7 +33,6 @@
         overflow: hidden;
       }
 
-      /* --- NAVBAR --- */
       .navbar {
         height: 80px;
         background: #fff;
@@ -70,7 +69,6 @@
         color: var(--impact-blue);
       }
 
-      /* --- MAIN LAYOUT & SIDEBAR --- */
       .main-content {
         display: flex;
         gap: 20px;
@@ -117,14 +115,12 @@
         justify-content: space-between;
         transition: 0.2s;
         cursor: pointer;
-        /* บังคับให้ปุ่มใช้ฟอนต์เดียวกับ body เพื่อแก้ปัญหาฟอนต์ไม่เหมือนเพื่อน */
-        font-family: inherit;
       }
       .menu-btn:hover {
         background-color: #1a407b;
         color: white;
       }
-      .menu-btn .menu-left {
+      .menu-left {
         display: flex;
         align-items: center;
         gap: 12px;
@@ -188,6 +184,62 @@
         padding-right: 10px;
         padding-bottom: 20px;
       }
+      .content-box {
+        background: #fff;
+        border: 2px solid var(--border-color);
+        padding: 24px;
+        border-radius: 8px;
+      }
+      .box-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 20px;
+      }
+
+      .sustain-grid {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .sustain-card {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex: 1;
+        min-width: 300px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        transition: 0.2s;
+        text-decoration: none;
+        color: inherit;
+      }
+      .sustain-card:hover {
+        transform: translateY(-3px);
+        border-color: var(--impact-blue);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      }
+      .sustain-icon {
+        width: 100px;
+        height: 100px;
+        background: #f1f5f9;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        color: #94a3b8;
+        flex-shrink: 0;
+      }
+      .sustain-text {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-main);
+        line-height: 1.5;
+      }
     </style>
   </head>
   <body>
@@ -247,7 +299,10 @@
           </div>
         </div>
         <div class="sidebar-item">
-          <a href="sustainability.html" class="menu-btn"
+          <a
+            href="sustainability.html"
+            class="menu-btn"
+            style="background-color: #1a407b"
             ><div class="menu-left">
               <i class="fas fa-leaf" style="color: #4caf50"></i>
               อิมแพ็คกับความยั่งยืน
@@ -284,9 +339,41 @@
         </div>
       </aside>
 
-      <main class="main-area"></main>
+      <main class="main-area">
+        <div class="content-box">
+          <div class="box-title">อิมแพ็คกับความยั่งยืน</div>
+          <div class="sustain-grid">
+            <a href="#" class="sustain-card"
+              ><div class="sustain-icon"><i class="far fa-file-alt"></i></div>
+              <div class="sustain-text">
+                นโยบายการจัดงาน<br />อย่างยั่งยืน
+              </div></a
+            >
+            <a href="#" class="sustain-card">
+              <div class="sustain-icon">
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 4px;
+                    width: 60px;
+                    height: 60px;
+                  "
+                >
+                  <div style="background: #e2e8f0; border-radius: 4px"></div>
+                  <div style="background: #cbd5e1; border-radius: 4px"></div>
+                  <div style="background: #cbd5e1; border-radius: 4px"></div>
+                  <div style="background: #e2e8f0; border-radius: 4px"></div>
+                </div>
+              </div>
+              <div class="sustain-text">
+                การให้บริการจัดเลี้ยง<br />อย่างยั่งยืน
+              </div>
+            </a>
+          </div>
+        </div>
+      </main>
     </div>
-
     <script>
       function toggleKnowledgeMenu() {
         document
