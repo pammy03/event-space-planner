@@ -57,14 +57,13 @@
         color: #64748b;
         text-decoration: none;
         font-size: 16px;
-        /* คงความหนาไว้เท่าเดิมเพื่อไม่ให้กระดิกเวลา Hover */
         font-weight: 600;
+        letter-spacing: 0.5px; /* เพิ่มระยะห่างตัวอักษรแบบพอดี */
         display: flex;
         align-items: center;
         gap: 8px;
-        /* เอา transition ออกตามที่ต้องการ */
       }
-      /* เปลี่ยนเฉพาะสีเมื่อ Hover หรือ Active โดยไม่เปลี่ยนความหนา */
+      /* เปลี่ยนเฉพาะสีเมื่อ Hover หรือ Active โดยไม่มีเอฟเฟกต์การขยับใดๆ */
       .nav-link:hover,
       .nav-link.active {
         color: var(--impact-blue);
@@ -372,8 +371,7 @@
 
       <main class="main-area">
         <div class="content-box">
-          <div class="box-title box-title-blue">แหล่งความรู้ทั้งหมด</div>
-          <div class="box-title" style="font-size: 18px; margin-top: 10px">
+          <div class="box-title box-title-blue">
             <i class="fab fa-youtube"></i> วิดีโอ
           </div>
           <div class="resource-grid">

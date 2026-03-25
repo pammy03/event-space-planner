@@ -14,7 +14,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <style>
-      /* --- CSS สำหรับส่วน Navigation Bar (ปรับตาม network.html) --- */
+      /* --- CSS สำหรับส่วน Navigation Bar --- */
       body {
         font-family: "Noto Sans Thai", sans-serif;
       }
@@ -42,13 +42,15 @@
         text-decoration: none;
         font-size: 16px;
         font-weight: 600;
+        letter-spacing: 0.5px; /* เพิ่มระยะห่างตัวอักษรแบบพอดี */
         display: flex;
         align-items: center;
         gap: 8px;
       }
+      /* เปลี่ยนเฉพาะสีเมื่อ Hover หรือ Active โดยไม่มีเอฟเฟกต์เปลี่ยนความหนา */
+      .nav-link:hover,
       .nav-link.active {
         color: #2354a2;
-        font-weight: 700;
       }
 
       /* --- CSS เดิม --- */

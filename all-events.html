@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IMPACT - All Featured Cases</title>
+
+    <style>
+      html {
+        scrollbar-gutter: stable; /* ล็อคตำแหน่ง Navbar ไม่ให้ขยับ */
+      }
+    </style>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --impact-blue: #1e52a8;
+        --impact-orange: #f26f21;
+        --bg-color: #f8fafc;
+        --text-main: #334155;
+        --border-color: #e2e8f0;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Noto Sans Thai", sans-serif;
+        background-color: var(--bg-color);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* ✅ NAVBAR (พิมพ์เขียวมาตรฐานล็อคตำแหน่ง) */
+      .navbar {
+        height: 80px;
+        background: #fff;
+        padding: 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #e2e8f0;
+        z-index: 100;
+        flex-shrink: 0;
+      }
+      .nav-menu {
+        display: flex;
+        gap: 30px;
+      }
+      .nav-link {
+        color: #64748b;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        color: #2354a2;
+      }
+
+      /* ── CONTENT AREA ── */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 40px 100px; /* ลด padding-top ลงเพื่อให้ปุ่มอยู่บนสุดสวยๆ */
+        width: 100%;
+      }
+
+      /* ปุ่มกลับ (ย้ายมาข้างบนและปรับสไตล์) */
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 30px; /* เว้นระยะห่างจากหัวข้อ */
+        transition: color 0.2s ease;
+      }
+      .back-link:hover {
+        color: var(--impact-blue);
+      }
+
+      .header-group {
+        margin-bottom: 45px;
+      }
+      .label-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--impact-orange);
+        margin-bottom: 10px;
+      }
+      .label-tag::before {
+        content: "";
+        width: 20px;
+        height: 2px;
+        background: var(--impact-orange);
+      }
+      .main-title {
+        font-size: 26px;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1.4;
+      }
+
+      /* GRID LAYOUT */
+      .events-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+      }
+
+      /* 🎨 สไตล์ Card ตามรูปเป๊ะ */
+      .custom-card {
+        background: #fff;
+        border-radius: 28px;
+        overflow: hidden;
+        border: 1px solid #eef2f6;
+        text-decoration: none;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .custom-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(30, 82, 168, 0.08);
+      }
+      .card-img-box {
+        height: 200px;
+        background: #fdf2e2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .card-img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .card-content {
+        padding: 22px 24px 28px;
+      }
+      .card-label {
+        font-size: 11px;
+        font-weight: 800;
+        color: #d97706;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        margin-bottom: 10px;
+        display: block;
+      }
+      .card-title {
+        font-size: 19px;
+        font-weight: 800;
+        color: #1e293b;
+        line-height: 1.3;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="nav-left">
+        <img
+          src="images/logo-impact.svg"
+          alt="IMPACT"
+          height="35"
+          onerror="
+            this.src =
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/IMPACT_Muang_Thong_Thani_Logo.png/800px-IMPACT_Muang_Thong_Thani_Logo.png'
+          "
+        />
+      </div>
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link"
+          ><i class="fas fa-home"></i> หน้าหลัก</a
+        >
+        <a href="calculator.html" class="nav-link"
+          ><i class="fas fa-leaf"></i> Sustainable Event Design</a
+        >
+        <a href="event.html" class="nav-link active"
+          ><i class="fas fa-images"></i> Event Succession Showcase</a
+        >
+        <a href="network.html" class="nav-link"
+          ><i class="fas fa-network-wired"></i> Network for Knowledge</a
+        >
+      </div>
+    </header>
+
+    <main class="container">
+      <a href="event.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> กลับหน้า Showcase
+      </a>
+
+      <div class="header-group">
+        <div class="label-tag">Featured Case</div>
+        <h1 class="main-title">
+          กรณีศึกษาจากงานที่ได้รับการรับรอง<br />มาตรฐานความยั่งยืน
+        </h1>
+      </div>
+
+      <div class="events-grid">
+        <a href="#" class="custom-card">
+          <div class="card-img-box">
+            <img
+              src="images/Home1.jpg"
+              alt=""
+              onerror="this.style.display = 'none'"
+            />
+          </div>
+          <div class="card-content">
+            <span class="card-label">Party</span>
+            <h3 class="card-title">Intertrek Staff Party</h3>
+          </div>
+        </a>
+
+        <a href="#" class="custom-card">
+          <div class="card-img-box">
+            <img
+              src="images/Home1.jpg"
+              alt=""
+              onerror="this.style.display = 'none'"
+            />
+          </div>
+          <div class="card-content">
+            <span class="card-label">Meeting</span>
+            <h3 class="card-title">HA 26 National</h3>
+          </div>
+        </a>
+      </div>
+    </main>
+  </body>
+</html>
