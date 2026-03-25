@@ -58,12 +58,11 @@
         text-decoration: none;
         font-size: 16px;
         font-weight: 600;
-        letter-spacing: 0.5px; /* เพิ่มระยะห่างตัวอักษรแบบพอดี */
+        letter-spacing: 0.5px;
         display: flex;
         align-items: center;
         gap: 8px;
       }
-      /* เปลี่ยนเฉพาะสีเมื่อ Hover หรือ Active โดยไม่มีเอฟเฟกต์การขยับใดๆ */
       .nav-link:hover,
       .nav-link.active {
         color: var(--impact-blue);
@@ -99,10 +98,13 @@
         display: flex;
         flex-direction: column;
       }
+
+      /* --- ปุ่มเมนูหลัก Sidebar ปรับเป็นพื้นขาว ขอบน้ำเงิน --- */
       .menu-btn {
-        background-color: var(--impact-blue);
-        color: white;
-        padding: 16px 24px;
+        background-color: #fff;
+        color: var(--impact-blue);
+        border: 2px solid var(--impact-blue);
+        padding: 14px 24px;
         border-radius: 30px;
         text-decoration: none;
         font-weight: 700;
@@ -110,16 +112,17 @@
         align-items: center;
         gap: 12px;
         font-size: 16px;
-        border: none;
         width: 100%;
         justify-content: space-between;
         transition: 0.2s;
         cursor: pointer;
       }
-      .menu-btn:hover {
-        background-color: #1a407b;
+      .menu-btn:hover,
+      .menu-btn.active {
+        background-color: var(--impact-blue);
         color: white;
       }
+
       .menu-left {
         display: flex;
         align-items: center;
@@ -235,7 +238,9 @@
       .ref-name {
         font-size: 12px;
         font-weight: 600;
-        color: var(--text-muted);
+        color: var(
+          --text-main
+        ); /* เปลี่ยนจาก text-muted เป็น text-main เพื่อให้เห็นชัดเจนขึ้น */
       }
     </style>
   </head>
@@ -283,7 +288,7 @@
           </button>
           <div class="submenu-wrapper collapsed" id="knowledgeSubmenu">
             <div class="submenu-inner">
-              <a href="learning.html" class="submenu-link"
+              <a href="network.html" class="submenu-link"
                 ><i class="far fa-lightbulb"></i> สื่อการเรียนรู้</a
               >
               <a href="video.html" class="submenu-link"
@@ -318,14 +323,7 @@
           >
         </div>
         <div class="sidebar-item">
-          <a
-            href="reference.html"
-            class="menu-btn"
-            style="
-              background-color: var(--impact-blue);
-              color: #fff;
-              border: none;
-            "
+          <a href="reference.html" class="menu-btn active"
             ><div class="menu-left">
               <i class="fas fa-link"></i> แหล่งอ้างอิง
             </div></a
