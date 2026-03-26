@@ -4,56 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IMPACT - หน้าหลัก</title>
+
+    <!-- ใช้ CSS กลางตัวเดียว -->
     <link rel="stylesheet" href="style.css" />
+
+    <!-- Font เหมือนทุกหน้า -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <style>
-      /* --- CSS สำหรับส่วน Navigation Bar --- */
-      body {
-        font-family: "Noto Sans Thai", sans-serif;
-      }
-      .navbar {
-        height: 80px;
-        background: #fff;
-        padding: 0 40px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 1px solid #e2e8f0;
-        z-index: 100;
-        flex-shrink: 0;
-      }
-      .nav-left {
-        display: flex;
-        align-items: center;
-      }
-      .nav-menu {
-        display: flex;
-        gap: 30px;
-      }
-      .nav-link {
-        color: #64748b;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: 600;
-        letter-spacing: 0.5px; /* เพิ่มระยะห่างตัวอักษรแบบพอดี */
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      /* เปลี่ยนเฉพาะสีเมื่อ Hover หรือ Active โดยไม่มีเอฟเฟกต์เปลี่ยนความหนา */
-      .nav-link:hover,
-      .nav-link.active {
-        color: #2354a2;
-      }
 
-      /* --- CSS สำหรับส่วนเนื้อหา (Main Content) เดิม 100% --- */
+    <style>
+      /* ❗ เหลือเฉพาะ layout หน้านี้ */
       body {
         margin: 0;
         padding: 0;
@@ -70,7 +37,6 @@
         flex-direction: column;
         justify-content: space-between;
         width: 100%;
-        font-family: "Noto Sans Thai", sans-serif;
       }
 
       .sen-header-row {
@@ -82,21 +48,18 @@
         margin-top: 10vh;
         max-width: 1440px;
         align-self: flex-start;
-        z-index: 10;
         position: relative;
       }
 
       .sen-logo-img {
         width: 280px;
         height: auto;
-        flex-shrink: 0;
       }
 
       .sen-description {
         color: #4a4a4a;
         font-size: 22px;
         line-height: 1.6;
-        font-weight: 400;
       }
 
       .sen-description .highlight-red {
@@ -108,8 +71,6 @@
         width: 100%;
         line-height: 0;
         margin-top: -50vh;
-        position: relative;
-        z-index: 1;
       }
 
       .sen-illustration-img {
@@ -125,53 +86,69 @@
           flex-direction: column;
           align-items: center;
           text-align: center;
-          justify-content: center;
-          align-self: center;
           gap: 20px;
           margin-top: 40px;
           padding: 0 20px;
         }
+
         .sen-logo-img {
           width: 220px;
         }
+
         .sen-description {
           font-size: 18px;
         }
+
         main {
           justify-content: flex-start;
           gap: 30px;
         }
+
         .sen-illustration-row {
           margin-top: auto;
         }
       }
     </style>
   </head>
+
   <body>
+    <!-- ✅ Navbar (ใช้ style.css คุม 100%) -->
     <header class="navbar">
       <div class="nav-left">
         <img
           src="images/logo-impact.svg"
           alt="IMPACT"
-          height="35"
           onerror="
             this.src =
               'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/IMPACT_Muang_Thong_Thani_Logo.png/800px-IMPACT_Muang_Thong_Thani_Logo.png'
           "
         />
       </div>
+
       <div class="nav-menu">
         <a href="index.html" class="nav-link active">
           <i class="fas fa-home"></i> หน้าหลัก
         </a>
+
         <a href="calculator.html" class="nav-link">
-          <i class="fas fa-leaf"></i> Sustainable Event Design
+          <i class="fas fa-leaf"></i>
+          <span>
+            <span style="color: #28a745">S</span>ustainable Event Design
+          </span>
         </a>
+
         <a href="event.html" class="nav-link">
-          <i class="fas fa-images"></i> Event Succession Showcase
+          <i class="fas fa-images"></i>
+          <span>
+            <span style="color: #f26f21">E</span>vent Succession Showcase
+          </span>
         </a>
+
         <a href="network.html" class="nav-link">
-          <i class="fas fa-network-wired"></i> Network for Knowledge
+          <i class="fas fa-network-wired"></i>
+          <span>
+            <span style="color: #2354a2">N</span>etwork for Knowledge
+          </span>
         </a>
       </div>
     </header>
@@ -183,6 +160,7 @@
           alt="SEN SUSTAINEVENT NAVIGATOR"
           class="sen-logo-img"
         />
+
         <div class="sen-description">
           คือ การพัฒนาแพลตฟอร์มที่ช่วยให้การจัดงาน Event<br />
           ตามมาตรฐาน ISO 20121

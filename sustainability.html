@@ -4,8 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>อิมแพ็คกับความยั่งยืน - IMPACT Sustain</title>
+
+    <link rel="stylesheet" href="style.css" />
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link
@@ -25,7 +28,8 @@
         padding: 0;
       }
       body {
-        font-family: "Noto Sans Thai", sans-serif;
+        /* ✅ อัปเดตฟอนต์ให้ตรงกับหน้าอื่น */
+        font-family: "Sarabun", "Inter", sans-serif;
         background-color: var(--bg-main);
         height: 100vh;
         display: flex;
@@ -33,40 +37,7 @@
         overflow: hidden;
       }
 
-      /* Navigation Bar */
-      .navbar {
-        height: 80px;
-        background: #fff;
-        padding: 0 40px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 1px solid #e2e8f0;
-        z-index: 100;
-        flex-shrink: 0;
-      }
-      .nav-left {
-        display: flex;
-        align-items: center;
-      }
-      .nav-menu {
-        display: flex;
-        gap: 30px;
-      }
-      .nav-link {
-        color: #64748b;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .nav-link:hover,
-      .nav-link.active {
-        color: var(--impact-blue);
-      }
+      /* --- ลบ CSS Navbar ออก เพื่อให้ style.css คุม 100% --- */
 
       /* SIDEBAR */
       .main-content {
@@ -85,16 +56,22 @@
         overflow-y: auto;
         padding-right: 10px;
       }
-      ::-webkit-scrollbar {
+
+      /* 🔥 บังคับ Scrollbar ให้แสดงผลเฉพาะในกล่องเนื้อหา ไม่กระทบหน้าเว็บหลัก */
+      .sidebar::-webkit-scrollbar,
+      .main-area::-webkit-scrollbar {
         width: 6px;
       }
-      ::-webkit-scrollbar-track {
+      .sidebar::-webkit-scrollbar-track,
+      .main-area::-webkit-scrollbar-track {
         background: transparent;
       }
-      ::-webkit-scrollbar-thumb {
+      .sidebar::-webkit-scrollbar-thumb,
+      .main-area::-webkit-scrollbar-thumb {
         background: #cbd5e1;
         border-radius: 10px;
       }
+
       .sidebar-item {
         display: flex;
         flex-direction: column;
@@ -102,6 +79,7 @@
 
       /* --- ปุ่มเมนูหลัก Sidebar ปรับเป็นพื้นขาว ขอบน้ำเงิน --- */
       .menu-btn {
+        font-family: inherit;
         background-color: #fff;
         color: var(--impact-blue);
         border: 2px solid var(--impact-blue);
@@ -198,7 +176,7 @@
       .box-title {
         font-size: 20px;
         font-weight: 800;
-        color: var(--text-main);
+        color: var(--impact-blue);
         margin-bottom: 20px;
       }
 
@@ -235,7 +213,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 40px;
+        font-size: 50px;
         color: #94a3b8;
         flex-shrink: 0;
       }
@@ -253,26 +231,38 @@
         <img
           src="images/logo-impact.svg"
           alt="IMPACT"
-          height="35"
           onerror="
             this.src =
               'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/IMPACT_Muang_Thong_Thani_Logo.png/800px-IMPACT_Muang_Thong_Thani_Logo.png'
           "
         />
       </div>
+
       <div class="nav-menu">
-        <a href="index.html" class="nav-link"
-          ><i class="fas fa-home"></i> หน้าหลัก</a
-        >
-        <a href="calculator.html" class="nav-link"
-          ><i class="fas fa-leaf"></i> Sustainable Event Design</a
-        >
-        <a href="event.html" class="nav-link"
-          ><i class="fas fa-images"></i> Event Succession Showcase</a
-        >
-        <a href="network.html" class="nav-link active"
-          ><i class="fas fa-network-wired"></i> Network for Knowledge</a
-        >
+        <a href="index.html" class="nav-link">
+          <i class="fas fa-home"></i> หน้าหลัก
+        </a>
+
+        <a href="calculator.html" class="nav-link">
+          <i class="fas fa-leaf"></i>
+          <span>
+            <span style="color: #28a745">S</span>ustainable Event Design
+          </span>
+        </a>
+
+        <a href="event.html" class="nav-link">
+          <i class="fas fa-images"></i>
+          <span>
+            <span style="color: #f26f21">E</span>vent Succession Showcase
+          </span>
+        </a>
+
+        <a href="network.html" class="nav-link active">
+          <i class="fas fa-network-wired"></i>
+          <span>
+            <span style="color: #2354a2">N</span>etwork for Knowledge
+          </span>
+        </a>
       </div>
     </header>
 

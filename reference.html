@@ -4,8 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>แหล่งอ้างอิง - IMPACT Sustain</title>
+
+    <link rel="stylesheet" href="style.css" />
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link
@@ -25,7 +28,7 @@
         padding: 0;
       }
       body {
-        font-family: "Noto Sans Thai", sans-serif;
+        font-family: "Sarabun", "Inter", sans-serif;
         background-color: var(--bg-main);
         height: 100vh;
         display: flex;
@@ -33,40 +36,7 @@
         overflow: hidden;
       }
 
-      /* NAVBAR */
-      .navbar {
-        height: 80px;
-        background: #fff;
-        padding: 0 40px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 1px solid #e2e8f0;
-        z-index: 100;
-        flex-shrink: 0;
-      }
-      .nav-left {
-        display: flex;
-        align-items: center;
-      }
-      .nav-menu {
-        display: flex;
-        gap: 30px;
-      }
-      .nav-link {
-        color: #64748b;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .nav-link:hover,
-      .nav-link.active {
-        color: var(--impact-blue);
-      }
+      /* --- ลบ CSS Navbar เดิมออก เพื่อใช้จาก style.css --- */
 
       .main-content {
         display: flex;
@@ -84,16 +54,22 @@
         overflow-y: auto;
         padding-right: 10px;
       }
-      ::-webkit-scrollbar {
+
+      /* 🔥 บังคับ Scrollbar ให้แสดงผลเฉพาะในกล่องเนื้อหา ไม่กระทบหน้าเว็บหลัก */
+      .sidebar::-webkit-scrollbar,
+      .main-area::-webkit-scrollbar {
         width: 6px;
       }
-      ::-webkit-scrollbar-track {
+      .sidebar::-webkit-scrollbar-track,
+      .main-area::-webkit-scrollbar-track {
         background: transparent;
       }
-      ::-webkit-scrollbar-thumb {
+      .sidebar::-webkit-scrollbar-thumb,
+      .main-area::-webkit-scrollbar-thumb {
         background: #cbd5e1;
         border-radius: 10px;
       }
+
       .sidebar-item {
         display: flex;
         flex-direction: column;
@@ -101,6 +77,7 @@
 
       /* --- ปุ่มเมนูหลัก Sidebar ปรับเป็นพื้นขาว ขอบน้ำเงิน --- */
       .menu-btn {
+        font-family: inherit;
         background-color: #fff;
         color: var(--impact-blue);
         border: 2px solid var(--impact-blue);
@@ -193,54 +170,55 @@
         padding: 30px;
         border-radius: 8px;
       }
+
+      /* ✅ ปรับหัวข้อเป็นสีเทาเข้ม (text-main) และขนาด 20px ตามรูปเป๊ะ */
       .box-title {
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 800;
-        color: var(--text-main);
+        color: var(--impact-blue);
         margin-bottom: 30px;
         display: flex;
         align-items: center;
         gap: 15px;
       }
 
+      /* ✅ บังคับให้เป็น 4 คอลัมน์ในบรรทัดเดียวกันเสมอ */
       .ref-grid {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-        flex-wrap: wrap;
-        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 10px 0;
       }
+
+      /* ✅ ปรับขนาดความกว้างให้เต็มช่อง Grid แบบพอดีๆ */
       .ref-item {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
-        gap: 10px;
-        width: 180px;
-        height: 120px;
+        gap: 12px;
+        width: 100%; /* ให้กว้างเต็มช่อง 1/4 */
+        min-height: 140px;
         background: #f8fafc;
         border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        padding: 15px;
+        border-radius: 12px;
+        padding: 20px 15px;
         transition: 0.2s;
       }
       .ref-item:hover {
         transform: translateY(-5px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
         border-color: var(--impact-blue);
       }
       .ref-logo {
-        font-size: 40px;
-        color: var(--impact-blue);
+        font-size: 45px;
       }
       .ref-name {
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 600;
-        color: var(
-          --text-main
-        ); /* เปลี่ยนจาก text-muted เป็น text-main เพื่อให้เห็นชัดเจนขึ้น */
+        color: var(--text-main);
+        line-height: 1.4;
       }
     </style>
   </head>
@@ -250,26 +228,38 @@
         <img
           src="images/logo-impact.svg"
           alt="IMPACT"
-          height="35"
           onerror="
             this.src =
               'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/IMPACT_Muang_Thong_Thani_Logo.png/800px-IMPACT_Muang_Thong_Thani_Logo.png'
           "
         />
       </div>
+
       <div class="nav-menu">
-        <a href="index.html" class="nav-link"
-          ><i class="fas fa-home"></i> หน้าหลัก</a
-        >
-        <a href="calculator.html" class="nav-link"
-          ><i class="fas fa-leaf"></i> Sustainable Event Design</a
-        >
-        <a href="event.html" class="nav-link"
-          ><i class="fas fa-images"></i> Event Succession Showcase</a
-        >
-        <a href="network.html" class="nav-link active"
-          ><i class="fas fa-network-wired"></i> Network for Knowledge</a
-        >
+        <a href="index.html" class="nav-link">
+          <i class="fas fa-home"></i> หน้าหลัก
+        </a>
+
+        <a href="calculator.html" class="nav-link">
+          <i class="fas fa-leaf"></i>
+          <span>
+            <span style="color: #28a745">S</span>ustainable Event Design
+          </span>
+        </a>
+
+        <a href="event.html" class="nav-link">
+          <i class="fas fa-images"></i>
+          <span>
+            <span style="color: #f26f21">E</span>vent Succession Showcase
+          </span>
+        </a>
+
+        <a href="network.html" class="nav-link active">
+          <i class="fas fa-network-wired"></i>
+          <span>
+            <span style="color: #2354a2">N</span>etwork for Knowledge
+          </span>
+        </a>
       </div>
     </header>
 
@@ -334,28 +324,29 @@
       <main class="main-area">
         <div class="content-box">
           <div class="box-title">
-            <i class="fas fa-search"></i> แหล่งอ้างอิง
+            <i class="fas fa-search" style="font-size: 26px"></i>
+            แหล่งอ้างอิง
           </div>
           <div class="ref-grid">
             <div class="ref-item">
-              <i class="fas fa-globe-asia ref-logo" style="color: #0ea5e9"></i
-              ><span class="ref-name"
+              <i class="fas fa-globe-asia ref-logo" style="color: #4ba3e3"></i>
+              <span class="ref-name"
                 >องค์การบริหารจัดการก๊าซเรือนกระจก (TGO)</span
               >
             </div>
             <div class="ref-item">
-              <i class="fas fa-leaf ref-logo" style="color: #10b981"></i
-              ><span class="ref-name"
+              <i class="fas fa-leaf ref-logo" style="color: #5bc08a"></i>
+              <span class="ref-name"
                 >กรมการเปลี่ยนแปลงสภาพภูมิอากาศและสิ่งแวดล้อม</span
               >
             </div>
             <div class="ref-item">
-              <i class="fas fa-handshake ref-logo" style="color: #f59e0b"></i
-              ><span class="ref-name">TCEB</span>
+              <i class="fas fa-handshake ref-logo" style="color: #f6b642"></i>
+              <span class="ref-name">TCEB</span>
             </div>
             <div class="ref-item">
-              <i class="fas fa-dove ref-logo" style="color: #3b82f6"></i
-              ><span class="ref-name">UN Thailand</span>
+              <i class="fas fa-dove ref-logo" style="color: #4b86e8"></i>
+              <span class="ref-name">UN Thailand</span>
             </div>
           </div>
         </div>

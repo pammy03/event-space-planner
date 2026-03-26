@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IMPACT Sustain Event Calculator</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link
@@ -14,11 +14,13 @@
     />
     <style>
       :root {
-        --impact-blue: #1e52a8;
-        --impact-light-bg: #f4f7fa;
+        --impact-blue: #1e3a8a;
+        --impact-light-bg: #f8fafc;
         --sustain-green: #28a745;
         --danger-red: #d93025;
         --border-color: #e2e8f0;
+        --text-dark: #1e293b;
+        --text-muted: #64748b;
       }
       * {
         box-sizing: border-box;
@@ -26,24 +28,24 @@
         padding: 0;
       }
       body {
-        font-family: "Noto Sans Thai", sans-serif;
-        background-color: #ffffff;
+        font-family: "Sarabun", "Inter", sans-serif;
+        background-color: var(--impact-light-bg);
         height: 100vh;
         display: flex;
         flex-direction: column;
         overflow: hidden;
       }
+
       /* --- NAVIGATION --- */
       .top-nav {
-        height: 80px;
+        height: 70px;
         background: #fff;
         padding: 0 40px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid var(--border-color);
         z-index: 100;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
       }
       .nav-left {
         display: flex;
@@ -52,26 +54,8 @@
         flex: 1;
       }
       .nav-logo-img {
-        height: 40px;
+        height: 35px;
         object-fit: contain;
-      }
-      .btn-new-event {
-        background: #f1f5f9;
-        color: var(--impact-blue);
-        border: none;
-        padding: 10px 18px;
-        border-radius: 20px;
-        font-size: 14px;
-        font-weight: 700;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        transition: 0.2s;
-        font-family: "Noto Sans Thai", sans-serif;
-      }
-      .btn-new-event:hover {
-        background: #e2e8f0;
       }
       .nav-center {
         display: flex;
@@ -81,18 +65,10 @@
         flex: 1;
       }
       .nav-title {
-        font-size: 20px;
-        font-weight: 800;
-        color: var(--impact-blue);
-      }
-      .nav-badge {
-        background: #dcfce7;
-        color: #166534;
-        padding: 4px 14px;
-        border-radius: 12px;
-        font-size: 12px;
+        font-family: "Inter", "Sarabun", sans-serif;
+        font-size: 18px;
         font-weight: 700;
-        margin-top: 6px;
+        color: var(--impact-blue);
       }
       .nav-right {
         display: flex;
@@ -102,10 +78,10 @@
         flex: 1;
       }
       .nav-link {
-        color: #475569;
+        color: var(--text-muted);
         text-decoration: none;
         font-size: 15px;
-        font-weight: 700;
+        font-weight: 600;
         display: flex;
         align-items: center;
         gap: 8px;
@@ -115,28 +91,22 @@
       .nav-link:hover {
         color: var(--impact-blue);
       }
-      .nav-link i {
-        font-size: 18px;
-      }
       .btn-save {
-        background: #4caf50;
+        background: var(--impact-blue);
         color: #fff;
         border: none;
-        padding: 10px 22px;
-        border-radius: 25px;
+        padding: 8px 20px;
+        border-radius: 8px;
         font-size: 15px;
-        font-weight: 700;
+        font-weight: 600;
         cursor: pointer;
         display: flex;
         align-items: center;
         gap: 8px;
         transition: 0.2s;
-        box-shadow: 0 4px 6px rgba(76, 175, 80, 0.2);
-        font-family: "Noto Sans Thai", sans-serif;
       }
       .btn-save:hover {
-        background: #43a047;
-        box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+        background: #1e40af;
       }
 
       /* --- MODAL --- */
@@ -146,7 +116,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.4);
         display: none;
         align-items: center;
         justify-content: center;
@@ -155,287 +125,400 @@
       }
       .modal-box {
         background: #fff;
-        padding: 40px;
-        border-radius: 20px;
-        width: 440px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        padding: 35px;
+        border-radius: 16px;
+        width: 400px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       }
       .modal-title {
-        color: var(--impact-blue);
+        color: var(--text-dark);
         text-align: center;
-        font-size: 24px;
-        font-weight: 800;
-        margin-bottom: 8px;
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 6px;
       }
       .modal-subtitle {
         text-align: center;
-        color: #64748b;
+        color: var(--text-muted);
         font-size: 14px;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
       }
       .form-group {
-        margin-bottom: 18px;
+        margin-bottom: 16px;
       }
       .form-group label {
         display: block;
         font-size: 14px;
-        font-weight: 700;
-        color: #334155;
-        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 6px;
       }
       .form-group input {
         width: 100%;
-        padding: 12px 16px;
+        padding: 10px 14px;
         border: 1px solid var(--border-color);
-        border-radius: 10px;
+        border-radius: 8px;
         font-size: 15px;
         font-family: inherit;
         outline: none;
-        transition: 0.2s;
       }
       .form-group input:focus {
         border-color: var(--impact-blue);
       }
       .form-group input[readonly] {
-        background: #f8fafc;
-        color: var(--impact-blue);
-        font-weight: 800;
-        letter-spacing: 1px;
+        background: #f1f5f9;
+        color: var(--text-muted);
+        font-weight: 600;
       }
       .modal-actions {
         display: flex;
-        gap: 12px;
-        margin-top: 30px;
+        gap: 10px;
+        margin-top: 25px;
       }
-      .btn-cancel {
-        flex: 1;
-        padding: 14px;
-        background: #fff;
-        border: 1px solid var(--border-color);
-        border-radius: 10px;
-        font-weight: 700;
-        color: #334155;
-        cursor: pointer;
-        font-family: inherit;
-        transition: 0.2s;
-      }
-      .btn-cancel:hover {
-        background: #f1f5f9;
-      }
+      .btn-cancel,
       .btn-confirm {
         flex: 1;
-        padding: 14px;
-        background: var(--impact-blue);
-        border: none;
-        border-radius: 10px;
-        font-weight: 700;
-        color: #fff;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 15px;
         cursor: pointer;
-        font-family: inherit;
-        transition: 0.2s;
+        border: none;
       }
-      .btn-confirm:hover {
-        background: #153c7c;
+      .btn-cancel {
+        background: #f1f5f9;
+        color: var(--text-dark);
       }
-      .btn-confirm:disabled {
-        background: #94a3b8;
-        cursor: not-allowed;
+      .btn-confirm {
+        background: var(--impact-blue);
+        color: #fff;
       }
 
       /* --- MAIN WORKSPACE --- */
       .main-workspace {
         display: flex;
         flex: 1;
-        height: calc(100vh - 80px);
+        height: calc(100vh - 70px);
       }
 
-      /* SIDEBAR LEFT */
+      /* --- SIDEBAR LEFT --- */
       .sidebar-left {
-        width: 500px;
-        background: #fff;
+        width: 480px;
+        background: var(--impact-light-bg);
         border-right: 1px solid var(--border-color);
         display: flex;
         flex-direction: column;
         z-index: 10;
-        position: relative;
-      }
-      .sidebar-header {
-        padding: 20px 25px;
-        transition: padding 0.3s;
-      }
-      .sidebar-header label {
-        font-size: 13px;
-        font-weight: 700;
-        color: #888;
-        margin-bottom: 8px;
-        display: block;
+        padding: 0;
       }
 
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 30px;
+      }
+
+      /* Step Headers */
+      .step-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .step-number {
+        font-family: "Inter", sans-serif;
+        width: 28px;
+        height: 28px;
+        background: var(--impact-blue);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 14px;
+        transition: 0.3s;
+      }
+      .step-number.inactive {
+        background: #cbd5e1;
+      }
+      .step-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--impact-blue);
+        transition: 0.3s;
+      }
+      .step-title.inactive {
+        color: #94a3b8;
+      }
+
+      /* Dropdown Card */
+      .top-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid var(--border-color);
+      }
+      .top-card label {
+        font-family: "Inter", sans-serif;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+        color: var(--text-muted);
+        display: block;
+        margin-bottom: 8px;
+      }
       .custom-select {
         width: 100%;
-        padding: 15px 20px;
+        padding: 12px 16px;
         background-color: var(--impact-light-bg);
-        border: none;
-        border-radius: 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
         font-size: 16px;
-        font-weight: 700;
-        color: #334155;
+        font-weight: 600;
+        color: var(--text-dark);
         cursor: pointer;
         outline: none;
-        margin-bottom: 20px;
-        transition: margin 0.3s;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 1em;
       }
 
+      /* Horizontal Tabs */
       .tabs-wrapper {
         display: flex;
         gap: 8px;
-        padding: 0 25px 15px;
+        padding: 0 0 15px;
         overflow-x: auto;
         scrollbar-width: none;
       }
       .tab-pill {
         white-space: nowrap;
-        padding: 8px 18px;
-        background: #f1f5f9;
+        padding: 8px 16px;
+        background: #fff;
+        border: 1px solid var(--border-color);
         border-radius: 20px;
         cursor: pointer;
-        font-size: 13px;
-        font-weight: 600;
-        color: #64748b;
-        transition: 0.3s;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-muted);
+        transition: 0.2s;
       }
       .tab-pill.active {
         background: var(--impact-blue);
         color: #fff;
+        border-color: var(--impact-blue);
       }
 
-      /* Level 3: Item Cards */
-      .options-container {
-        flex: 1;
-        overflow-y: auto;
-        padding: 10px 25px;
-        margin-bottom: 20px;
-      }
+      /* --- ITEM CARDS --- */
       .item-card {
         background: #fff;
         border: 1px solid var(--border-color);
-        border-radius: 18px;
-        padding: 18px;
+        border-radius: 16px;
+        padding: 20px;
         margin-bottom: 12px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
       }
       .item-card.active {
         border-color: var(--impact-blue);
-        box-shadow: 0 4px 12px rgba(0, 88, 163, 0.08);
+        box-shadow: 0 4px 12px rgba(30, 58, 138, 0.05);
       }
-      .card-top {
+
+      .card-row-top {
         display: flex;
-        align-items: center;
         justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
       }
-      .item-info {
+      .card-left-group {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 12px;
       }
       .item-checkbox {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
         cursor: pointer;
         accent-color: var(--impact-blue);
       }
-
+      .text-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
       .item-name {
-        font-size: 15px;
+        font-size: 16px;
         font-weight: 700;
-        color: #334155;
-        word-break: break-word;
-        white-space: normal;
-        max-width: 280px;
-        line-height: 1.2;
+        color: var(--text-dark);
+        line-height: 1.3;
       }
       .item-desc {
-        font-size: 12px;
-        color: #64748b;
-        margin-top: 8px;
-        display: block;
-        line-height: 1.2;
+        font-size: 14px;
+        color: var(--text-muted);
       }
-
       .unit-carbon {
-        background: #f1f5f9;
-        color: #64748b;
-        font-size: 11px;
+        font-family: "Inter", sans-serif;
+        background: #e0e7ff;
+        color: #3730a3;
+        font-size: 13px;
         padding: 4px 10px;
-        border-radius: 8px;
-        font-weight: 600;
+        border-radius: 20px;
+        font-weight: 700;
         white-space: nowrap;
       }
 
-      .card-bottom {
+      .card-row-bottom {
         display: flex;
-        align-items: center;
         justify-content: space-between;
+        align-items: center;
+        padding-left: 32px;
       }
       .qty-group {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
+      }
+      .qty-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-dark);
       }
       .qty-field {
-        width: 70px;
+        font-family: "Inter", sans-serif;
+        width: 80px; /* ขยายช่องนิดนึงเพื่อรองรับ 4 ตำแหน่งถ้าจำเป็น */
         padding: 6px;
         border: 1px solid var(--border-color);
         border-radius: 8px;
-        font-size: 14px;
-        font-weight: 700;
+        font-size: 15px;
+        font-weight: 600;
         text-align: center;
+        outline: none;
       }
       .line-total {
+        font-family: "Inter", sans-serif;
         font-size: 18px;
         font-weight: 800;
-        color: var(--sustain-green);
+        color: #cbd5e1;
       }
-      .line-total.normal {
-        color: var(--danger-red);
+      .line-total.has-value {
+        color: var(--impact-blue);
       }
 
-      .sticky-total {
-        padding: 20px;
+      /* --- CATEGORY CARDS (Section 2) --- */
+      .category-section {
+        margin-top: 10px;
+      }
+      .category-card {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .category-card:hover {
+        border-color: var(--impact-blue);
+        box-shadow: 0 2px 8px rgba(30, 58, 138, 0.05);
+      }
+      .category-card.active-cat {
+        border-color: var(--impact-blue);
+        background: #f8fafc;
+        box-shadow: 0 4px 12px rgba(30, 58, 138, 0.08);
+      }
+      .category-card-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--text-dark);
+        font-weight: 600;
+        font-size: 15px;
+      }
+      .category-card:hover .chevron-icon {
+        color: var(--impact-blue);
+      }
+      .chevron-icon {
+        color: #cbd5e1;
+        transition: 0.2s;
+      }
+
+      /* สไตล์ป้ายแสดงยอดรวมในกล่อง Category */
+      .cat-summary-badge {
+        font-family: "Inter", sans-serif;
+        background: #e0e7ff;
+        color: #3730a3;
+        font-size: 13px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-weight: 700;
+        white-space: nowrap;
+        display: none; /* ซ่อนไว้เป็นค่าเริ่มต้น */
+      }
+      .cat-summary-badge.has-value {
+        display: inline-block;
+      }
+
+      /* Detail View Container */
+      #detail-view-container {
+        display: none;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px dashed var(--border-color);
+      }
+
+      /* --- BOTTOM STICKY TOTAL --- */
+      .sticky-total-wrapper {
+        padding: 20px 30px;
+        background: var(--impact-light-bg);
+      }
+      .total-box {
         background: var(--impact-blue);
         color: white;
-        text-align: center;
-        border-radius: 20px 20px 0 0;
+        border-radius: 16px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
         position: relative;
       }
-      .total-num {
-        font-size: 32px;
-        font-weight: 700;
+      .total-label {
+        font-family: "Inter", "Sarabun", sans-serif;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        opacity: 0.8;
       }
-
+      .total-num {
+        font-family: "Inter", sans-serif;
+        font-size: 28px;
+        font-weight: 800;
+      }
       .btn-clear {
         position: absolute;
-        top: -45px;
-        right: 25px;
-        background: #fff;
-        color: var(--danger-red);
-        border: 1px solid #ffcdd2;
-        padding: 8px 16px;
-        border-radius: 20px;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 8px;
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 600;
         cursor: pointer;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        transition: all 0.2s;
         display: flex;
         align-items: center;
         gap: 6px;
+        transition: 0.2s;
       }
       .btn-clear:hover {
-        background: #fff5f5;
-        border-color: var(--danger-red);
+        background: rgba(255, 255, 255, 0.25);
       }
 
       /* --- PREVIEW RIGHT --- */
@@ -471,14 +554,14 @@
       /* --- HISTORY SIDEBAR --- */
       .history-sidebar {
         position: fixed;
-        top: 80px;
+        top: 70px;
         right: -420px;
         width: 400px;
-        height: calc(100vh - 80px);
+        height: calc(100vh - 70px);
         background: #fff;
-        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.08);
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.05);
         z-index: 99;
-        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: right 0.3s;
         display: flex;
         flex-direction: column;
         border-left: 1px solid var(--border-color);
@@ -487,112 +570,23 @@
         right: 0;
       }
       .history-header {
-        padding: 20px 25px;
+        padding: 20px;
         border-bottom: 1px solid var(--border-color);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #f8fafc;
-      }
-      .history-header h3 {
-        font-size: 18px;
-        color: var(--impact-blue);
-        font-weight: 800;
-      }
-      .close-history {
-        background: none;
-        border: none;
-        font-size: 20px;
-        cursor: pointer;
-        color: #64748b;
-        transition: 0.2s;
-      }
-      .close-history:hover {
-        color: var(--danger-red);
+        background: var(--impact-light-bg);
       }
       .history-list {
         flex: 1;
         overflow-y: auto;
-        padding: 25px;
+        padding: 20px;
       }
       .history-item {
         border: 1px solid var(--border-color);
         border-radius: 12px;
         padding: 16px;
-        margin-bottom: 16px;
-        background: #fff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-        transition: 0.2s;
-      }
-      .history-item:hover {
-        border-color: var(--impact-blue);
-        box-shadow: 0 4px 12px rgba(30, 82, 168, 0.08);
-      }
-      .history-item-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-        border-bottom: 1px dashed #e2e8f0;
-        padding-bottom: 10px;
-      }
-      .history-item h4 {
-        font-size: 15px;
-        color: var(--impact-blue);
-        font-weight: 700;
-      }
-      .history-item .badge-carbon {
-        background: #dcfce7;
-        color: #166534;
-        padding: 4px 10px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 700;
-      }
-      .history-item p {
-        font-size: 13px;
-        color: #64748b;
-        margin-bottom: 6px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .history-actions {
-        display: flex;
-        gap: 10px;
-        margin-top: 15px;
-      }
-      .btn-h-edit {
-        flex: 1;
-        padding: 8px;
-        background: #f1f5f9;
-        color: var(--impact-blue);
-        border: none;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: 0.2s;
-      }
-      .btn-h-edit:hover {
-        background: var(--impact-blue);
-        color: #fff;
-      }
-      .btn-h-del {
-        flex: 1;
-        padding: 8px;
-        background: #fff;
-        color: var(--danger-red);
-        border: 1px solid #ffcdd2;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: 0.2s;
-      }
-      .btn-h-del:hover {
-        background: #fff5f5;
-        border-color: var(--danger-red);
+        margin-bottom: 12px;
       }
     </style>
   </head>
@@ -601,28 +595,23 @@
       <div class="nav-left">
         <img
           src="images/logo-impact.svg"
-          alt="IMPACT Sustain Logo"
+          alt="IMPACT Logo"
           class="nav-logo-img"
         />
       </div>
-
       <div class="nav-center">
         <div class="nav-title">IMPACT Carbon Calculator</div>
       </div>
-
       <div class="nav-right">
         <a href="index.html" class="nav-link"
           ><i class="fas fa-home"></i> หน้าหลัก</a
         >
-
         <a
           class="nav-link"
           title="ดูประวัติการสร้าง"
           onclick="toggleHistorySidebar()"
-        >
-          <i class="fas fa-folder"></i>
-        </a>
-
+          ><i class="fas fa-folder"></i
+        ></a>
         <button id="main-save-btn" class="btn-save" onclick="openSaveModal()">
           <i class="fas fa-save"></i> <span>บันทึก</span>
         </button>
@@ -631,26 +620,39 @@
 
     <div id="history-sidebar" class="history-sidebar">
       <div class="history-header">
-        <h3>
+        <h3 style="font-size: 16px; color: var(--text-dark)">
           <i class="fas fa-history" style="margin-right: 8px"></i
           >ประวัติการสร้าง
         </h3>
-        <button class="close-history" onclick="toggleHistorySidebar()">
+        <button
+          class="close-history"
+          onclick="toggleHistorySidebar()"
+          style="
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+          "
+        >
           <i class="fas fa-times"></i>
         </button>
       </div>
       <div class="history-list" id="history-list"></div>
     </div>
 
-    <div id="deleteConfirmModal" class="modal-overlay" style="z-index: 2000">
-      <div class="modal-box" style="width: 360px; text-align: center">
+    <div id="deleteConfirmModal" class="modal-overlay">
+      <div class="modal-box" style="text-align: center">
         <i
           class="fas fa-exclamation-triangle"
-          style="font-size: 45px; color: var(--danger-red); margin-bottom: 15px"
+          style="font-size: 40px; color: var(--danger-red); margin-bottom: 15px"
         ></i>
-        <h3 style="margin-bottom: 10px; color: #334155">ยืนยันการลบ?</h3>
-        <p style="color: #64748b; margin-bottom: 25px; font-size: 14px">
-          คุณต้องการลบรายการนี้ใช่หรือไม่?<br />การกระทำนี้ไม่สามารถย้อนกลับได้
+        <h3 style="margin-bottom: 10px; color: var(--text-dark)">
+          ยืนยันการลบ?
+        </h3>
+        <p
+          style="color: var(--text-muted); margin-bottom: 25px; font-size: 14px"
+        >
+          คุณต้องการลบรายการนี้ใช่หรือไม่?
         </p>
         <div class="modal-actions">
           <button class="btn-cancel" onclick="closeDeleteConfirm()">
@@ -661,7 +663,7 @@
             style="background: var(--danger-red)"
             onclick="executeDelete()"
           >
-            ยืนยันการลบ
+            ยืนยัน
           </button>
         </div>
       </div>
@@ -670,28 +672,20 @@
     <div id="saveModal" class="modal-overlay">
       <div class="modal-box">
         <h2 class="modal-title" id="modal-action-title">บันทึกข้อมูล</h2>
-        <p class="modal-subtitle">กรุณาตรวจสอบความถูกต้องก่อนยืนยัน</p>
-
+        <p class="modal-subtitle">กรุณาตรวจสอบความถูกต้อง</p>
         <div class="form-group">
-          <label>Booking ID</label>
-          <input type="text" id="booking-id" readonly />
+          <label>Booking ID</label
+          ><input type="text" id="booking-id" readonly />
         </div>
-
         <div class="form-group">
-          <label>ชื่อ-นามสกุล</label>
-          <input type="text" id="cust-name" placeholder="ระบุชื่อผู้ติดต่อ" />
+          <label>ชื่อ-นามสกุล</label><input type="text" id="cust-name" />
         </div>
-
         <div class="form-group">
-          <label>เบอร์โทรศัพท์</label>
-          <input type="text" id="cust-phone" placeholder="เช่น 081-234-5678" />
+          <label>เบอร์โทรศัพท์</label><input type="text" id="cust-phone" />
         </div>
-
         <div class="form-group">
-          <label>อีเมล</label>
-          <input type="email" id="cust-email" placeholder="name@company.com" />
+          <label>อีเมล</label><input type="email" id="cust-email" />
         </div>
-
         <div class="modal-actions">
           <button class="btn-cancel" onclick="closeSaveModal()">ยกเลิก</button>
           <button
@@ -707,29 +701,123 @@
 
     <div class="main-workspace">
       <div class="sidebar-left">
-        <div class="sidebar-header">
-          <label>หมวดหมู่การประเมิน</label>
-          <select id="main-select" class="custom-select" onchange="initApp()">
-            <option value="fb">บริการอาหารและเครื่องดื่ม (F&B)</option>
-            <option value="venue">อาคารและสถานที่ (Venue)</option>
-            <option value="waste">การจัดการของเสีย (Waste)</option>
-            <option value="pkg">แพ็คเกจตามประเภทงาน (Packages)</option>
-          </select>
+        <div class="scrollable-content">
+          <div class="step-header">
+            <div class="step-number">1</div>
+            <div class="step-title">Event Package</div>
+          </div>
+
+          <div class="top-card">
+            <label>Select Event Type</label>
+            <select
+              id="package-select"
+              class="custom-select"
+              onchange="changePackage()"
+            >
+              <option value="pkg_concert">คอนเสิร์ต (Concert)</option>
+              <option value="pkg_exhibition">นิทรรศการ (Exhibition)</option>
+              <option value="pkg_meeting">งานประชุม (Meeting)</option>
+              <option value="pkg_wedding">งานมงคลสมรส (Wedding)</option>
+              <option value="pkg_party">งานเลี้ยงสังสรรค์ (Party)</option>
+            </select>
+          </div>
+
+          <div class="step-header" style="margin-top: 30px">
+            <div class="step-number" id="step2-badge">2</div>
+            <div class="step-title" id="step2-title">Additional Categories</div>
+            <i
+              class="fas fa-lock"
+              id="step2-icon"
+              style="color: #94a3b8; font-size: 14px; margin-left: auto"
+            ></i>
+          </div>
+
+          <div class="category-section" id="step2-section">
+            <div
+              class="category-card"
+              id="card-cat-package"
+              onclick="selectDetailCat('package')"
+            >
+              <div class="category-card-left">
+                <i
+                  class="fas fa-box-open"
+                  style="color: var(--impact-blue)"
+                ></i>
+                Package Items
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px">
+                <span class="cat-summary-badge" id="summary-package"></span>
+                <i class="fas fa-chevron-right chevron-icon"></i>
+              </div>
+            </div>
+
+            <div
+              class="category-card"
+              id="card-cat-fb"
+              onclick="selectDetailCat('fb')"
+            >
+              <div class="category-card-left">
+                <i
+                  class="fas fa-utensils"
+                  style="color: var(--impact-blue)"
+                ></i>
+                Food & Beverage
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px">
+                <span class="cat-summary-badge" id="summary-fb"></span>
+                <i class="fas fa-chevron-right chevron-icon"></i>
+              </div>
+            </div>
+
+            <div
+              class="category-card"
+              id="card-cat-venue"
+              onclick="selectDetailCat('venue')"
+            >
+              <div class="category-card-left">
+                <i
+                  class="fas fa-building"
+                  style="color: var(--impact-blue)"
+                ></i>
+                Venue & Travel
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px">
+                <span class="cat-summary-badge" id="summary-venue"></span>
+                <i class="fas fa-chevron-right chevron-icon"></i>
+              </div>
+            </div>
+
+            <div
+              class="category-card"
+              id="card-cat-waste"
+              onclick="selectDetailCat('waste')"
+            >
+              <div class="category-card-left">
+                <i class="fas fa-trash" style="color: var(--impact-blue)"></i>
+                Waste Management
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px">
+                <span class="cat-summary-badge" id="summary-waste"></span>
+                <i class="fas fa-chevron-right chevron-icon"></i>
+              </div>
+            </div>
+          </div>
+
+          <div id="detail-view-container">
+            <div id="detail-header" class="step-header"></div>
+            <div class="tabs-wrapper" id="sub-tabs"></div>
+            <div id="options-list"></div>
+          </div>
         </div>
 
-        <div class="tabs-wrapper" id="sub-tabs"></div>
-
-        <div class="options-container" id="options-list"></div>
-
-        <div class="sticky-total">
-          <button class="btn-clear" onclick="clearSelections()">
-            <i class="fas fa-trash-alt"></i> ล้างค่า
-          </button>
-
-          <p style="font-size: 11px; opacity: 0.8; margin-bottom: 5px">
-            คาร์บอนฟุตพริ้นท์รวมทั้งหมด
-          </p>
-          <div class="total-num" id="grand-total">0.00 kgCO₂e</div>
+        <div class="sticky-total-wrapper">
+          <div class="total-box">
+            <button class="btn-clear" onclick="clearSelections()">
+              <i class="fas fa-trash-alt"></i> ล้างค่า
+            </button>
+            <div class="total-label">Total Carbon Footprint</div>
+            <div class="total-num" id="grand-total">0.00 kgCO₂e</div>
+          </div>
         </div>
       </div>
 
@@ -748,6 +836,7 @@
       const database = {
         fb: {
           bg: "images/White background.png",
+          name: "Food & Beverage (F&B)",
           subs: {
             none: [
               {
@@ -771,7 +860,7 @@
                 name: "อาหารว่างปกติและเครื่องดื่ม",
                 desc: "จำนวนชุดอาหารรวมตลอดการจัดงาน",
                 img: "images/อาหารว่างปกติและเครื่องดื่ม.png",
-                carbon: 0.22,
+                carbon: 0.217,
                 isSustain: false,
               },
               {
@@ -779,21 +868,21 @@
                 name: "อาหารว่างมังสวิรัติและเครื่องดื่ม",
                 desc: "จำนวนชุดอาหารรวมตลอดการจัดงาน",
                 img: "images/อาหารว่างมังสวิรัติและเครื่องดื่ม.png",
-                carbon: 0.15,
+                carbon: 0.1464,
                 isSustain: true,
               },
               {
                 id: "pack_food",
-                name: "ภาชนะบรรจุอาหารที่ใช้แล้วทิ้ง (คิดเฉพาะพลาสติก)",
-                desc: "จำนวนที่ใช้บรรจุภัณฑ์อาหารแบบใช้แล้วทิ้ง",
+                name: "ภาชนะบรรจุอาหารที่ใช้แล้วทิ้ง",
+                desc: "คิดเฉพาะพลาสติก",
                 img: "images/ภาชนะบรรจุอาหารที่ใช้แล้วทิ้ง (คิดเฉพาะพลาสติก).png",
-                carbon: 0.13,
+                carbon: 0.131,
                 isSustain: false,
               },
               {
                 id: "pack_drink",
-                name: "ภาชนะบรรจุเครื่องดื่มที่ใช้แล้วทิ้ง (คิดเฉพาะพลาสติก)",
-                desc: "จำนวนที่ใช้บรรจุภัณฑ์เครื่องดื่มแบบใช้แล้วทิ้ง",
+                name: "ภาชนะบรรจุเครื่องดื่มที่ใช้แล้วทิ้ง",
+                desc: "คิดเฉพาะพลาสติก",
                 img: "images/ภาชนะบรรจุเครื่องดื่มที่ใช้แล้วทิ้ง (คิดเฉพาะพลาสติก).png",
                 carbon: 0.16,
                 isSustain: false,
@@ -803,6 +892,7 @@
         },
         venue: {
           bg: "images/White background.png",
+          name: "Venue & Travel",
           subs: {
             none: [
               {
@@ -810,7 +900,7 @@
                 name: "ไฟฟ้าสำหรับระบบแสงสว่าง",
                 desc: "ค่าจาก 8 ชม./185 ตร.ม.",
                 img: "images/ไฟฟ้าสำหรับระบบแสงสว่าง .png",
-                carbon: 5.55,
+                carbon: 0.003,
                 isSustain: false,
               },
               {
@@ -818,7 +908,7 @@
                 name: "ไฟฟ้าสำหรับเครื่องปรับอากาศ",
                 desc: "ค่าจาก 8 ชม./185 ตร.ม.",
                 img: "images/ไฟฟ้าสำหรับเครื่องปรับอากาศ.png",
-                carbon: 47.72,
+                carbon: 0.0258,
                 isSustain: false,
               },
             ],
@@ -826,6 +916,7 @@
         },
         waste: {
           bg: "images/White background.png",
+          name: "Waste Management",
           subs: {
             แยกขยะตามประเภท: [
               {
@@ -833,7 +924,7 @@
                 name: "กระดาษ",
                 desc: "ปริมาณต่อหนึ่งหน่วย",
                 img: "images/กระดาษ.png",
-                carbon: 0.67,
+                carbon: 2.93,
                 isSustain: true,
               },
               {
@@ -841,7 +932,7 @@
                 name: "พลาสติก",
                 desc: "ปริมาณต่อหนึ่งหน่วย",
                 img: "images/พลาสติก.png",
-                carbon: 0.3,
+                carbon: 2.32,
                 isSustain: true,
               },
               {
@@ -889,14 +980,15 @@
             ],
           },
         },
-        pkg: {
+        pkg_concert: {
           bg: "images/White background.png",
+          name: "Concert Package Items",
           subs: {
-            "คอนเสิร์ต (Concert)": [
+            none: [
               {
                 id: "concert_plastic",
                 name: "ใช้กล่องพลาสติกใส่ข้าว",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
                 img: "images/ใช้กล่องพลาสติกใส่ข้าว.png",
                 carbon: 2.58,
                 isSustain: false,
@@ -904,33 +996,39 @@
               {
                 id: "concert_bio",
                 name: "ใช้กล่องข้าวที่ย่อยสลายได้",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
                 img: "images/ใช้กล่องข้าวที่ย่อยสลายได้.png",
                 carbon: -2.58,
                 isSustain: true,
               },
             ],
-            "นิทรรศการ (Exhibition)": [
+          },
+        },
+        pkg_exhibition: {
+          bg: "images/White background.png",
+          name: "Exhibition Package Items",
+          subs: {
+            none: [
               {
                 id: "ex_decor_1",
-                name: "วัสดุตกแต่งที่ใช้ครั้งเดียว/ 30 ตร.ม.",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                name: "วัสดุตกแต่งที่ใช้ครั้งเดียว",
+                desc: "ต่อ 30 ตร.ม.",
                 img: "images/วัสดุตกแต่งที่ใช้ครั้งเดียว.png",
                 carbon: 913.5,
                 isSustain: false,
               },
               {
                 id: "ex_decor_reuse",
-                name: "วัสดุตกแต่งที่ใช้ซ้ำหลายครั้ง/30 ตร.ม.",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                name: "วัสดุตกแต่งที่ใช้ซ้ำ",
+                desc: "ต่อ 30 ตร.ม.",
                 img: "images/วัสดุตกแต่งที่ใช้ซ้ำหลายครั้ง.png",
                 carbon: -913.5,
                 isSustain: true,
               },
               {
                 id: "ex_doc_1",
-                name: "แจกเอกสารให้ผู้เข้าร่วมงาน (1)",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                name: "แจกเอกสารให้ผู้เข้าร่วมงาน",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
                 img: "images/แจกเอกสารให้ผู้เข้าร่วมงาน (1).png",
                 carbon: 0.009,
                 isSustain: false,
@@ -938,49 +1036,55 @@
               {
                 id: "ex_doc_digital",
                 name: "Digital Catalog แทนกระดาษ",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
                 img: "",
                 carbon: -0.009,
                 isSustain: true,
               },
               {
                 id: "ex_sign_wood",
-                name: "ใช้ไม้อัดทำป้าย /30 ตร.ม.",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                name: "ใช้ไม้อัดทำป้าย",
+                desc: "ต่อ 30 ตร.ม.",
                 img: "images/ใช้ไม้อัดทำป้าย.png",
                 carbon: 60.0,
                 isSustain: false,
               },
               {
                 id: "ex_sign_digital",
-                name: "ใช้ป้ายดิจิทัลหรือนวัตกรรมอื่น ๆ /30 ตร.ม.",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                name: "ใช้ป้ายดิจิทัล",
+                desc: "ต่อ 30 ตร.ม.",
                 img: "images/ใช้ป้ายดิจิทัลหรือนวัตกรรมอื่น ๆ.png",
                 carbon: -60.0,
                 isSustain: true,
               },
             ],
-            "งานประชุม (Meeting)": [
+          },
+        },
+        pkg_meeting: {
+          bg: "images/White background.png",
+          name: "Meeting Package Items",
+          subs: {
+            none: [
               {
                 id: "meet_doc_2",
-                name: "แจกเอกสารให้ผู้เข้าร่วมงาน (2)",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                name: "แจกเอกสารให้ผู้เข้าร่วมงาน",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
                 img: "images/แจกเอกสารให้ผู้เข้าร่วมงาน (2).png",
                 carbon: 0.009,
                 isSustain: false,
               },
               {
                 id: "meet_no_doc",
-                name: "ไม่แจกเอกสารให้ผู้เข้าร่วมงาน",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                name: "ไม่แจกเอกสาร",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
                 img: "images/ไม่แจกเอกสารให้ผู้เข้าร่วมงาน.png",
                 carbon: -0.009,
                 isSustain: true,
               },
               {
                 id: "meet_donate",
-                name: "มีการบริจาคอาหารส่วนเกิน",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                name: "บริจาคอาหารส่วนเกิน",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
                 img: "images/มีการบริจาคอาหารส่วนเกิน.png",
                 carbon: -2.44,
                 isSustain: true,
@@ -988,7 +1092,7 @@
               {
                 id: "meet_straw",
                 name: "ใช้หลอด",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
                 img: "images/ใช้หลอด.png",
                 carbon: 0.001,
                 isSustain: false,
@@ -996,43 +1100,55 @@
               {
                 id: "meet_no_straw",
                 name: "งดใช้หลอด",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
                 img: "images/งดใช้หลอด.png",
                 carbon: 0.0,
                 isSustain: true,
               },
             ],
-            "งานมงคลสมรส (Wedding)": [
+          },
+        },
+        pkg_wedding: {
+          bg: "images/White background.png",
+          name: "Wedding Package Items",
+          subs: {
+            none: [
               {
                 id: "wed_flower",
                 name: "ใช้ดอกไม้สด",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
                 img: "images/ใช้ดอกไม้สด.png",
                 carbon: 0.5,
                 isSustain: false,
               },
               {
                 id: "wed_flower_fake",
-                name: "ใช้ดอกไม้ประดิษฐ์ใช้ได้มากกว่า 5 ครั้ง",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ) Polyester (fossil)",
+                name: "ใช้ดอกไม้ประดิษฐ์",
+                desc: "ใช้ได้มากกว่า 5 ครั้ง",
                 img: "images/ใช้ดอกไม้ประดิษฐ์ใช้ได้มากกว่า 5 ครั้ง.png",
                 carbon: 0.62,
                 isSustain: true,
               },
             ],
-            "งานเลี้ยงสังสรรค์ (Party)": [
+          },
+        },
+        pkg_party: {
+          bg: "images/White background.png",
+          name: "Party Package Items",
+          subs: {
+            none: [
               {
                 id: "party_flower",
                 name: "ใช้ดอกไม้สด",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ)",
+                desc: "ปริมาณต่อหนึ่งหน่วย",
                 img: "images/ใช้ดอกไม้สด.png",
                 carbon: 0.5,
                 isSustain: false,
               },
               {
                 id: "party_flower_fake",
-                name: "ใช้ดอกไม้ประดิษฐ์ใช้ได้มากกว่า 5 ครั้ง",
-                desc: "ปริมาณต่อหนึ่งหน่วย (ค่าสำเร็จ) Polyester (fossil)",
+                name: "ใช้ดอกไม้ประดิษฐ์",
+                desc: "ใช้ได้มากกว่า 5 ครั้ง",
                 img: "images/ใช้ดอกไม้ประดิษฐ์ใช้ได้มากกว่า 5 ครั้ง.png",
                 carbon: 0.62,
                 isSustain: true,
@@ -1043,30 +1159,62 @@
       };
 
       let selections = {};
+      let currentPackageId = "pkg_concert";
+      let currentDetailCat = null;
 
       function initApp() {
-        const mainId = document.getElementById("main-select").value;
-        const subTabs = document.getElementById("sub-tabs");
-        const data = database[mainId];
+        currentPackageId = document.getElementById("package-select").value;
+        updateActiveStates();
+
+        if (currentDetailCat) {
+          showDetailView(currentDetailCat);
+        } else {
+          selectDetailCat("package");
+        }
+      }
+
+      function updateActiveStates() {
+        const cardPack = document.getElementById("card-cat-package");
+        const cardFb = document.getElementById("card-cat-fb");
+        const cardVenue = document.getElementById("card-cat-venue");
+        const cardWaste = document.getElementById("card-cat-waste");
+
+        cardPack.classList.toggle("active-cat", currentDetailCat === "package");
+        cardFb.classList.toggle("active-cat", currentDetailCat === "fb");
+        cardVenue.classList.toggle("active-cat", currentDetailCat === "venue");
+        cardWaste.classList.toggle("active-cat", currentDetailCat === "waste");
+      }
+
+      function selectDetailCat(catValue) {
+        currentDetailCat = catValue;
+        updateActiveStates();
+        showDetailView(catValue);
+      }
+
+      function changePackage() {
+        currentPackageId = document.getElementById("package-select").value;
+        selectDetailCat("package");
+      }
+
+      function showDetailView(catValue) {
+        document.getElementById("detail-view-container").style.display =
+          "block";
+
+        const dataIdToLoad =
+          catValue === "package" ? currentPackageId : catValue;
+        const data = database[dataIdToLoad];
+
         document.getElementById("category-bg").src = data.bg;
 
+        const detailHeader = document.getElementById("detail-header");
+        detailHeader.innerHTML = `<span class="step-title" style="font-size: 16px; margin-bottom: -10px;">${data.name}</span>`;
+
+        const subTabs = document.getElementById("sub-tabs");
         subTabs.innerHTML = "";
         const subNames = Object.keys(data.subs);
 
-        const sidebarHeader = document.querySelector(".sidebar-header");
-        const customSelect = document.querySelector(".custom-select");
-
-        if (mainId === "fb" || mainId === "venue") {
-          subTabs.style.display = "none";
-          sidebarHeader.style.paddingBottom = "0px";
-          customSelect.style.marginBottom = "22px";
-
-          renderItems(mainId, "none");
-        } else {
+        if (subNames[0] !== "none") {
           subTabs.style.display = "flex";
-          sidebarHeader.style.paddingBottom = "0px";
-          customSelect.style.marginBottom = "32px";
-
           subNames.forEach((name, index) => {
             const tab = document.createElement("div");
             tab.className = `tab-pill ${index === 0 ? "active" : ""}`;
@@ -1076,12 +1224,14 @@
                 .querySelectorAll(".tab-pill")
                 .forEach((t) => t.classList.remove("active"));
               tab.classList.add("active");
-              renderItems(mainId, name);
+              renderItems(dataIdToLoad, name);
             };
             subTabs.appendChild(tab);
-
-            if (index === 0) renderItems(mainId, name);
+            if (index === 0) renderItems(dataIdToLoad, name);
           });
+        } else {
+          subTabs.style.display = "none";
+          renderItems(dataIdToLoad, "none");
         }
       }
 
@@ -1090,46 +1240,39 @@
         const items = database[mainId].subs[subName];
         container.innerHTML = "";
 
-        if (!items || items.length === 0) {
-          container.innerHTML =
-            "<p style='text-align:center; color:#999; margin-top:30px;'>กำลังปรับปรุงข้อมูล...</p>";
-          return;
-        }
+        if (!items || items.length === 0) return;
 
         items.forEach((item) => {
           const state = selections[item.id] || { active: false, qty: 1 };
           const lineTotalValue = item.carbon * state.qty;
-          let lineTotalDisplay = lineTotalValue.toFixed(2);
+          let lineTotalDisplay = lineTotalValue.toFixed(4);
 
-          if (state.active && lineTotalValue > 0) {
-            lineTotalDisplay = "+" + lineTotalDisplay;
-          }
-
-          const textClass = item.isSustain
-            ? "var(--sustain-green)"
-            : "var(--danger-red)";
-          const descHtml = item.desc
-            ? `<span class="item-desc">${item.desc}</span>`
-            : "";
+          const totalClass =
+            state.active && lineTotalValue !== 0 ? "has-value" : "";
+          const carbonBadgeText =
+            item.carbon > 0
+              ? "+" + item.carbon.toFixed(4)
+              : item.carbon.toFixed(4);
 
           container.innerHTML += `
             <div class="item-card ${state.active ? "active" : ""}">
-              <div class="card-top">
-                <div class="item-info">
+              <div class="card-row-top">
+                <div class="card-left-group">
                   <input type="checkbox" class="item-checkbox" ${state.active ? "checked" : ""} onchange="toggleItem('${item.id}', '${mainId}', '${subName}')">
-                  <div style="display: flex; flex-direction: column;">
+                  <div class="text-group">
                      <span class="item-name">${item.name}</span>
-                     ${descHtml}
+                     ${item.desc ? `<span class="item-desc">${item.desc}</span>` : ""}
                   </div>
                 </div>
-                <span class="unit-carbon">${item.carbon > 0 ? "+" + item.carbon.toFixed(2) : item.carbon.toFixed(2)} kg</span>
+                <span class="unit-carbon">${carbonBadgeText} kgCO₂eq</span>
               </div>
-              <div class="card-bottom">
+              
+              <div class="card-row-bottom">
                 <div class="qty-group">
-                  <label style="font-size:12px; font-weight:600; color:#666;">จำนวน:</label>
+                  <span class="qty-label">จำนวน:</span>
                   <input type="number" class="qty-field" value="${state.qty}" min="1" onchange="updateQty('${item.id}', this.value, '${mainId}', '${subName}')">
                 </div>
-                <div class="line-total" style="color: ${state.active ? textClass : "#ddd"}">
+                <div class="line-total ${totalClass}">
                   ${state.active ? lineTotalDisplay : "0.00"}
                 </div>
               </div>
@@ -1137,7 +1280,7 @@
           `;
         });
 
-        updateLayeredPreview(mainId, subName);
+        updateLayeredPreview();
         calcTotal();
       }
 
@@ -1156,45 +1299,65 @@
 
       function clearSelections() {
         selections = {};
-        const mainId = document.getElementById("main-select").value;
-        if (mainId === "fb" || mainId === "venue") {
-          renderItems(mainId, "none");
-        } else {
-          const activeTab = document.querySelector(".tab-pill.active");
-          const subName = activeTab
-            ? activeTab.innerText
-            : Object.keys(database[mainId].subs)[0];
-          renderItems(mainId, subName);
-        }
+        selectDetailCat("package");
       }
 
-      function updateLayeredPreview(mainId, subName) {
+      // --- ฟังก์ชันภาพพรีวิว: โชว์รูปเฉพาะของหมวดหมู่ที่กำลังเปิดอยู่เท่านั้น ---
+      function updateLayeredPreview() {
         const container = document.getElementById("layer-container");
         container.innerHTML = "";
-
         let showWasteGroupImage = false;
 
-        if (database[mainId].subs[subName]) {
-          database[mainId].subs[subName].forEach((item) => {
-            if (selections[item.id] && selections[item.id].active) {
-              if (mainId === "waste" && subName === "แยกขยะตามประเภท") {
-                showWasteGroupImage = true;
-              }
+        // ดึง Category ID ที่กำลังเปิดอยู่ ณ ตอนนี้
+        const activeCatId =
+          currentDetailCat === "package" ? currentPackageId : currentDetailCat;
 
-              if (item.img && item.img.trim() !== "") {
-                const img = document.createElement("img");
-                img.src = item.img;
-                img.className = "preview-layer";
-                img.onerror = function () {
-                  this.style.display = "none";
-                };
-                container.appendChild(img);
+        // วนลูปเฉพาะ Item ที่ถูกเลือก
+        for (const itemId in selections) {
+          const selState = selections[itemId];
+          if (!selState.active) continue;
+
+          let foundItem = null;
+          let foundInCatId = null;
+
+          // หาว่า Item นี้อยู่ในหมวดหมู่ไหน
+          for (const catKey in database) {
+            const catData = database[catKey];
+            for (const subKey in catData.subs) {
+              const itemList = catData.subs[subKey];
+              const itemInList = itemList.find((i) => i.id === itemId);
+              if (itemInList) {
+                foundItem = itemInList;
+                foundInCatId = catKey;
+                // เช็คเฉพาะเรื่องรวมรูป Waste
+                if (catKey === "waste" && subKey === "แยกขยะตามประเภท") {
+                  showWasteGroupImage = true;
+                }
+                break;
               }
             }
-          });
+            if (foundItem) break;
+          }
+
+          // แสดงรูปเฉพาะเมื่อ Item นั้นอยู่ในหมวดหมู่เดียวกับที่กำลังเปิดดูอยู่
+          if (
+            foundItem &&
+            foundInCatId === activeCatId &&
+            foundItem.img &&
+            foundItem.img.trim() !== ""
+          ) {
+            const img = document.createElement("img");
+            img.src = foundItem.img;
+            img.className = "preview-layer";
+            img.onerror = function () {
+              this.style.display = "none";
+            };
+            container.appendChild(img);
+          }
         }
 
-        if (showWasteGroupImage) {
+        // โชว์รูปรวมถังขยะ กรณีที่กำลังเปิดหน้า Waste อยู่เท่านั้น
+        if (showWasteGroupImage && activeCatId === "waste") {
           const groupImg = document.createElement("img");
           groupImg.src = "images/แยกขยะตามประเภท.png";
           groupImg.className = "preview-layer";
@@ -1205,114 +1368,158 @@
         }
       }
 
-      function calcTotal() {
-        let total = 0;
-        for (let mId in database) {
-          Object.values(database[mId].subs).forEach((subList) => {
-            subList.forEach((item) => {
-              if (selections[item.id] && selections[item.id].active) {
-                total += item.carbon * selections[item.id].qty;
+      // --- ฟังก์ชันคำนวณและอัปเดตยอดรวมรายหมวดหมู่ให้แสดงที่ป้าย Badge ---
+      function updateCategorySummaries() {
+        let pkgTotal = 0;
+        let fbTotal = 0;
+        let venueTotal = 0;
+        let wasteTotal = 0;
+
+        for (const itemId in selections) {
+          const selState = selections[itemId];
+          if (!selState.active) continue;
+
+          for (const catKey in database) {
+            let itemFound = false;
+            for (const subKey in database[catKey].subs) {
+              const item = database[catKey].subs[subKey].find(
+                (i) => i.id === itemId,
+              );
+              if (item) {
+                const lineTotal = item.carbon * selState.qty;
+                if (catKey.startsWith("pkg_")) pkgTotal += lineTotal;
+                else if (catKey === "fb") fbTotal += lineTotal;
+                else if (catKey === "venue") venueTotal += lineTotal;
+                else if (catKey === "waste") wasteTotal += lineTotal;
+                itemFound = true;
+                break;
               }
-            });
-          });
+            }
+            if (itemFound) break;
+          }
         }
-        document.getElementById("grand-total").innerText =
-          total.toFixed(2) + " kgCO₂e";
+
+        const setBadge = (id, total) => {
+          const el = document.getElementById(id);
+          if (total !== 0) {
+            const sign = total > 0 ? "+" : "";
+            el.innerText = `${sign}${total.toFixed(4)} kgCO₂eq`;
+            el.classList.add("has-value");
+          } else {
+            el.classList.remove("has-value");
+          }
+        };
+
+        setBadge("summary-package", pkgTotal);
+        setBadge("summary-fb", fbTotal);
+        setBadge("summary-venue", venueTotal);
+        setBadge("summary-waste", wasteTotal);
       }
 
-      // -------------------------------------------------------------------
-      // ส่วนของสคริปต์ที่เพิ่มเข้ามาใหม่เพื่อจัดการระบบ History (ประวัติการสร้าง)
-      // -------------------------------------------------------------------
+      function calcTotal() {
+        let total = 0;
+        for (const itemId in selections) {
+          const selState = selections[itemId];
+          if (!selState.active) continue;
 
+          let factor = 0;
+          for (const catKey in database) {
+            const catData = database[catKey];
+            for (const subKey in catData.subs) {
+              const itemList = catData.subs[subKey];
+              const itemInList = itemList.find((i) => i.id === itemId);
+              if (itemInList) {
+                factor = itemInList.carbon;
+                break;
+              }
+            }
+            if (factor !== 0) break;
+          }
+          total += factor * selState.qty;
+        }
+
+        document.getElementById("grand-total").innerText =
+          total.toFixed(2) + " kgCO₂e";
+
+        // เรียกอัปเดตยอดแยกหมวดหมู่
+        updateCategorySummaries();
+      }
+
+      // --- HISTORY & SAVE ---
       let savedHistory =
         JSON.parse(localStorage.getItem("impact_history_db")) || [];
-      let currentEditingId = null; // ตัวแปรเก็บสถานะว่ากำลังแก้ไขรายการไหนอยู่
-      let pendingDeleteId = null; // ตัวแปรเก็บรหัสรายการที่กำลังจะโดนลบ
+      let currentEditingId = null;
+      let pendingDeleteId = null;
 
-      // เปิด/ปิด แถบประวัติ
       function toggleHistorySidebar() {
         const sidebar = document.getElementById("history-sidebar");
         sidebar.classList.toggle("open");
-        if (sidebar.classList.contains("open")) {
-          renderHistoryList();
-        }
+        if (sidebar.classList.contains("open")) renderHistoryList();
       }
 
-      // วาดรายการประวัติลงบน Sidebar
       function renderHistoryList() {
         const list = document.getElementById("history-list");
         list.innerHTML = "";
-
         if (savedHistory.length === 0) {
-          list.innerHTML = `
-            <div style="text-align: center; color: #94a3b8; margin-top: 40px;">
-              <i class="fas fa-folder-open" style="font-size: 40px; margin-bottom: 15px; opacity: 0.5;"></i>
-              <p>ยังไม่มีประวัติการบันทึกข้อมูล</p>
-            </div>
-          `;
+          list.innerHTML = `<div style="text-align: center; color: #94a3b8; margin-top: 40px;"><i class="fas fa-folder-open" style="font-size: 40px; margin-bottom: 15px; opacity: 0.5;"></i><p>ยังไม่มีประวัติการบันทึกข้อมูล</p></div>`;
           return;
         }
-
         savedHistory.forEach((item) => {
           list.innerHTML += `
             <div class="history-item">
-              <div class="history-item-header">
-                <h4>${item.bookingId}</h4>
-                <span class="badge-carbon">${item.carbon} kgCO₂e</span>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 10px;">
+                <h4 style="font-size: 14px; color: var(--impact-blue); font-weight: 700;">${item.bookingId}</h4>
+                <span style="background: #e0e7ff; color: #3730a3; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;">${item.carbon} kgCO₂e</span>
               </div>
-              <p><i class="fas fa-user"></i> ${item.name}</p>
-              <p><i class="fas fa-envelope"></i> ${item.email}</p>
-              <div class="history-actions">
-                <button class="btn-h-edit" onclick="loadHistoryToEdit('${item.id}')"><i class="fas fa-edit"></i> แก้ไข</button>
-                <button class="btn-h-del" onclick="openDeleteConfirm('${item.id}')"><i class="fas fa-trash-alt"></i> ลบ</button>
+              <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-user"></i> ${item.name}</p>
+              <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-envelope"></i> ${item.email}</p>
+              <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button onclick="loadHistoryToEdit('${item.id}')" style="flex: 1; padding: 8px; background: #f1f5f9; color: var(--impact-blue); border: none; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;"><i class="fas fa-edit"></i> แก้ไข</button>
+                <button onclick="openDeleteConfirm('${item.id}')" style="flex: 1; padding: 8px; background: #fff; color: var(--danger-red); border: 1px solid #fecaca; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;"><i class="fas fa-trash-alt"></i> ลบ</button>
               </div>
             </div>
           `;
         });
       }
 
-      // ฟังก์ชันเมื่อกดแก้ไขรายการจากประวัติ
       function loadHistoryToEdit(id) {
         const item = savedHistory.find((i) => i.id === id);
         if (item) {
           currentEditingId = id;
-
-          // เปลี่ยนชื่อปุ่มบันทึกเป็น อัพเดต
           document.getElementById("main-save-btn").innerHTML =
             '<i class="fas fa-edit"></i> <span>อัพเดต</span>';
           document.getElementById("modal-action-title").innerText =
             "อัพเดตข้อมูล";
-
-          // โหลดข้อมูลเก่าลงฟอร์ม
           document.getElementById("booking-id").value = item.bookingId;
           document.getElementById("cust-name").value = item.name;
           document.getElementById("cust-phone").value = item.phone;
           document.getElementById("cust-email").value = item.email;
 
-          // โหลดค่า Selections เก่ากลับมา
           selections = JSON.parse(JSON.stringify(item.selections || {}));
 
-          // รีเฟรชหน้าจอการคำนวณใหม่
-          initApp();
+          for (const pkgId in database) {
+            if (!pkgId.startsWith("pkg_")) continue;
+            const pkgItems = database[pkgId].subs.none;
+            if (pkgItems && pkgItems.some((item) => selections[item.id])) {
+              document.getElementById("package-select").value = pkgId;
+              break;
+            }
+          }
 
-          // ปิดหน้าต่าง Sidebar
+          selectDetailCat("package");
           toggleHistorySidebar();
         }
       }
 
-      // ฟังก์ชันเปิดป๊อปอัพยืนยันการลบ
       function openDeleteConfirm(id) {
         pendingDeleteId = id;
         document.getElementById("deleteConfirmModal").style.display = "flex";
       }
-
-      // ฟังก์ชันปิดป๊อปอัพยืนยันการลบ
       function closeDeleteConfirm() {
         pendingDeleteId = null;
         document.getElementById("deleteConfirmModal").style.display = "none";
       }
 
-      // ฟังก์ชันยืนยันการลบจริงๆ
       function executeDelete() {
         if (pendingDeleteId) {
           savedHistory = savedHistory.filter((i) => i.id !== pendingDeleteId);
@@ -1320,11 +1527,7 @@
             "impact_history_db",
             JSON.stringify(savedHistory),
           );
-
-          // วาดรายการใหม่
           renderHistoryList();
-
-          // ถ้าบังเอิญลบตัวที่กำลังแก้ไขอยู่ ให้ล้างสถานะการแก้ไขทิ้งด้วย
           if (currentEditingId === pendingDeleteId) {
             currentEditingId = null;
             document.getElementById("main-save-btn").innerHTML =
@@ -1333,31 +1536,25 @@
               "บันทึกข้อมูล";
             clearSelections();
           }
-
           closeDeleteConfirm();
         }
       }
 
-      // เปิดหน้าต่างบันทึกข้อมูล (ปรับแต่งไม่ให้สร้าง Booking ID ใหม่ถ้ากำลังแก้ไขอยู่)
       function openSaveModal() {
         if (!currentEditingId) {
-          const date = new Date();
           const dateStr =
-            String(date.getDate()).padStart(2, "0") +
-            String(date.getMonth() + 1).padStart(2, "0") +
-            String(date.getFullYear()).substring(2);
-          const randomNum = Math.floor(1000 + Math.random() * 9000);
+            String(new Date().getDate()).padStart(2, "0") +
+            String(new Date().getMonth() + 1).padStart(2, "0") +
+            String(new Date().getFullYear()).substring(2);
           document.getElementById("booking-id").value =
-            `BK-${dateStr}-${randomNum}`;
+            `BK-${dateStr}-${Math.floor(1000 + Math.random() * 9000)}`;
         }
         document.getElementById("saveModal").style.display = "flex";
       }
-
       function closeSaveModal() {
         document.getElementById("saveModal").style.display = "none";
       }
 
-      // --- ฟังก์ชันส่งข้อมูลไปยัง Google Apps Script ---
       function confirmSave() {
         const bookingId = document.getElementById("booking-id").value;
         const name = document.getElementById("cust-name").value;
@@ -1373,116 +1570,80 @@
         }
 
         const btn = document.getElementById("btn-confirm-save");
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังบันทึก...';
+        btn.innerHTML = "กำลังบันทึก...";
         btn.disabled = true;
 
-        // ดึงชื่อหมวดหมู่และหมวดหมู่ย่อยปัจจุบัน
-        const mainSelectElement = document.getElementById("main-select");
-        let eventName =
-          mainSelectElement.options[mainSelectElement.selectedIndex].text;
+        const selectEl = document.getElementById("package-select");
+        let eventName = selectEl.options[selectEl.selectedIndex].text;
 
-        const activeTab = document.querySelector(".tab-pill.active");
-        if (activeTab && activeTab.innerText !== "none") {
-          eventName += " - " + activeTab.innerText;
-        }
-
-        // รวบรวมรายการที่ถูกเลือก
-        let selectedItemsText = "";
         let itemArray = [];
-
-        for (let mId in database) {
-          Object.values(database[mId].subs).forEach((subList) => {
-            subList.forEach((item) => {
-              if (selections[item.id] && selections[item.id].active) {
-                itemArray.push(`${item.name} (x${selections[item.id].qty})`);
+        for (const itemId in selections) {
+          if (!selections[itemId].active) continue;
+          let itemName = itemId;
+          for (const catKey in database) {
+            for (const subKey in database[catKey].subs) {
+              const itemInList = database[catKey].subs[subKey].find(
+                (i) => i.id === itemId,
+              );
+              if (itemInList) {
+                itemName = itemInList.name;
+                break;
               }
-            });
-          });
+            }
+          }
+          itemArray.push(`${itemName} (x${selections[itemId].qty})`);
         }
-        selectedItemsText = itemArray.join(", ");
 
-        // ========================================================
-        // 🚨 ตัวสลับโหมดลิงก์อัตโนมัติ (Test / Production)
-        // ========================================================
-        // ระบบจะเช็คว่าเราเปิดจาก 127.0.0.1 หรือ localhost หรือไม่
         const isTestMode =
           window.location.hostname === "127.0.0.1" ||
           window.location.hostname === "localhost";
-
-        const testUrl =
-          "https://script.google.com/macros/s/AKfycbxCoXXNatFynIbTz_Gq1LZ8PwQNPAqZCQhUJGS4UI0IiUnrdEb1URgEKDR-GF3AzThdhA/exec";
-        const realUrl =
-          "https://script.google.com/macros/s/AKfycbxJxEIfhczOCuD_2gPz0Mb3v6aX66NUcZVKYNE_42qK0qGLRzOPnU8gEgfDWSqG9gcQQw/exec";
-
-        const scriptUrl = isTestMode ? testUrl : realUrl;
-        // ========================================================
-
-        // ถ้าเป็นการแก้ไข ให้ส่งสถานะว่าอัพเดต
+        const scriptUrl = isTestMode
+          ? "https://script.google.com/macros/s/AKfycbxCoXXNatFynIbTz_Gq1LZ8PwQNPAqZCQhUJGS4UI0IiUnrdEb1URgEKDR-GF3AzThdhA/exec"
+          : "https://script.google.com/macros/s/AKfycbxJxEIfhczOCuD_2gPz0Mb3v6aX66NUcZVKYNE_42qK0qGLRzOPnU8gEgfDWSqG9gcQQw/exec";
         const statusType = currentEditingId ? "อัพเดตข้อมูล" : "รายการใหม่";
-        const targetUrl = `${scriptUrl}?bookingID=${encodeURIComponent(bookingId)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&eventName=${encodeURIComponent(eventName)}&totalCarbon=${encodeURIComponent(totalCarbon)}&status=${encodeURIComponent(statusType)}&selectedItems=${encodeURIComponent(selectedItemsText)}`;
+        const url = `${scriptUrl}?bookingID=${encodeURIComponent(bookingId)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&eventName=${encodeURIComponent(eventName)}&totalCarbon=${encodeURIComponent(totalCarbon)}&status=${encodeURIComponent(statusType)}&selectedItems=${encodeURIComponent(itemArray.join(", "))}`;
 
-        fetch(targetUrl, { method: "POST" })
-          .then((response) => response.text())
-          .then((result) => {
-            alert(
-              (currentEditingId ? "อัพเดตข้อมูล" : "บันทึกข้อมูล") +
-                "เข้า Google Sheets เรียบร้อยแล้ว!\nBooking ID: " +
-                bookingId,
-            );
-
-            // ----------------------------------------------------
-            // บันทึกลง Local Storage เพื่อให้ขึ้นใน Sidebar
-            // ----------------------------------------------------
+        fetch(url, { method: "POST" })
+          .then((res) => res.text())
+          .then(() => {
+            alert(`${statusType}เรียบร้อยแล้ว!\nBooking ID: ${bookingId}`);
             if (currentEditingId) {
-              // กรณีแก้ไข อัพเดตข้อมูลเดิม
-              const index = savedHistory.findIndex(
+              const idx = savedHistory.findIndex(
                 (i) => i.id === currentEditingId,
               );
-              if (index > -1) {
-                savedHistory[index] = {
-                  ...savedHistory[index],
+              if (idx > -1)
+                savedHistory[idx] = {
+                  ...savedHistory[idx],
                   name,
                   phone,
                   email,
                   carbon: totalCarbon,
                   selections: JSON.parse(JSON.stringify(selections)),
                 };
-              }
-              currentEditingId = null; // คืนค่าสถานะ
+              currentEditingId = null;
               document.getElementById("main-save-btn").innerHTML =
                 '<i class="fas fa-save"></i> <span>บันทึก</span>';
-              document.getElementById("modal-action-title").innerText =
-                "บันทึกข้อมูล";
             } else {
-              // กรณีสร้างใหม่
-              const newItem = {
+              savedHistory.unshift({
                 id: Date.now().toString(),
-                bookingId: bookingId,
-                name: name,
-                phone: phone,
-                email: email,
+                bookingId,
+                name,
+                phone,
+                email,
                 carbon: totalCarbon,
-                selections: JSON.parse(JSON.stringify(selections)), // เก็บตัวเลือกที่กดติ๊กไว้ด้วย
-              };
-              savedHistory.unshift(newItem); // แทรกไปไว้บนสุด
+                selections: JSON.parse(JSON.stringify(selections)),
+              });
             }
             localStorage.setItem(
               "impact_history_db",
               JSON.stringify(savedHistory),
             );
-            // ----------------------------------------------------
-
             closeSaveModal();
-
-            // ล้างช่องกรอก
             document.getElementById("cust-name").value = "";
             document.getElementById("cust-phone").value = "";
             document.getElementById("cust-email").value = "";
           })
-          .catch((error) => {
-            console.error("Error:", error);
-            alert("เกิดข้อผิดพลาดในการบันทึก กรุณาลองใหม่อีกครั้ง");
-          })
+          .catch(() => alert("เกิดข้อผิดพลาดในการบันทึก"))
           .finally(() => {
             btn.innerHTML = "ยืนยัน";
             btn.disabled = false;

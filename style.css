@@ -1,53 +1,46 @@
-/* นำเข้าฟอนต์ Noto Sans Thai */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap");
+/* นำเข้าฟอนต์ Sarabun + Inter */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700;800&display=swap");
 
-/* กำหนดตัวแปรสีให้ตรงกับ design.html */
-:root {
-  --impact-blue: #0058a3;
+/* 🔥 ตัวล็อคหน้ากระตุก/เมนูขยับ (ย้ายมาไว้บนสุดเพื่อให้ครอบคลุมทั้งเว็บ) */
+html {
+  overflow-y: scroll; /* บังคับให้มีร่อง Scrollbar */
+  scrollbar-gutter: stable; /* กันพื้นที่สำหรับ Scrollbar ไว้เสมอ */
 }
 
-/* รีเซ็ตค่าพื้นฐาน */
+/* ตัวแปรสี */
+:root {
+  --impact-blue: #2354a2;
+}
+
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Noto Sans Thai", "Segoe UI", Tahoma, sans-serif;
+  font-family: "Sarabun", "Inter", sans-serif;
 }
 
 body {
-  background-color: #f4f6f9;
+  background-color: #f8f9fa;
   color: #333;
 }
-/* --- CSS สำหรับ Navigation Bar (ใช้ร่วมกันทุกหน้า) --- */
-:root {
-  --impact-blue: #2354a2; /* สีน้ำเงินตอน Active */
-}
 
-/* รีเซ็ตค่าพื้นฐานให้ตรงกันทุกหน้า เพื่อไม่ให้เลย์เอาต์กระโดด */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Noto Sans Thai", sans-serif;
-}
-
+/* =========================
+   ✅ NAVBAR (เหมือน index เป๊ะ)
+========================= */
 .navbar {
-  height: 80px; /* ล็อกความสูงให้เป๊ะทุกหน้า */
-  width: 100%;
-  background: #ffffff;
-  padding: 0 40px;
+  width: 100%; /* 🔥 บังคับให้ Navbar กว้าง 100% เสมอ ไม่หดตัว */
+  height: 80px;
+  background: #fff;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  padding: 0 40px;
   border-bottom: 1px solid #e2e8f0;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+
+  z-index: 100;
 }
 
 .nav-left {
@@ -57,15 +50,12 @@ body {
 
 .nav-left img {
   height: 35px;
-  width: auto;
-  object-fit: contain;
-  display: block; /* ป้องกันขอบล่างรูปเกิดช่องว่างเกินมา */
+  display: block;
 }
 
 .nav-menu {
   display: flex;
-  gap: 30px;
-  align-items: center;
+  gap: 30px; /* ❗ต้อง 30 เท่านั้น */
 }
 
 .nav-link {
@@ -73,69 +63,32 @@ body {
   text-decoration: none;
   font-size: 16px;
   font-weight: 600;
+
   display: flex;
   align-items: center;
   gap: 8px;
+
+  letter-spacing: normal; /* ❗ห้ามมี spacing เพิ่ม */
 }
 
-/* ไม่มีเอฟเฟกต์ Transition ตามที่สั่ง เปลี่ยนแค่สีตรงๆ */
 .nav-link:hover,
 .nav-link.active {
   color: var(--impact-blue);
 }
 
-/* -------------------------------------
-   Index Page: Main Content Styles
-------------------------------------- */
-.hero-section {
-  background-color: #ffffff;
-  padding: 80px 40px;
-  text-align: center;
-  margin-bottom: 40px;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.hero-section h1 {
-  font-size: 32px;
-  margin-bottom: 15px;
-  color: var(--impact-blue);
-}
-
-.content-section {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  padding: 0 40px 60px 40px;
-}
-
-.info-card {
-  background-color: #ffffff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  flex: 1;
-  max-width: 450px;
-}
-
-.info-card h2 {
-  font-size: 20px;
-  margin-bottom: 15px;
-  color: #e88c43;
-}
-
-/* -------------------------------------
-   Calculator Page: Layout หลัก
-------------------------------------- */
+/* =========================
+   CONTENT (เก็บไว้เหมือนเดิม 100%)
+========================= */
 .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 60px 80px;
   max-width: 1400px;
   margin: 0 auto;
+
   gap: 40px;
-  background-color: #f9fbfa;
-  min-height: calc(100vh - 72px); /* หักลบความสูงของ navbar ใหม่ */
 }
 
 .content-left {
@@ -149,7 +102,7 @@ body {
   justify-content: flex-end;
 }
 
-/* ป้าย Eco Badge */
+/* Badge */
 .eco-badge {
   display: inline-block;
   background-color: #e5f5e9;
@@ -161,12 +114,9 @@ body {
   margin-bottom: 25px;
 }
 
-.eco-badge i {
-  margin-right: 5px;
-}
-
-/* ข้อความ Heading */
+/* Heading */
 .content-left h1 {
+  font-family: "Inter", "Sarabun", sans-serif;
   font-size: 48px;
   font-weight: 700;
   color: #1a1a1a;
@@ -179,7 +129,7 @@ body {
   font-size: 36px;
 }
 
-/* ข้อความรายละเอียด */
+/* Description */
 .description {
   font-size: 16px;
   color: #555;
@@ -187,7 +137,7 @@ body {
   margin-bottom: 40px;
 }
 
-/* กลุ่มปุ่มกด */
+/* Buttons */
 .button-group {
   display: flex;
   gap: 15px;
@@ -197,43 +147,33 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   padding: 12px 24px;
   border-radius: 30px;
+
   font-size: 16px;
   font-weight: 600;
+
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.3s ease;
   gap: 8px;
 }
 
 .btn-primary {
   background-color: #28a745;
-  color: #ffffff;
+  color: #fff;
   border: none;
-  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
-}
-
-.btn-primary:hover {
-  background-color: #218838;
 }
 
 .btn-outline {
   background-color: transparent;
-  color: #333;
   border: 1px solid #ccc;
 }
 
-.btn-outline:hover {
-  border-color: #888;
-  background-color: #f0f0f0;
-}
-
-/* รูปภาพฝั่งขวา */
+/* Image */
 .hero-image {
   width: 100%;
   max-width: 650px;
   border-radius: 16px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
   object-fit: cover;
 }
