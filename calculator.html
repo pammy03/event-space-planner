@@ -26,14 +26,47 @@
         background-color: #f8f9fa;
       }
 
+      /* ปรับลด padding ด้านบนลงเหลือ 2rem เพื่อให้ขยับขึ้นไปอีก */
       main {
         flex: 1;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 2rem 2rem 2rem 2rem; /* บน 2rem, ขวา 2rem, ล่าง 2rem, ซ้าย 2rem */
+      }
+
+      /* จัดรูปแบบ container ให้อยู่กึ่งกลาง */
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        max-width: 1400px;
+        width: 100%;
+        gap: 4rem;
+        margin: 0 auto;
+      }
+
+      .content-left {
+        flex: 1;
+        min-width: 400px;
+      }
+
+      .content-right {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        min-width: 400px;
+      }
+
+      .hero-image {
+        max-width: 100%;
+        height: auto;
       }
     </style>
   </head>
 
   <body>
-    <!-- NAVBAR -->
     <header class="navbar">
       <div class="nav-left">
         <img src="images/logo-impact.svg" alt="IMPACT" />
@@ -67,7 +100,6 @@
       </div>
     </header>
 
-    <!-- CONTENT -->
     <main>
       <div class="container">
         <div class="content-left">
@@ -90,15 +122,11 @@
             <a href="design.html" class="btn btn-primary">
               <i class="fa-solid fa-calculator"></i> เริ่มต้นคำนวณ
             </a>
-
-            <button class="btn btn-outline">
-              <i class="fa-regular fa-folder-open"></i> ประวัติการคำนวณ
-            </button>
           </div>
         </div>
 
         <div class="content-right">
-          <img src="images/home-new-bg.jpg" class="hero-image" />
+          <img src="images/calculator.png" class="hero-image" />
         </div>
       </div>
     </main>

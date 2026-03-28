@@ -170,6 +170,19 @@
         color: var(--text-muted);
         font-weight: 600;
       }
+
+      /* --- เพิ่ม CSS สำหรับ error --- */
+      .form-group input.input-error {
+        border-color: var(--danger-red);
+        background-color: #fef2f2;
+      }
+      .error-msg {
+        color: var(--danger-red);
+        font-size: 12px;
+        margin-top: 4px;
+        display: none; /* ซ่อนไว้ก่อน */
+      }
+
       .modal-actions {
         display: flex;
         gap: 10px;
@@ -389,7 +402,7 @@
       }
       .qty-field {
         font-family: "Inter", sans-serif;
-        width: 80px; /* ขยายช่องนิดนึงเพื่อรองรับ 4 ตำแหน่งถ้าจำเป็น */
+        width: 80px;
         padding: 6px;
         border: 1px solid var(--border-color);
         border-radius: 8px;
@@ -459,7 +472,7 @@
         border-radius: 20px;
         font-weight: 700;
         white-space: nowrap;
-        display: none; /* ซ่อนไว้เป็นค่าเริ่มต้น */
+        display: none;
       }
       .cat-summary-badge.has-value {
         display: inline-block;
@@ -588,6 +601,56 @@
         padding: 16px;
         margin-bottom: 12px;
       }
+
+      /* --- สไตล์สำหรับกล่องสรุปรายการก่อนบันทึก --- */
+      .summary-box {
+        background: #f8fafc;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 12px;
+        margin-top: 20px;
+        max-height: 150px;
+        overflow-y: auto;
+      }
+      .summary-box-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+        border-bottom: 1px dashed var(--border-color);
+      }
+      .summary-item-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+        font-size: 13px;
+      }
+      .summary-item-name {
+        color: var(--text-dark);
+        flex: 1;
+        padding-right: 10px;
+      }
+      .summary-item-qty {
+        color: var(--text-muted);
+        font-weight: 600;
+        width: 40px;
+        text-align: right;
+      }
+      .summary-item-carbon {
+        color: var(--impact-blue);
+        font-weight: 700;
+        width: 80px;
+        text-align: right;
+        font-family: "Inter", sans-serif;
+      }
+      .summary-empty {
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 13px;
+        padding: 10px 0;
+      }
     </style>
   </head>
   <body>
@@ -647,12 +710,12 @@
           style="font-size: 40px; color: var(--danger-red); margin-bottom: 15px"
         ></i>
         <h3 style="margin-bottom: 10px; color: var(--text-dark)">
-          ยืนยันการลบ?
+          ยืนยันการลบ
         </h3>
         <p
           style="color: var(--text-muted); margin-bottom: 25px; font-size: 14px"
         >
-          คุณต้องการลบรายการนี้ใช่หรือไม่?
+          คุณต้องการลบรายการนี้ใช่หรือไม่
         </p>
         <div class="modal-actions">
           <button class="btn-cancel" onclick="closeDeleteConfirm()">
@@ -681,11 +744,18 @@
           <label>ชื่อ-นามสกุล</label><input type="text" id="cust-name" />
         </div>
         <div class="form-group">
-          <label>เบอร์โทรศัพท์</label><input type="text" id="cust-phone" />
+          <label>เบอร์โทรศัพท์</label>
+          <input type="text" id="cust-phone" />
+          <div id="phone-error" class="error-msg">
+            *เบอร์โทรศัพท์ต้องเป็นตัวเลขเท่านั้น (ห้ามเว้นวรรคหรือมีขีด)
+          </div>
         </div>
         <div class="form-group">
           <label>อีเมล</label><input type="email" id="cust-email" />
         </div>
+
+        <div id="save-summary-container"></div>
+
         <div class="modal-actions">
           <button class="btn-cancel" onclick="closeSaveModal()">ยกเลิก</button>
           <button
@@ -725,11 +795,6 @@
           <div class="step-header" style="margin-top: 30px">
             <div class="step-number" id="step2-badge">2</div>
             <div class="step-title" id="step2-title">Additional Categories</div>
-            <i
-              class="fas fa-lock"
-              id="step2-icon"
-              style="color: #94a3b8; font-size: 14px; margin-left: auto"
-            ></i>
           </div>
 
           <div class="category-section" id="step2-section">
@@ -816,7 +881,7 @@
               <i class="fas fa-trash-alt"></i> ล้างค่า
             </button>
             <div class="total-label">Total Carbon Footprint</div>
-            <div class="total-num" id="grand-total">0.00 kgCO₂e</div>
+            <div class="total-num" id="grand-total">0.00 kgCO₂eq</div>
           </div>
         </div>
       </div>
@@ -1037,7 +1102,7 @@
                 id: "ex_doc_digital",
                 name: "Digital Catalog แทนกระดาษ",
                 desc: "ปริมาณต่อหนึ่งหน่วย",
-                img: "",
+                img: "images/Digital Catalog แทนกระดาษ.png",
                 carbon: -0.009,
                 isSustain: true,
               },
@@ -1192,6 +1257,8 @@
       }
 
       function changePackage() {
+        // ล้างค่าทุกอย่างที่เคยเลือกไว้เมื่อเปลี่ยน Event Type
+        clearSelections();
         currentPackageId = document.getElementById("package-select").value;
         selectDetailCat("package");
       }
@@ -1439,7 +1506,7 @@
         }
 
         document.getElementById("grand-total").innerText =
-          total.toFixed(2) + " kgCO₂e";
+          total.toFixed(2) + " kgCO₂eq";
 
         // เรียกอัปเดตยอดแยกหมวดหมู่
         updateCategorySummaries();
@@ -1469,7 +1536,7 @@
             <div class="history-item">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 10px;">
                 <h4 style="font-size: 14px; color: var(--impact-blue); font-weight: 700;">${item.bookingId}</h4>
-                <span style="background: #e0e7ff; color: #3730a3; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;">${item.carbon} kgCO₂e</span>
+                <span style="background: #e0e7ff; color: #3730a3; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;">${item.carbon} kgCO₂eq</span>
               </div>
               <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-user"></i> ${item.name}</p>
               <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-envelope"></i> ${item.email}</p>
@@ -1549,8 +1616,115 @@
           document.getElementById("booking-id").value =
             `BK-${dateStr}-${Math.floor(1000 + Math.random() * 9000)}`;
         }
+
+        // --- ลบสีแดงออกก่อนตอนเปิดกล่อง ---
+        document.getElementById("cust-phone").classList.remove("input-error");
+        document.getElementById("phone-error").style.display = "none";
+
+        // --- เริ่มส่วนที่แก้ไขเพื่อจัดกลุ่มรายการในสรุปแบบเจาะจง ---
+        const summaryContainer = document.getElementById(
+          "save-summary-container",
+        );
+        let summaryHTML = `<div class="summary-box">`;
+
+        let groupedItems = {};
+        let hasItems = false;
+
+        // แยกข้อมูลใส่ Group เพื่อเตรียมแสดงผล
+        for (const itemId in selections) {
+          if (!selections[itemId].active) continue;
+          hasItems = true;
+
+          for (const catKey in database) {
+            for (const subKey in database[catKey].subs) {
+              const itemInList = database[catKey].subs[subKey].find(
+                (i) => i.id === itemId,
+              );
+              if (itemInList) {
+                if (!groupedItems[catKey]) groupedItems[catKey] = [];
+                groupedItems[catKey].push({
+                  name: itemInList.name,
+                  qty: selections[itemId].qty,
+                  carbon: itemInList.carbon,
+                });
+                break;
+              }
+            }
+          }
+        }
+
+        const selectEl = document.getElementById("package-select");
+        const eventName = selectEl.options[selectEl.selectedIndex].text;
+        const currentPkgKey = selectEl.value;
+
+        // 1. หมวดหมู่ Event Package
+        summaryHTML += `<div class="summary-box-title" style="color: var(--impact-blue); border-bottom: 2px solid #e2e8f0;">Event Package: <span style="color: var(--text-dark);">${eventName}</span></div>`;
+        if (
+          groupedItems[currentPkgKey] &&
+          groupedItems[currentPkgKey].length > 0
+        ) {
+          groupedItems[currentPkgKey].forEach((item) => {
+            const lineTotal = (item.carbon * item.qty).toFixed(4);
+            const sign = lineTotal > 0 ? "+" : "";
+            summaryHTML += `
+              <div class="summary-item-row" style="padding-left: 8px;">
+                <div class="summary-item-name">• ${item.name}</div>
+                <div class="summary-item-qty">x${item.qty}</div>
+                <div class="summary-item-carbon">${sign}${lineTotal}</div>
+              </div>`;
+          });
+        } else {
+          summaryHTML += `<div class="summary-empty" style="text-align: left; padding-left: 8px;">(ไม่ได้เลือกรายการเสริมในแพ็กเกจนี้)</div>`;
+        }
+
+        // 2. หมวดหมู่ Additional Categories (F&B, Venue, Waste)
+        const addCats = ["fb", "venue", "waste"];
+        let hasAddCat = false;
+        let addCatHTML = "";
+
+        addCats.forEach((catKey) => {
+          if (groupedItems[catKey] && groupedItems[catKey].length > 0) {
+            hasAddCat = true;
+            addCatHTML += `<div style="font-size: 12px; font-weight: 700; color: var(--text-muted); margin: 8px 0 4px 8px;">${database[catKey].name}</div>`;
+            groupedItems[catKey].forEach((item) => {
+              const lineTotal = (item.carbon * item.qty).toFixed(4);
+              const sign = lineTotal > 0 ? "+" : "";
+              addCatHTML += `
+                <div class="summary-item-row" style="padding-left: 16px;">
+                  <div class="summary-item-name">- ${item.name}</div>
+                  <div class="summary-item-qty">x${item.qty}</div>
+                  <div class="summary-item-carbon">${sign}${lineTotal}</div>
+                </div>`;
+            });
+          }
+        });
+
+        if (hasAddCat) {
+          summaryHTML += `<div class="summary-box-title" style="color: var(--impact-blue); border-bottom: 2px solid #e2e8f0; margin-top: 16px;">Additional Categories</div>`;
+          summaryHTML += addCatHTML;
+        }
+
+        if (!hasItems) {
+          // กรณีไม่เลือกอะไรเลย ให้ลบข้างบนทิ้งและขึ้นว่าไม่มีข้อมูล
+          summaryHTML = `<div class="summary-box"><div class="summary-empty">คุณยังไม่ได้เลือกรายการใดๆ เลย</div>`;
+        }
+
+        summaryHTML += `</div>`;
+
+        // เพิ่มบรรทัดสรุปยอดรวมคาร์บอน
+        const totalText = document.getElementById("grand-total").innerText;
+        summaryHTML += `
+            <div style="display: flex; justify-content: space-between; margin-top: 10px; font-weight: 700; color: var(--text-dark); font-size: 14px; padding: 0 5px;">
+                <span>ยอดรวมคาร์บอนฟุตพรินต์:</span>
+                <span style="color: var(--impact-blue); font-family: 'Inter', sans-serif;">${totalText}</span>
+            </div>`;
+
+        summaryContainer.innerHTML = summaryHTML;
+        // --- จบส่วนที่แก้ไข ---
+
         document.getElementById("saveModal").style.display = "flex";
       }
+
       function closeSaveModal() {
         document.getElementById("saveModal").style.display = "none";
       }
@@ -1558,16 +1732,30 @@
       function confirmSave() {
         const bookingId = document.getElementById("booking-id").value;
         const name = document.getElementById("cust-name").value;
-        const phone = document.getElementById("cust-phone").value;
+        const phoneInput = document.getElementById("cust-phone");
+        const phone = phoneInput.value;
         const email = document.getElementById("cust-email").value;
-        const totalCarbon = document
-          .getElementById("grand-total")
-          .innerText.replace(" kgCO₂e", "");
+
+        const totalCarbonText =
+          document.getElementById("grand-total").innerText;
+        const totalCarbon = totalCarbonText.split(" ")[0];
 
         if (!name || !phone || !email) {
           alert("กรุณากรอกข้อมูลให้ครบถ้วนก่อนบันทึก");
           return;
         }
+
+        // --- เช็คว่าเป็นตัวเลขเท่านั้นสำหรับเบอร์โทรศัพท์ และเพิ่มสีแดงเมื่อผิด ---
+        const phoneRegex = /^\d+$/;
+        if (!phoneRegex.test(phone)) {
+          phoneInput.classList.add("input-error");
+          document.getElementById("phone-error").style.display = "block";
+          return;
+        } else {
+          phoneInput.classList.remove("input-error");
+          document.getElementById("phone-error").style.display = "none";
+        }
+        // --- จบส่วนที่เพิ่ม ---
 
         const btn = document.getElementById("btn-confirm-save");
         btn.innerHTML = "กำลังบันทึก...";
@@ -1603,8 +1791,7 @@
         const statusType = currentEditingId ? "อัพเดตข้อมูล" : "รายการใหม่";
         const url = `${scriptUrl}?bookingID=${encodeURIComponent(bookingId)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&eventName=${encodeURIComponent(eventName)}&totalCarbon=${encodeURIComponent(totalCarbon)}&status=${encodeURIComponent(statusType)}&selectedItems=${encodeURIComponent(itemArray.join(", "))}`;
 
-        fetch(url, { method: "POST" })
-          .then((res) => res.text())
+        fetch(url, { method: "POST", mode: "no-cors" })
           .then(() => {
             alert(`${statusType}เรียบร้อยแล้ว!\nBooking ID: ${bookingId}`);
             if (currentEditingId) {
