@@ -174,7 +174,7 @@
 
       /* FAQ Section Styles */
       .box-title {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 800;
         color: var(--impact-blue);
         margin-bottom: 30px;
@@ -183,7 +183,6 @@
         gap: 15px;
       }
 
-      /* ✅ ปรับระยะห่างระหว่างกล่องให้ห่างกัน 20px ตามรูป */
       .faq-list {
         display: flex;
         flex-direction: column;
@@ -192,35 +191,38 @@
 
       .faq-box {
         display: flex;
-        padding: 16px 24px;
+        padding: 20px 24px;
         border-radius: 20px;
-        align-items: flex-start;
+        /* ✅ หัวใจสำคัญ: ทำให้ฐานตัวหนังสือ คำถาม : กับ เนื้อหา ตรงกัน */
+        align-items: baseline;
+        transition: 0.2s;
       }
 
+      /* ✅ กล่องคำถาม: พื้นหลังเทาเหมือนเดิม */
       .question-box {
-        background-color: #f3f4f6; /* พื้นหลังสีเทาอ่อน */
+        background-color: #f3f4f6;
+        border: 1px solid transparent; /* เพิ่มไว้เพื่อให้ขนาดกล่องเท่ากับอันที่มีขอบ */
       }
 
+      /* ✅ กล่องคำตอบ: พื้นหลังขาว ขอบน้ำเงินเหมือนเดิม */
       .answer-box {
         background-color: #fff;
-        border: 2px solid #2b4c8c; /* ขอบสีน้ำเงินเข้ม */
+        border: 2px solid #2b4c8c;
       }
 
-      /* ✅ ปรับคำว่า คำถาม/คำตอบ ให้เป็น 20px ตามที่ต้องการ */
       .faq-label {
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 800;
         color: #000;
         white-space: nowrap;
         margin-right: 16px;
       }
 
-      /* ✅ ปรับข้อความรายละเอียดให้เป็น 16px */
       .faq-text {
         font-size: 16px;
         color: #000;
         line-height: 1.6;
-        padding-top: 3px; /* ให้กึ่งกลางกับหัวข้อ 20px */
+        padding-top: 0; /* เอา padding ออกเพื่อให้ baseline ทำงานได้แม่นยำ */
       }
     </style>
   </head>

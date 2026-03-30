@@ -28,7 +28,6 @@
         padding: 0;
       }
       body {
-        /* ✅ อัปเดตฟอนต์ให้ตรงกับหน้าอื่น */
         font-family: "Sarabun", "Inter", sans-serif;
         background-color: var(--bg-main);
         height: 100vh;
@@ -37,9 +36,6 @@
         overflow: hidden;
       }
 
-      /* --- ลบ CSS Navbar ออก เพื่อให้ style.css คุม 100% --- */
-
-      /* SIDEBAR */
       .main-content {
         display: flex;
         gap: 20px;
@@ -57,7 +53,6 @@
         padding-right: 10px;
       }
 
-      /* 🔥 บังคับ Scrollbar ให้แสดงผลเฉพาะในกล่องเนื้อหา ไม่กระทบหน้าเว็บหลัก */
       .sidebar::-webkit-scrollbar,
       .main-area::-webkit-scrollbar {
         width: 6px;
@@ -77,7 +72,6 @@
         flex-direction: column;
       }
 
-      /* --- ปุ่มเมนูหลัก Sidebar ปรับเป็นพื้นขาว ขอบน้ำเงิน --- */
       .menu-btn {
         font-family: inherit;
         background-color: #fff;
@@ -124,6 +118,7 @@
         grid-template-rows: 0fr;
         opacity: 0;
       }
+
       .submenu-inner {
         overflow: hidden;
         display: flex;
@@ -147,18 +142,7 @@
       .submenu-link.active {
         color: var(--impact-blue);
       }
-      .submenu-link i {
-        color: #64748b;
-        font-size: 18px;
-        width: 20px;
-        text-align: center;
-      }
-      .submenu-link:hover i,
-      .submenu-link.active i {
-        color: var(--impact-blue);
-      }
 
-      /* CONTENT */
       .main-area {
         flex: 1;
         display: flex;
@@ -170,58 +154,96 @@
       .content-box {
         background: #fff;
         border: 2px solid var(--border-color);
-        padding: 24px;
+        padding: 40px;
         border-radius: 8px;
       }
       .box-title {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 800;
         color: var(--impact-blue);
-        margin-bottom: 20px;
+        margin-bottom: 30px;
       }
 
+      /* ✅ ปรับ Grid ให้สมดุลกับพื้นที่หน้าจอ */
       .sustain-grid {
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 40px;
       }
-      .sustain-card {
-        background: #fff;
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 20px;
+
+      .sustain-item {
         display: flex;
         align-items: center;
-        gap: 20px;
-        flex: 1;
-        min-width: 300px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-        transition: 0.2s;
+        gap: 50px; /* ✅ ระยะห่างรูปกับตัวหนังสือ 50px */
         text-decoration: none;
         color: inherit;
       }
-      .sustain-card:hover {
-        transform: translateY(-3px);
-        border-color: var(--impact-blue);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-      }
-      .sustain-icon {
-        width: 100px;
-        height: 100px;
-        background: #f1f5f9;
-        border-radius: 8px;
+
+      /* ✅ ลดขนาดรูปภาพลงให้พอดีพรีเมียม */
+      .sustain-img-wrapper {
+        height: 200px; /* ⬇️ ลดลงเพื่อให้ดูพอดีกับกรอบ */
+        width: 180px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 50px;
-        color: #94a3b8;
         flex-shrink: 0;
+        cursor: zoom-in;
       }
+
+      .sustain-img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        object-position: center;
+      }
+
       .sustain-text {
-        font-size: 16px;
+        font-size: 16px; /* ✅ ปรับตัวหนังสือให้สมดุล ไม่ใหญ่เกินไป */
         font-weight: 700;
         color: var(--text-main);
-        line-height: 1.5;
+        line-height: 1.4;
+      }
+
+      /* --- ✅ Pop-up (Modal) --- */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.85);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+        animation: zoomIn 0.2s ease;
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 20px;
+        right: 35px;
+        color: #fff;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      @keyframes zoomIn {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
       }
     </style>
   </head>
@@ -237,32 +259,28 @@
           "
         />
       </div>
-
       <div class="nav-menu">
-        <a href="index.html" class="nav-link">
-          <i class="fas fa-home"></i> หน้าหลัก
-        </a>
-
-        <a href="calculator.html" class="nav-link">
-          <i class="fas fa-leaf"></i>
-          <span>
-            <span style="color: #28a745">S</span>ustainable Event Design
-          </span>
-        </a>
-
-        <a href="event.html" class="nav-link">
-          <i class="fas fa-images"></i>
-          <span>
-            <span style="color: #f26f21">E</span>vent Succession Showcase
-          </span>
-        </a>
-
-        <a href="network.html" class="nav-link active">
-          <i class="fas fa-network-wired"></i>
-          <span>
-            <span style="color: #2354a2">N</span>etwork for Knowledge
-          </span>
-        </a>
+        <a href="index.html" class="nav-link"
+          ><i class="fas fa-home"></i> หน้าหลัก</a
+        >
+        <a href="calculator.html" class="nav-link"
+          ><i class="fas fa-leaf"></i>
+          <span
+            ><span style="color: #28a745">S</span>ustainable Event Design</span
+          ></a
+        >
+        <a href="event.html" class="nav-link"
+          ><i class="fas fa-images"></i>
+          <span
+            ><span style="color: #f26f21">E</span>vent Succession Showcase</span
+          ></a
+        >
+        <a href="network.html" class="nav-link active"
+          ><i class="fas fa-network-wired"></i>
+          <span
+            ><span style="color: #2354a2">N</span>etwork for Knowledge</span
+          ></a
+        >
       </div>
     </header>
 
@@ -296,8 +314,7 @@
         <div class="sidebar-item">
           <a href="sustainability.html" class="menu-btn active"
             ><div class="menu-left">
-              <i class="fas fa-leaf"></i>
-              อิมแพ็คกับความยั่งยืน
+              <i class="fas fa-leaf"></i> อิมแพ็คกับความยั่งยืน
             </div></a
           >
         </div>
@@ -326,39 +343,57 @@
 
       <main class="main-area">
         <div class="content-box">
-          <div class="box-title">อิมแพ็คกับความยั่งยืน</div>
+          <div class="box-title">
+            <i class="fas fa-leaf" style="margin-right: 12px"></i>
+            อิมแพ็คกับความยั่งยืน
+          </div>
+
           <div class="sustain-grid">
-            <a href="#" class="sustain-card"
-              ><div class="sustain-icon"><i class="far fa-file-alt"></i></div>
-              <div class="sustain-text">
-                นโยบายการจัดงาน<br />อย่างยั่งยืน
-              </div></a
-            >
-            <a href="#" class="sustain-card">
-              <div class="sustain-icon">
-                <div
-                  style="
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 4px;
-                    width: 60px;
-                    height: 60px;
-                  "
-                >
-                  <div style="background: #e2e8f0; border-radius: 4px"></div>
-                  <div style="background: #cbd5e1; border-radius: 4px"></div>
-                  <div style="background: #cbd5e1; border-radius: 4px"></div>
-                  <div style="background: #e2e8f0; border-radius: 4px"></div>
-                </div>
+            <div class="sustain-item">
+              <div
+                class="sustain-img-wrapper"
+                onclick="
+                  openFullImage('images/นโยบายการจัดงานอย่างยั่งยืน.png')
+                "
+              >
+                <img
+                  src="images/นโยบายการจัดงานอย่างยั่งยืน.png"
+                  alt="นโยบายการจัดงานอย่างยั่งยืน"
+                  class="sustain-img"
+                />
+              </div>
+              <div class="sustain-text">นโยบายการจัดงาน<br />อย่างยั่งยืน</div>
+            </div>
+
+            <div class="sustain-item">
+              <div
+                class="sustain-img-wrapper"
+                onclick="
+                  openFullImage(
+                    'images/การให้บริการการจัดเลี้ยงอย่างยั่งยืน.png',
+                  )
+                "
+              >
+                <img
+                  src="images/การให้บริการการจัดเลี้ยงอย่างยั่งยืน.png"
+                  alt="การให้บริการการจัดเลี้ยงอย่างยั่งยืน"
+                  class="sustain-img"
+                />
               </div>
               <div class="sustain-text">
-                การให้บริการจัดเลี้ยง<br />อย่างยั่งยืน
+                การให้บริการการจัดเลี้ยง<br />อย่างยั่งยืน
               </div>
-            </a>
+            </div>
           </div>
         </div>
       </main>
     </div>
+
+    <div id="imageModal" class="modal" onclick="this.style.display = 'none'">
+      <span class="close-modal">&times;</span>
+      <img class="modal-content" id="imgFull" />
+    </div>
+
     <script>
       function toggleKnowledgeMenu() {
         document
@@ -367,6 +402,13 @@
         document
           .getElementById("knowledgeSubmenu")
           .classList.toggle("collapsed");
+      }
+
+      function openFullImage(imgSrc) {
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("imgFull");
+        modal.style.display = "flex";
+        modalImg.src = imgSrc;
       }
     </script>
   </body>

@@ -36,8 +36,6 @@
         overflow: hidden;
       }
 
-      /* --- ลบ CSS Navbar เดิมออก เพื่อใช้จาก style.css --- */
-
       .main-content {
         display: flex;
         gap: 20px;
@@ -55,7 +53,6 @@
         padding-right: 10px;
       }
 
-      /* 🔥 บังคับ Scrollbar ให้แสดงผลเฉพาะในกล่องเนื้อหา ไม่กระทบหน้าเว็บหลัก */
       .sidebar::-webkit-scrollbar,
       .main-area::-webkit-scrollbar {
         width: 6px;
@@ -75,7 +72,6 @@
         flex-direction: column;
       }
 
-      /* --- ปุ่มเมนูหลัก Sidebar ปรับเป็นพื้นขาว ขอบน้ำเงิน --- */
       .menu-btn {
         font-family: inherit;
         background-color: #fff;
@@ -171,54 +167,43 @@
         border-radius: 8px;
       }
 
-      /* ✅ ปรับหัวข้อเป็นสีเทาเข้ม (text-main) และขนาด 20px ตามรูปเป๊ะ */
       .box-title {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 800;
         color: var(--impact-blue);
-        margin-bottom: 30px;
+        margin-bottom: 40px; /* ปรับระยะห่างให้พอดี */
         display: flex;
         align-items: center;
         gap: 15px;
       }
 
-      /* ✅ บังคับให้เป็น 4 คอลัมน์ในบรรทัดเดียวกันเสมอ */
       .ref-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
+        gap: 20px; /* ⬇️ ลดช่องว่างระหว่างคอลัมน์ เพื่อให้รูปขยายได้กว้างขึ้น */
         padding: 10px 0;
+        align-items: center;
+        justify-items: center;
       }
 
-      /* ✅ ปรับขนาดความกว้างให้เต็มช่อง Grid แบบพอดีๆ */
       .ref-item {
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        text-align: center;
-        gap: 12px;
-        width: 100%; /* ให้กว้างเต็มช่อง 1/4 */
-        min-height: 140px;
-        background: #f8fafc;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 20px 15px;
-        transition: 0.2s;
+        width: 100%;
+        height: 160px; /* ⬆️ เพิ่มความสูงของพื้นที่ลิงก์ */
+        text-decoration: none;
       }
-      .ref-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
-        border-color: var(--impact-blue);
-      }
+
+      /* ✅ ปรับความใหญ่ของโลโก้ */
       .ref-logo {
-        font-size: 45px;
-      }
-      .ref-name {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--text-main);
-        line-height: 1.4;
+        width: 100%;
+        height: 100%;
+        max-width: 260px; /* ⬆️ เพิ่มขีดจำกัดความกว้าง */
+        max-height: 150px; /* ⬆️ เพิ่มขีดจำกัดความสูง */
+        object-fit: contain;
+        /* หากรูปยังมีขอบใสเยอะทำให้ดูเล็ก สามารถปลดคอมเมนต์บรรทัดล่างเพื่อบังคับซูมได้ครับ */
+        /* transform: scale(1.15); */
       }
     </style>
   </head>
@@ -327,27 +312,51 @@
             <i class="fas fa-search" style="font-size: 26px"></i>
             แหล่งอ้างอิง
           </div>
+
           <div class="ref-grid">
-            <div class="ref-item">
-              <i class="fas fa-globe-asia ref-logo" style="color: #4ba3e3"></i>
-              <span class="ref-name"
-                >องค์การบริหารจัดการก๊าซเรือนกระจก (TGO)</span
-              >
-            </div>
-            <div class="ref-item">
-              <i class="fas fa-leaf ref-logo" style="color: #5bc08a"></i>
-              <span class="ref-name"
-                >กรมการเปลี่ยนแปลงสภาพภูมิอากาศและสิ่งแวดล้อม</span
-              >
-            </div>
-            <div class="ref-item">
-              <i class="fas fa-handshake ref-logo" style="color: #f6b642"></i>
-              <span class="ref-name">TCEB</span>
-            </div>
-            <div class="ref-item">
-              <i class="fas fa-dove ref-logo" style="color: #4b86e8"></i>
-              <span class="ref-name">UN Thailand</span>
-            </div>
+            <a
+              href="#"
+              target="_blank"
+              class="ref-item"
+              title="ไปที่เว็บไซต์ TGO"
+            >
+              <img src="images/C.png" alt="TGO Logo" class="ref-logo" />
+            </a>
+
+            <a
+              href="#"
+              target="_blank"
+              class="ref-item"
+              title="ไปที่เว็บไซต์ DCCE"
+            >
+              <img
+                src="images/กรมการเปลี่ยนแปลง.png"
+                alt="DCCE Logo"
+                class="ref-logo"
+              />
+            </a>
+
+            <a
+              href="#"
+              target="_blank"
+              class="ref-item"
+              title="ไปที่เว็บไซต์ TCEB"
+            >
+              <img src="images/TCEB.png" alt="TCEB Logo" class="ref-logo" />
+            </a>
+
+            <a
+              href="#"
+              target="_blank"
+              class="ref-item"
+              title="ไปที่เว็บไซต์ UN Thailand"
+            >
+              <img
+                src="images/United.png"
+                alt="UN Thailand Logo"
+                class="ref-logo"
+              />
+            </a>
           </div>
         </div>
       </main>

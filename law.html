@@ -169,14 +169,14 @@
         border-radius: 8px;
       }
       .box-title {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 800;
         color: var(--text-main);
         margin-bottom: 20px;
       }
       .box-title-blue {
         color: var(--impact-blue);
-        font-size: 20px;
+        font-size: 18px;
       }
 
       .resource-grid {
@@ -214,7 +214,7 @@
       }
       .law-icon {
         font-size: 50px;
-        color: #ef4444;
+        color: #ef4444; /* สีแดงแบบไฟล์ PDF */
       }
       .law-details {
         padding: 20px;
@@ -222,10 +222,9 @@
         flex-direction: column;
         flex: 1;
         justify-content: space-between;
-        text-align: left; /* ✅ เปลี่ยนเป็นชิดซ้ายให้เหมือนในรูป */
+        text-align: left;
       }
 
-      /* ✅ ปรับฟอนต์หัวข้อ สีเทาเข้ม ขนาด 18px */
       .law-title {
         font-size: 16px;
         font-weight: 700;
@@ -234,13 +233,12 @@
         margin-bottom: 20px;
       }
 
-      /* ✅ ปรับปุ่มทรงแคปซูล ขอบสีน้ำเงิน พื้นขาว */
       .details-btn {
         background-color: #ffffff;
         border: 2px solid var(--impact-blue);
         color: var(--impact-blue);
-        padding: 12px; /* เพิ่มความอ้วนของปุ่มนิดนึง */
-        border-radius: 50px; /* ทำให้ขอบมนเต็มที่แบบแคปซูล */
+        padding: 12px;
+        border-radius: 50px;
         font-weight: 700;
         font-size: 16px;
         text-align: center;
@@ -362,8 +360,8 @@
           <div class="resource-grid">
             <div class="law-card">
               <div class="law-thumbnail">
-                <i class="far fa-file-pdf law-icon"></i
-                ><span style="font-size: 13px; font-weight: 600"
+                <i class="far fa-file-pdf law-icon"></i>
+                <span style="font-size: 13px; font-weight: 600"
                   >PDF Document</span
                 >
               </div>
@@ -372,13 +370,19 @@
                   พระราชบัญญัติส่งเสริมและรักษาคุณภาพสิ่งแวดล้อมแห่งชาติ พ.ศ.
                   ๒๕๓๕
                 </p>
-                <a href="#" class="details-btn">เปิดอ่าน / ดาวน์โหลด</a>
+                <a
+                  href="https://www.onep.go.th/wp-content/uploads/2020/01/act-env-2535.pdf"
+                  target="_blank"
+                  class="details-btn"
+                  >เปิดอ่าน</a
+                >
               </div>
             </div>
+
             <div class="law-card">
               <div class="law-thumbnail">
-                <i class="far fa-file-pdf law-icon"></i
-                ><span style="font-size: 13px; font-weight: 600"
+                <i class="far fa-file-pdf law-icon"></i>
+                <span style="font-size: 13px; font-weight: 600"
                   >PDF Document</span
                 >
               </div>
@@ -387,7 +391,12 @@
                   พระราชบัญญัติส่งเสริมและรักษาคุณภาพสิ่งแวดล้อมแห่งชาติ
                   (ฉบับที่ ๒) พ.ศ. ๒๕๖๑
                 </p>
-                <a href="#" class="details-btn">เปิดอ่าน / ดาวน์โหลด</a>
+                <a
+                  href="https://www.onep.go.th/wp-content/uploads/2020/01/act-env-2-2561.pdf"
+                  target="_blank"
+                  class="details-btn"
+                  >เปิดอ่าน</a
+                >
               </div>
             </div>
           </div>

@@ -36,8 +36,6 @@
         overflow: hidden;
       }
 
-      /* --- ลบ CSS Navbar ออก เพื่อให้ style.css คุม 100% --- */
-
       .main-content {
         display: flex;
         gap: 20px;
@@ -169,7 +167,7 @@
         border-radius: 8px;
       }
       .box-title {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: 800;
         color: var(--impact-blue);
         margin-bottom: 30px;
@@ -180,13 +178,14 @@
 
       .about-container {
         display: flex;
-        align-items: center;
-        gap: 40px;
+        align-items: center; /* จัดให้โลโก้และข้อความอยู่กึ่งกลางแนวดิ่ง */
+        gap: 60px; /* เพิ่มระยะห่างระหว่างโลโก้ IMPACT กับเนื้อหาให้สมดุลขึ้น */
         justify-content: center;
         padding: 20px;
       }
       .about-logo {
-        width: 200px;
+        width: 260px; /* ขยายโลโก้ IMPACT ให้ใหญ่ขึ้นเพื่อคานน้ำหนัก */
+        flex-shrink: 0;
       }
       .about-logo img {
         width: 100%;
@@ -198,19 +197,36 @@
         line-height: 1.8;
       }
       .about-details strong {
-        font-size: 20px;
+        font-size: 22px;
         color: #000;
       }
+
+      /* ✅ ปรับแต่งแถวโลโก้/ใบรับรองด้านล่าง ให้หักบรรทัดได้ถ้ายาวเกิน */
       .cert-row {
         display: flex;
-        gap: 10px;
-        margin-top: 20px;
+        flex-wrap: wrap; /* ถ้ายาวเกินไป จะปัดลงบรรทัดใหม่ให้อัตโนมัติ */
+        gap: 30px; /* ระยะห่างระหว่างกลุ่ม SGS กับกลุ่ม SDG */
+        margin-top: 30px;
+        align-items: center;
       }
-      .cert-item {
-        width: 40px;
-        height: 40px;
-        background: #e2e8f0;
-        border-radius: 4px;
+
+      /* ✅ จัดกลุ่มของโลโก้ */
+      .cert-group {
+        display: flex;
+        align-items: center;
+        gap: 15px; /* ระยะห่างปกติระหว่างโลโก้ */
+      }
+
+      /* ✅ กลุ่ม SDG เอาช่องว่างออกเพื่อให้กล่องสีๆ ชนกันเป็น Ribbon */
+      .sdg-group {
+        gap: 0;
+      }
+
+      /* ✅ คลาสบังคับรูปให้สูงเท่ากันทั้งหมด */
+      .cert-img {
+        height: 65px; /* ปรับให้สูงขึ้นนิดนึงดูเต็มตา */
+        width: auto;
+        object-fit: contain;
       }
     </style>
   </head>
@@ -329,7 +345,7 @@
                 alt="IMPACT Logo"
                 onerror="
                   this.src =
-                    'https://via.placeholder.com/200x80?text=IMPACT+LOGO'
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/IMPACT_Muang_Thong_Thani_Logo.png/800px-IMPACT_Muang_Thong_Thani_Logo.png'
                 "
               />
             </div>
@@ -345,11 +361,46 @@
                 style="color: #64748b; margin-right: 8px"
               ></i>
               QA_SD_Group@impact.co.th
+
               <div class="cert-row">
-                <div class="cert-item"></div>
-                <div class="cert-item"></div>
-                <div class="cert-item"></div>
-                <div class="cert-item"></div>
+                <div class="cert-group">
+                  <img src="images/SGS (2).png" alt="SGS" class="cert-img" />
+                  <img src="images/SGS.png" alt="SGS" class="cert-img" />
+                </div>
+
+                <div class="cert-group sdg-group">
+                  <img
+                    src="images/4 quality.png"
+                    alt="SDG 4"
+                    class="cert-img"
+                  />
+                  <img
+                    src="images/7 affordable.png"
+                    alt="SDG 7"
+                    class="cert-img"
+                  />
+                  <img src="images/8 Decent.png" alt="SDG 8" class="cert-img" />
+                  <img
+                    src="images/11 sustainable.png"
+                    alt="SDG 11"
+                    class="cert-img"
+                  />
+                  <img
+                    src="images/12 responsible.png"
+                    alt="SDG 12"
+                    class="cert-img"
+                  />
+                  <img
+                    src="images/13 climate.png"
+                    alt="SDG 13"
+                    class="cert-img"
+                  />
+                  <img
+                    src="images/17 partnerships.png"
+                    alt="SDG 17"
+                    class="cert-img"
+                  />
+                </div>
               </div>
             </div>
           </div>

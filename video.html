@@ -11,10 +11,12 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+
     <style>
       :root {
         --impact-blue: #2354a2;
@@ -54,7 +56,6 @@
         padding-right: 10px;
       }
 
-      /* 🔥 บังคับ Scrollbar ให้แสดงผลเฉพาะในกล่องเนื้อหา ไม่กระทบหน้าเว็บหลัก */
       .sidebar::-webkit-scrollbar,
       .main-area::-webkit-scrollbar {
         width: 6px;
@@ -74,7 +75,6 @@
         flex-direction: column;
       }
 
-      /* --- ปุ่มเมนูหลัก Sidebar ปรับเป็นพื้นขาว ขอบน้ำเงิน --- */
       .menu-btn {
         font-family: inherit;
         background-color: #fff;
@@ -171,7 +171,7 @@
         border-radius: 8px;
       }
       .box-title {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 800;
         color: var(--text-main);
         margin-bottom: 20px;
@@ -201,6 +201,8 @@
         transform: translateY(-4px);
         box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
       }
+
+      /* ✅ ปรับแต่งพื้นที่แสดง Thumbnail */
       .video-thumbnail {
         width: 100%;
         height: 200px;
@@ -209,16 +211,41 @@
         align-items: center;
         justify-content: center;
         position: relative;
+        overflow: hidden;
+        text-decoration: none;
       }
+
+      /* ✅ ตั้งค่ารูปปกวิดีโอ */
+      .video-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+        opacity: 0.9;
+        transition: 0.3s;
+      }
+
+      .video-card:hover .video-img {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+
+      /* ✅ ปุ่ม Play ลอยอยู่เหนือภาพ */
       .play-icon {
-        font-size: 50px;
-        color: rgba(255, 255, 255, 0.8);
+        font-size: 60px;
+        color: rgba(255, 255, 255, 0.9);
         transition: 0.2s;
+        z-index: 2;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
       }
       .video-card:hover .play-icon {
         color: #fff;
         transform: scale(1.1);
       }
+
       .video-details {
         padding: 15px;
         display: flex;
@@ -359,25 +386,54 @@
           </div>
           <div class="resource-grid">
             <div class="video-card">
-              <div class="video-thumbnail">
+              <a
+                href="https://youtu.be/TtgEHuhaAEE?si=pxul-1dwU8yd2Mo8"
+                target="_blank"
+                class="video-thumbnail"
+              >
+                <img
+                  src="https://img.youtube.com/vi/TtgEHuhaAEE/hqdefault.jpg"
+                  alt="NET ZERO คืออะไร"
+                  class="video-img"
+                />
                 <i class="fas fa-play-circle play-icon"></i>
-              </div>
+              </a>
               <div class="video-details">
                 <p class="video-title">
                   NET ZERO คืออะไร และทำไมถึงสำคัญต่อการจัดงาน
                 </p>
-                <a href="#" class="details-btn">รับชมวิดีโอ</a>
+                <a
+                  href="https://youtu.be/TtgEHuhaAEE?si=pxul-1dwU8yd2Mo8"
+                  target="_blank"
+                  class="details-btn"
+                  >รับชมวิดีโอ</a
+                >
               </div>
             </div>
+
             <div class="video-card">
-              <div class="video-thumbnail" style="background: #1e293b">
+              <a
+                href="https://youtu.be/0HytdZDvqgY?si=CyKD-P02PisqQj2W"
+                target="_blank"
+                class="video-thumbnail"
+              >
+                <img
+                  src="https://img.youtube.com/vi/0HytdZDvqgY/hqdefault.jpg"
+                  alt="คาร์บอนฟุตพริ้นท์ ประเมินอย่างไร"
+                  class="video-img"
+                />
                 <i class="fas fa-play-circle play-icon"></i>
-              </div>
+              </a>
               <div class="video-details">
                 <p class="video-title">
                   คาร์บอนฟุตพริ้นท์ (Carbon Footprint) ประเมินอย่างไร
                 </p>
-                <a href="#" class="details-btn">รับชมวิดีโอ</a>
+                <a
+                  href="https://youtu.be/0HytdZDvqgY?si=CyKD-P02PisqQj2W"
+                  target="_blank"
+                  class="details-btn"
+                  >รับชมวิดีโอ</a
+                >
               </div>
             </div>
           </div>
