@@ -175,10 +175,10 @@
         margin-bottom: 6px;
       }
       .sec-sub {
-        font-size: 13.5px;
+        font-size: 14px;
         color: var(--text-muted);
         line-height: 1.7;
-        margin-bottom: 26px;
+        margin-bottom: 0px; /* <--- ปรับค่าตรงนี้เพื่อเพิ่ม/ลดระยะห่างด้านล่าง */
       }
 
       .col-left {
@@ -321,7 +321,7 @@
       }
       .mini-type {
         font-family: "Inter", sans-serif;
-        font-size: 10px;
+        font-size: 16px;
         font-weight: 800;
         letter-spacing: 1.5px;
         text-transform: uppercase;
@@ -398,6 +398,7 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 14px;
       }
+
       .doc-item {
         display: flex;
         flex-direction: column;
@@ -405,10 +406,11 @@
         text-align: center;
         gap: 10px;
         cursor: pointer;
+        height: 100%;
       }
       .doc-thumb {
         width: 100%;
-        aspect-ratio: 1;
+        flex: 1;
         background: var(--green-pale);
         border-radius: 14px;
         border: 1.5px solid var(--green-border);
@@ -420,6 +422,7 @@
         position: relative;
         overflow: hidden;
       }
+
       .doc-thumb::after {
         content: "";
         position: absolute;
@@ -446,7 +449,7 @@
       }
       .doc-label {
         font-family: "Inter", "Sarabun", sans-serif;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 700;
         color: #0f172a;
         line-height: 1.45;
@@ -462,49 +465,103 @@
         grid-template-columns: 1fr 1fr;
         gap: 16px;
       }
+
+      /* --- อัปเดต CSS ส่วน Legacy Framework --- */
       .fw-card {
         background: #fff;
-        border-radius: 20px;
-        padding: 22px;
-        border: 1px solid #fed7aa;
+        border-radius: 12px;
+        padding: 0; /* ลบ Padding เพื่อให้ขอบชิด */
+        border: 1px solid #f1f5f9; /* เส้นขอบอ่อนๆ ตามดีไซน์ */
         display: flex;
-        align-items: flex-start;
-        gap: 16px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-        transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        align-items: stretch; /* ให้กล่องฝั่งซ้ายยืดเต็มความสูง */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
         position: relative;
-        overflow: hidden;
+        overflow: hidden; /* ซ่อนมุมกล่องให้มนตาม Card */
       }
-      .fw-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 32px var(--orange-glow);
-        border-color: #fdba74;
-      }
+      /* ไม่มี .fw-card:hover เพื่อตัดระบบกระดิกและการคลิก */
+
       .fw-card.span-2 {
         grid-column: 1 / -1;
       }
+
       .fw-emoji {
-        width: 52px;
-        height: 52px;
-        border-radius: 14px;
-        background: var(--impact-orange-light);
+        width: 140px; /* ขยายความกว้างของกล่องส้ม */
+        background: linear-gradient(
+          135deg,
+          #ffce6c,
+          #f78d26
+        ); /* สีพื้นหลังไล่ระดับตามภาพ */
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 24px;
         flex-shrink: 0;
+        padding: 16px;
+        /* ไม่ต้องใช้ border-radius เพราะ .fw-card (overflow:hidden) คุมมุมให้แล้ว */
+      }
+      .fw-emoji img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .fw-text {
+        padding: 20px 24px 20px 20px; /* จัด Padding เฉพาะฝั่งข้อความ */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1;
       }
       .fw-text h4 {
         font-family: "Inter", "Sarabun", sans-serif;
-        font-size: 15px;
+        font-size: 16px;
         font-weight: 800;
-        color: #0f172a;
-        margin-bottom: 6px;
+        color: #e05e36; /* เปลี่ยนสีหัวข้อตามภาพต้นฉบับ */
+        margin-bottom: 8px;
       }
       .fw-text p {
-        font-size: 12.5px;
-        color: var(--text-muted);
-        line-height: 1.65;
+        font-size: 13px;
+        color: #475569;
+        line-height: 1.6;
+      }
+      /* ------------------------------------ */
+
+      /* --- CSS สำหรับ Modal กดดูรูป --- */
+      .image-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        padding-top: 60px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(4px);
+      }
+      .modal-content {
+        margin: auto;
+        display: block;
+        max-width: 90%;
+        max-height: 85vh;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      }
+      .close-modal {
+        position: absolute;
+        top: 20px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .close-modal:hover,
+      .close-modal:focus {
+        color: #bbb;
+        text-decoration: none;
       }
 
       @keyframes fadeUp {
@@ -517,7 +574,6 @@
           transform: translateY(0);
         }
       }
-     
     </style>
   </head>
   <body>
@@ -680,7 +736,12 @@
           </div>
           <div class="framework-grid">
             <div class="fw-card">
-              <div class="fw-emoji">🤝</div>
+              <div class="fw-emoji">
+                <img
+                  src="images/Sustainable Meeting.png"
+                  alt="Sustainable Meeting"
+                />
+              </div>
               <div class="fw-text">
                 <h4>Sustainable Meeting</h4>
                 <p>
@@ -690,14 +751,24 @@
               </div>
             </div>
             <div class="fw-card">
-              <div class="fw-emoji">🎉</div>
+              <div class="fw-emoji">
+                <img
+                  src="images/Sustainable Party.png"
+                  alt="Sustainable Party"
+                />
+              </div>
               <div class="fw-text">
                 <h4>Sustainable Party</h4>
                 <p>ลดขยะ ใช้วัสดุรักษ์โลก และบริโภคอย่างรับผิดชอบตลอดงาน</p>
               </div>
             </div>
             <div class="fw-card">
-              <div class="fw-emoji">🏛️</div>
+              <div class="fw-emoji">
+                <img
+                  src="images/Sustainable Exhibition.png"
+                  alt="Sustainable Exhibition"
+                />
+              </div>
               <div class="fw-text">
                 <h4>Sustainable Exhibition</h4>
                 <p>
@@ -706,7 +777,12 @@
               </div>
             </div>
             <div class="fw-card">
-              <div class="fw-emoji">💐</div>
+              <div class="fw-emoji">
+                <img
+                  src="images/Sustainable Wedding.png"
+                  alt="Sustainable Wedding"
+                />
+              </div>
               <div class="fw-text">
                 <h4>Sustainable Wedding</h4>
                 <p>
@@ -716,7 +792,12 @@
               </div>
             </div>
             <div class="fw-card span-2">
-              <div class="fw-emoji">🎵</div>
+              <div class="fw-emoji">
+                <img
+                  src="images/Sustainable Concert.png"
+                  alt="Sustainable Concert"
+                />
+              </div>
               <div class="fw-text">
                 <h4>Sustainable Concert</h4>
                 <p>
@@ -734,9 +815,12 @@
           </h2>
           <div class="doc-grid">
             <div class="doc-item">
-              <div class="doc-thumb">
+              <div
+                class="doc-thumb"
+                onclick="openModal(this.querySelector('img').src)"
+              >
                 <img
-                  src="images/ขั้นตอนการขออนุญาตใช้เครื่องหมายรับรอง.jpg"
+                  src="images/Thank you certification.png"
                   alt="Cert"
                   onerror="
                     this.outerHTML =
@@ -747,9 +831,12 @@
               <div class="doc-label">Thank you Certification</div>
             </div>
             <div class="doc-item">
-              <div class="doc-thumb">
+              <div
+                class="doc-thumb"
+                onclick="openModal(this.querySelector('img').src)"
+              >
                 <img
-                  src="images/เครื่องหมายรับรอง CFR.jpg"
+                  src="images/Key Achievements.png"
                   alt="Report"
                   onerror="
                     this.outerHTML =
@@ -760,9 +847,12 @@
               <div class="doc-label">Progression Report</div>
             </div>
             <div class="doc-item">
-              <div class="doc-thumb">
+              <div
+                class="doc-thumb"
+                onclick="openModal(this.querySelector('img').src)"
+              >
                 <img
-                  src="images/เครื่องหมายรับรอง CFP ของผลิตภัณฑ์.jpg"
+                  src="images/Carbon Footprint Report.png"
                   alt="Carbon"
                   onerror="
                     this.outerHTML =
@@ -776,5 +866,30 @@
         </div>
       </div>
     </main>
+
+    <div id="imageModal" class="image-modal">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <img class="modal-content" id="modalImg" />
+    </div>
+
+    <script>
+      function openModal(imgSrc) {
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("modalImg");
+        modal.style.display = "block";
+        modalImg.src = imgSrc;
+      }
+
+      function closeModal() {
+        document.getElementById("imageModal").style.display = "none";
+      }
+
+      window.onclick = function (event) {
+        var modal = document.getElementById("imageModal");
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+    </script>
   </body>
 </html>
