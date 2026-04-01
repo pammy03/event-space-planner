@@ -178,13 +178,13 @@
 
       .about-container {
         display: flex;
-        align-items: center; /* จัดให้โลโก้และข้อความอยู่กึ่งกลางแนวดิ่ง */
-        gap: 60px; /* เพิ่มระยะห่างระหว่างโลโก้ IMPACT กับเนื้อหาให้สมดุลขึ้น */
+        align-items: center;
+        gap: 60px;
         justify-content: center;
         padding: 20px;
       }
       .about-logo {
-        width: 260px; /* ขยายโลโก้ IMPACT ให้ใหญ่ขึ้นเพื่อคานน้ำหนัก */
+        width: 260px;
         flex-shrink: 0;
       }
       .about-logo img {
@@ -201,30 +201,26 @@
         color: #000;
       }
 
-      /* ✅ ปรับแต่งแถวโลโก้/ใบรับรองด้านล่าง ให้หักบรรทัดได้ถ้ายาวเกิน */
       .cert-row {
         display: flex;
-        flex-wrap: wrap; /* ถ้ายาวเกินไป จะปัดลงบรรทัดใหม่ให้อัตโนมัติ */
-        gap: 30px; /* ระยะห่างระหว่างกลุ่ม SGS กับกลุ่ม SDG */
+        flex-wrap: wrap;
+        gap: 30px;
         margin-top: 30px;
         align-items: center;
       }
 
-      /* ✅ จัดกลุ่มของโลโก้ */
       .cert-group {
         display: flex;
         align-items: center;
-        gap: 15px; /* ระยะห่างปกติระหว่างโลโก้ */
+        gap: 15px;
       }
 
-      /* ✅ กลุ่ม SDG เอาช่องว่างออกเพื่อให้กล่องสีๆ ชนกันเป็น Ribbon */
       .sdg-group {
         gap: 0;
       }
 
-      /* ✅ คลาสบังคับรูปให้สูงเท่ากันทั้งหมด */
       .cert-img {
-        height: 65px; /* ปรับให้สูงขึ้นนิดนึงดูเต็มตา */
+        height: 65px;
         width: auto;
         object-fit: contain;
       }
@@ -352,7 +348,7 @@
             <div class="about-details">
               <strong>Standard Control Department</strong><br />
               <i
-                class="fas fa-phone-alt"
+                class="fas fa-phone-alt fa-flip-horizontal"
                 style="color: #64748b; margin-right: 8px"
               ></i>
               02- 8336372, 6373, 6374<br />
