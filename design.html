@@ -737,8 +737,7 @@
         <h2 class="modal-title" id="modal-action-title">บันทึกข้อมูล</h2>
         <p class="modal-subtitle">กรุณาตรวจสอบความถูกต้อง</p>
         <div class="form-group">
-          <label>Booking ID</label
-          ><input type="text" id="booking-id" readonly />
+          <label>Event ID</label><input type="text" id="event-id" readonly />
         </div>
         <div class="form-group">
           <label>ชื่อ-นามสกุล</label><input type="text" id="cust-name" />
@@ -774,6 +773,32 @@
         <div class="scrollable-content">
           <div class="step-header">
             <div class="step-number">1</div>
+            <div class="step-title">Event Name</div>
+          </div>
+
+          <div class="top-card">
+            <label>ENTER EVENT NAME</label>
+            <input
+              type="text"
+              id="event-name-input"
+              placeholder="ระบุชื่องาน..."
+              style="
+                width: 100%;
+                padding: 12px 16px;
+                background-color: var(--impact-light-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--text-dark);
+                outline: none;
+                font-family: inherit;
+              "
+            />
+          </div>
+
+          <div class="step-header" style="margin-top: 20px">
+            <div class="step-number">2</div>
             <div class="step-title">Event Package</div>
           </div>
 
@@ -793,7 +818,7 @@
           </div>
 
           <div class="step-header" style="margin-top: 30px">
-            <div class="step-number" id="step2-badge">2</div>
+            <div class="step-number" id="step2-badge">3</div>
             <div class="step-title" id="step2-title">Additional Categories</div>
           </div>
 
@@ -1257,7 +1282,6 @@
       }
 
       function changePackage() {
-        // ล้างค่าทุกอย่างที่เคยเลือกไว้เมื่อเปลี่ยน Event Type
         clearSelections();
         currentPackageId = document.getElementById("package-select").value;
         selectDetailCat("package");
@@ -1369,17 +1393,14 @@
         selectDetailCat("package");
       }
 
-      // --- ฟังก์ชันภาพพรีวิว: โชว์รูปเฉพาะของหมวดหมู่ที่กำลังเปิดอยู่เท่านั้น ---
       function updateLayeredPreview() {
         const container = document.getElementById("layer-container");
         container.innerHTML = "";
         let showWasteGroupImage = false;
 
-        // ดึง Category ID ที่กำลังเปิดอยู่ ณ ตอนนี้
         const activeCatId =
           currentDetailCat === "package" ? currentPackageId : currentDetailCat;
 
-        // วนลูปเฉพาะ Item ที่ถูกเลือก
         for (const itemId in selections) {
           const selState = selections[itemId];
           if (!selState.active) continue;
@@ -1387,7 +1408,6 @@
           let foundItem = null;
           let foundInCatId = null;
 
-          // หาว่า Item นี้อยู่ในหมวดหมู่ไหน
           for (const catKey in database) {
             const catData = database[catKey];
             for (const subKey in catData.subs) {
@@ -1396,7 +1416,6 @@
               if (itemInList) {
                 foundItem = itemInList;
                 foundInCatId = catKey;
-                // เช็คเฉพาะเรื่องรวมรูป Waste
                 if (catKey === "waste" && subKey === "แยกขยะตามประเภท") {
                   showWasteGroupImage = true;
                 }
@@ -1406,7 +1425,6 @@
             if (foundItem) break;
           }
 
-          // แสดงรูปเฉพาะเมื่อ Item นั้นอยู่ในหมวดหมู่เดียวกับที่กำลังเปิดดูอยู่
           if (
             foundItem &&
             foundInCatId === activeCatId &&
@@ -1423,7 +1441,6 @@
           }
         }
 
-        // โชว์รูปรวมถังขยะ กรณีที่กำลังเปิดหน้า Waste อยู่เท่านั้น
         if (showWasteGroupImage && activeCatId === "waste") {
           const groupImg = document.createElement("img");
           groupImg.src = "images/แยกขยะตามประเภท.png";
@@ -1435,7 +1452,6 @@
         }
       }
 
-      // --- ฟังก์ชันคำนวณและอัปเดตยอดรวมรายหมวดหมู่ให้แสดงที่ป้าย Badge ---
       function updateCategorySummaries() {
         let pkgTotal = 0;
         let fbTotal = 0;
@@ -1508,11 +1524,9 @@
         document.getElementById("grand-total").innerText =
           total.toFixed(2) + " kgCO₂eq";
 
-        // เรียกอัปเดตยอดแยกหมวดหมู่
         updateCategorySummaries();
       }
 
-      // --- HISTORY & SAVE ---
       let savedHistory =
         JSON.parse(localStorage.getItem("impact_history_db")) || [];
       let currentEditingId = null;
@@ -1535,7 +1549,7 @@
           list.innerHTML += `
             <div class="history-item">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 10px;">
-                <h4 style="font-size: 14px; color: var(--impact-blue); font-weight: 700;">${item.bookingId}</h4>
+                <h4 style="font-size: 14px; color: var(--impact-blue); font-weight: 700;">${item.eventId || item.bookingId}</h4>
                 <span style="background: #e0e7ff; color: #3730a3; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;">${item.carbon} kgCO₂eq</span>
               </div>
               <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"><i class="fas fa-user"></i> ${item.name}</p>
@@ -1557,7 +1571,9 @@
             '<i class="fas fa-edit"></i> <span>อัพเดต</span>';
           document.getElementById("modal-action-title").innerText =
             "อัพเดตข้อมูล";
-          document.getElementById("booking-id").value = item.bookingId;
+          // แก้ไขให้รองรับการโหลด eventId จาก LocalStorage
+          document.getElementById("event-id").value =
+            item.eventId || item.bookingId;
           document.getElementById("cust-name").value = item.name;
           document.getElementById("cust-phone").value = item.phone;
           document.getElementById("cust-email").value = item.email;
@@ -1609,19 +1625,16 @@
 
       function openSaveModal() {
         if (!currentEditingId) {
-          const dateStr =
-            String(new Date().getDate()).padStart(2, "0") +
-            String(new Date().getMonth() + 1).padStart(2, "0") +
-            String(new Date().getFullYear()).substring(2);
-          document.getElementById("booking-id").value =
-            `BK-${dateStr}-${Math.floor(1000 + Math.random() * 9000)}`;
+          // สุ่มเลข 1 - 9999 แล้วเติมเลข 0 ด้านหน้าให้ครบ 4 หลักเสมอ
+          const randomNum = String(
+            Math.floor(1 + Math.random() * 9999),
+          ).padStart(4, "0");
+          document.getElementById("event-id").value = `EV${randomNum}`;
         }
 
-        // --- ลบสีแดงออกก่อนตอนเปิดกล่อง ---
         document.getElementById("cust-phone").classList.remove("input-error");
         document.getElementById("phone-error").style.display = "none";
 
-        // --- เริ่มส่วนที่แก้ไขเพื่อจัดกลุ่มรายการในสรุปแบบเจาะจง ---
         const summaryContainer = document.getElementById(
           "save-summary-container",
         );
@@ -1630,7 +1643,6 @@
         let groupedItems = {};
         let hasItems = false;
 
-        // แยกข้อมูลใส่ Group เพื่อเตรียมแสดงผล
         for (const itemId in selections) {
           if (!selections[itemId].active) continue;
           hasItems = true;
@@ -1654,11 +1666,10 @@
         }
 
         const selectEl = document.getElementById("package-select");
-        const eventName = selectEl.options[selectEl.selectedIndex].text;
+        const eventNameText = selectEl.options[selectEl.selectedIndex].text;
         const currentPkgKey = selectEl.value;
 
-        // 1. หมวดหมู่ Event Package
-        summaryHTML += `<div class="summary-box-title" style="color: var(--impact-blue); border-bottom: 2px solid #e2e8f0;">Event Package: <span style="color: var(--text-dark);">${eventName}</span></div>`;
+        summaryHTML += `<div class="summary-box-title" style="color: var(--impact-blue); border-bottom: 2px solid #e2e8f0;">Event Package: <span style="color: var(--text-dark);">${eventNameText}</span></div>`;
         if (
           groupedItems[currentPkgKey] &&
           groupedItems[currentPkgKey].length > 0
@@ -1677,7 +1688,6 @@
           summaryHTML += `<div class="summary-empty" style="text-align: left; padding-left: 8px;">(ไม่ได้เลือกรายการเสริมในแพ็กเกจนี้)</div>`;
         }
 
-        // 2. หมวดหมู่ Additional Categories (F&B, Venue, Waste)
         const addCats = ["fb", "venue", "waste"];
         let hasAddCat = false;
         let addCatHTML = "";
@@ -1705,13 +1715,11 @@
         }
 
         if (!hasItems) {
-          // กรณีไม่เลือกอะไรเลย ให้ลบข้างบนทิ้งและขึ้นว่าไม่มีข้อมูล
           summaryHTML = `<div class="summary-box"><div class="summary-empty">คุณยังไม่ได้เลือกรายการใดๆ เลย</div>`;
         }
 
         summaryHTML += `</div>`;
 
-        // เพิ่มบรรทัดสรุปยอดรวมคาร์บอน
         const totalText = document.getElementById("grand-total").innerText;
         summaryHTML += `
             <div style="display: flex; justify-content: space-between; margin-top: 10px; font-weight: 700; color: var(--text-dark); font-size: 14px; padding: 0 5px;">
@@ -1720,8 +1728,6 @@
             </div>`;
 
         summaryContainer.innerHTML = summaryHTML;
-        // --- จบส่วนที่แก้ไข ---
-
         document.getElementById("saveModal").style.display = "flex";
       }
 
@@ -1730,7 +1736,7 @@
       }
 
       function confirmSave() {
-        const bookingId = document.getElementById("booking-id").value;
+        const eventId = document.getElementById("event-id").value;
         const name = document.getElementById("cust-name").value;
         const phoneInput = document.getElementById("cust-phone");
         const phone = phoneInput.value;
@@ -1745,7 +1751,6 @@
           return;
         }
 
-        // --- เช็คว่าเป็นตัวเลขเท่านั้นสำหรับเบอร์โทรศัพท์ และเพิ่มสีแดงเมื่อผิด ---
         const phoneRegex = /^\d+$/;
         if (!phoneRegex.test(phone)) {
           phoneInput.classList.add("input-error");
@@ -1755,14 +1760,19 @@
           phoneInput.classList.remove("input-error");
           document.getElementById("phone-error").style.display = "none";
         }
-        // --- จบส่วนที่เพิ่ม ---
 
         const btn = document.getElementById("btn-confirm-save");
         btn.innerHTML = "กำลังบันทึก...";
         btn.disabled = true;
 
         const selectEl = document.getElementById("package-select");
-        let eventName = selectEl.options[selectEl.selectedIndex].text;
+        const eventType = selectEl.options[selectEl.selectedIndex].text;
+        let eventName = document
+          .getElementById("event-name-input")
+          .value.trim();
+        if (eventName === "") {
+          eventName = "-";
+        }
 
         let itemArray = [];
         for (const itemId in selections) {
@@ -1782,18 +1792,24 @@
           itemArray.push(`${itemName} (x${selections[itemId].qty})`);
         }
 
+        // --- จุดที่แก้ไขลิงก์ Google Apps Script ---
         const isTestMode =
           window.location.hostname === "127.0.0.1" ||
           window.location.hostname === "localhost";
+
+        // ใส่ลิงก์ตัวเทส และ ตัวหลัก ที่คุณให้มา
         const scriptUrl = isTestMode
-          ? "https://script.google.com/macros/s/AKfycbxCoXXNatFynIbTz_Gq1LZ8PwQNPAqZCQhUJGS4UI0IiUnrdEb1URgEKDR-GF3AzThdhA/exec"
-          : "https://script.google.com/macros/s/AKfycbxJxEIfhczOCuD_2gPz0Mb3v6aX66NUcZVKYNE_42qK0qGLRzOPnU8gEgfDWSqG9gcQQw/exec";
+          ? "https://script.google.com/macros/s/AKfycbwdMZxue5bHst9pvuPfv8nY7qCGarL5zuZWs6j3pzBaAkH7ZjHmI7cz3WlY1lFM4YjI7A/exec"
+          : "https://script.google.com/macros/s/AKfycbyTiOTO7Es-mWxOeRX03cVjBfhsreZ2JPEVYm4G6fE3sZ3S1XR7b43yXnd7D5sFNwp-Jw/exec";
+        // ---------------------------------------------
+
         const statusType = currentEditingId ? "อัพเดตข้อมูล" : "รายการใหม่";
-        const url = `${scriptUrl}?bookingID=${encodeURIComponent(bookingId)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&eventName=${encodeURIComponent(eventName)}&totalCarbon=${encodeURIComponent(totalCarbon)}&status=${encodeURIComponent(statusType)}&selectedItems=${encodeURIComponent(itemArray.join(", "))}`;
+
+        const url = `${scriptUrl}?eventID=${encodeURIComponent(eventId)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&eventName=${encodeURIComponent(eventName)}&eventType=${encodeURIComponent(eventType)}&totalCarbon=${encodeURIComponent(totalCarbon)}&status=${encodeURIComponent(statusType)}&selectedItems=${encodeURIComponent(itemArray.join(", "))}`;
 
         fetch(url, { method: "POST", mode: "no-cors" })
           .then(() => {
-            alert(`${statusType}เรียบร้อยแล้ว!\nBooking ID: ${bookingId}`);
+            alert(`${statusType}เรียบร้อยแล้ว!\nEvent ID: ${eventId}`);
             if (currentEditingId) {
               const idx = savedHistory.findIndex(
                 (i) => i.id === currentEditingId,
@@ -1813,7 +1829,7 @@
             } else {
               savedHistory.unshift({
                 id: Date.now().toString(),
-                bookingId,
+                eventId,
                 name,
                 phone,
                 email,
