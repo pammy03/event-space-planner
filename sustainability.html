@@ -21,6 +21,7 @@
         --border-color: #cbd5e1;
         --text-main: #334155;
         --bg-main: #f8fafc;
+        --impact-green: #0a3d2b;
       }
       * {
         box-sizing: border-box;
@@ -156,6 +157,7 @@
         border: 2px solid var(--border-color);
         padding: 40px;
         border-radius: 8px;
+        margin-bottom: 20px;
       }
       .box-title {
         font-size: 18px;
@@ -164,24 +166,76 @@
         margin-bottom: 30px;
       }
 
-      /* ✅ ปรับ Grid ให้สมดุลกับพื้นที่หน้าจอ */
+      /* สไตล์สำหรับการจัด Layout รูปที่ 2 */
+      .info-card-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 30px;
+      }
+      .info-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 20px;
+        background: #ffffff;
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f1f5f9;
+      }
+      .card-header img {
+        height: 40px;
+      }
+      .card-header h3 {
+        color: #1e293b;
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      .data-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        text-align: center;
+        font-size: 13px;
+      }
+      .data-item img {
+        width: 100%;
+        max-width: 80px;
+        margin-bottom: 5px;
+      }
+
+      .footer-banner {
+        background-color: #d1fae5;
+        padding: 15px 25px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-top: 25px;
+      }
+
       .sustain-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
         gap: 40px;
+        margin-bottom: 40px;
       }
 
       .sustain-item {
         display: flex;
         align-items: center;
-        gap: 50px; /* ✅ ระยะห่างรูปกับตัวหนังสือ 50px */
+        gap: 50px;
         text-decoration: none;
         color: inherit;
       }
 
-      /* ✅ ลดขนาดรูปภาพลงให้พอดีพรีเมียม */
       .sustain-img-wrapper {
-        height: 200px; /* ⬇️ ลดลงเพื่อให้ดูพอดีกับกรอบ */
+        height: 200px;
         width: 180px;
         display: flex;
         align-items: center;
@@ -194,17 +248,30 @@
         height: 100%;
         width: 100%;
         object-fit: contain;
-        object-position: center;
       }
 
       .sustain-text {
-        font-size: 16px; /* ✅ ปรับตัวหนังสือให้สมดุล ไม่ใหญ่เกินไป */
+        font-size: 16px;
         font-weight: 700;
         color: var(--text-main);
         line-height: 1.4;
       }
 
-      /* --- ✅ Pop-up (Modal) --- */
+      .sustain-service-info {
+        width: 100%;
+        margin-top: 20px;
+        padding-top: 30px;
+        border-top: 2px dashed var(--border-color);
+      }
+
+      .sustain-full-img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        cursor: zoom-in;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
       .modal {
         display: none;
         position: fixed;
@@ -217,14 +284,12 @@
         justify-content: center;
         align-items: center;
       }
-
       .modal-content {
         max-width: 90%;
         max-height: 90%;
         object-fit: contain;
         animation: zoomIn 0.2s ease;
       }
-
       .close-modal {
         position: absolute;
         top: 20px;
@@ -234,7 +299,6 @@
         font-weight: bold;
         cursor: pointer;
       }
-
       @keyframes zoomIn {
         from {
           transform: scale(0.8);
@@ -385,6 +449,132 @@
               </div>
             </div>
           </div>
+
+          <div class="sustain-service-info">
+            <img
+              src="images/service-sustainability-detail.png"
+              alt="บริการอาหารและเครื่องดื่มกับการจัดการงานอย่างยั่งยืน"
+              class="sustain-full-img"
+              onclick="openFullImage(this.src)"
+            />
+          </div>
+
+          <div
+            style="
+              background-color: var(--impact-green);
+              color: white;
+              padding: 25px;
+              border-radius: 8px;
+              margin-top: 40px;
+            "
+          >
+            <h2 style="font-size: 22px; margin-bottom: 10px">
+              IMPACT เมืองทองธานี
+            </h2>
+            <p style="font-size: 14px; font-weight: 300">
+              มุ่งยกระดับอาหารและเครื่องดื่มในทุกอีเวนต์ ด้วยวัตถุดิบท้องถิ่น
+              ลดของเสียอย่างเป็นระบบ และขับเคลื่อนอุตสาหกรรม MICE สู่ความยั่งยืน
+            </p>
+          </div>
+
+          <div class="info-card-container">
+            <div class="info-card">
+              <div class="card-header">
+                <img src="images/sdg2.png" alt="SDG 2" />
+                <h3>LOCAL SOURCING</h3>
+              </div>
+              <p style="font-size: 13px; margin-bottom: 15px; color: #64748b">
+                ใช้วัตถุดิบจากชุมชนใกล้เคียง ลดมลพิษขนส่ง
+                ส่งเสริมเศรษฐกิจท้องถิ่น
+              </p>
+              <div class="data-grid">
+                <div class="data-item">
+                  <img src="images/impact-farm.png" alt="IMPACT Farm" />
+                  <p>IMPACT Farm</p>
+                </div>
+                <div class="data-item">
+                  <img src="images/local-non.png" alt="ของดีเมืองนนท์" />
+                  <p>ของดีเมืองนนท์</p>
+                </div>
+                <div class="data-item">
+                  <img src="images/small-biz.png" alt="ร้านเด็ดเมืองทอง" />
+                  <p>ร้านเด็ดเมืองทอง</p>
+                </div>
+                <div class="data-item">
+                  <img src="images/plant-based.png" alt="Plant Based" />
+                  <p>Plant-Based</p>
+                </div>
+                <div class="data-item">
+                  <img src="images/seasonal.png" alt="Seasonal" />
+                  <p>ตามฤดูกาล</p>
+                </div>
+                <div class="data-item">
+                  <img src="images/low-carbon.png" alt="Low Carbon" />
+                  <p>เมนูคาร์บอนต่ำ</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="card-header">
+                <img src="images/sdg12.png" alt="SDG 12" />
+                <h3>SUSTAINABLE PACKAGING</h3>
+              </div>
+              <p style="font-size: 13px; margin-bottom: 15px; color: #64748b">
+                ลด-คัดแยก-นำกลับมาใช้ใหม่ ในกระบวนการผลิตและบรรจุภัณฑ์
+              </p>
+              <div
+                class="data-grid"
+                style="grid-template-columns: repeat(2, 1fr)"
+              >
+                <div
+                  class="data-item"
+                  style="
+                    grid-column: span 2;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 10px;
+                    background: #f8fafc;
+                    padding: 10px;
+                    border-radius: 8px;
+                  "
+                >
+                  <i class="fas fa-recycle" style="color: #059669"></i>
+                  <span style="font-weight: 700"
+                    >Refuse | Replace | Reduce | Reuse | Recycle</span
+                  >
+                </div>
+                <div class="data-item">
+                  <p><b>วางแผนลดส่วนเกิน</b></p>
+                </div>
+                <div class="data-item">
+                  <p><b>ทำปุ๋ยจากเศษอาหาร</b></p>
+                </div>
+                <div class="data-item">
+                  <p><b>คัดแยกอาหารสัตว์</b></p>
+                </div>
+                <div class="data-item">
+                  <p><b>บริจาคอาหารส่วนเกิน</b></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-banner">
+            <img src="images/sdg17.png" alt="SDG 17" style="height: 45px" />
+            <div style="flex: 1">
+              <h4 style="color: var(--impact-green); margin-bottom: 4px">
+                FOOD SAFETY & SUSTAINABLE EVENT
+              </h4>
+              <p style="font-weight: 800; font-size: 18px">
+                ISO 22000 | ISO 20121
+              </p>
+            </div>
+            <p style="font-size: 13px; max-width: 300px; text-align: right">
+              มั่นใจได้ว่าอาหารปลอดภัย ดีต่อสุขภาพ และเป็นมิตรต่อโลก
+            </p>
+          </div>
         </div>
       </main>
     </div>
@@ -403,7 +593,6 @@
           .getElementById("knowledgeSubmenu")
           .classList.toggle("collapsed");
       }
-
       function openFullImage(imgSrc) {
         var modal = document.getElementById("imageModal");
         var modalImg = document.getElementById("imgFull");
