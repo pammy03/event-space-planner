@@ -21,7 +21,7 @@
         --border-color: #cbd5e1;
         --text-main: #334155;
         --bg-main: #f8fafc;
-        --impact-green: #0a3d2b;
+        --impact-green: #1a3622;
       }
       * {
         box-sizing: border-box;
@@ -166,59 +166,6 @@
         margin-bottom: 30px;
       }
 
-      /* สไตล์สำหรับการจัด Layout รูปที่ 2 */
-      .info-card-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin-top: 30px;
-      }
-      .info-card {
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 20px;
-        background: #ffffff;
-      }
-      .card-header {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 15px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #f1f5f9;
-      }
-      .card-header img {
-        height: 40px;
-      }
-      .card-header h3 {
-        color: #1e293b;
-        font-size: 18px;
-        font-weight: 800;
-      }
-
-      .data-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        text-align: center;
-        font-size: 13px;
-      }
-      .data-item img {
-        width: 100%;
-        max-width: 80px;
-        margin-bottom: 5px;
-      }
-
-      .footer-banner {
-        background-color: #d1fae5;
-        padding: 15px 25px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        margin-top: 25px;
-      }
-
       .sustain-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -264,14 +211,238 @@
         border-top: 2px dashed var(--border-color);
       }
 
-      .sustain-full-img {
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
-        cursor: zoom-in;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      /* === Styles สำหรับ Infographic === */
+      .ig-container {
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
       }
 
+      /* Header Dark Green */
+      .ig-header {
+        background-color: var(--impact-green);
+        color: white;
+        padding: 24px 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+      }
+      .ig-header-left h2 {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+      .ig-header-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ig-header-center img {
+        height: 75px;
+        object-fit: contain;
+      }
+      .ig-header-right {
+        text-align: right;
+      }
+      .ig-header-right h3 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .ig-header-right p {
+        font-size: 13px;
+        font-weight: 300;
+        max-width: 450px;
+        line-height: 1.5;
+        color: #cbd5e1;
+      }
+
+      /* Main Body (2 Columns) */
+      .ig-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background: #fff;
+      }
+      .ig-col {
+        padding: 30px;
+        border-right: 1px solid #e2e8f0;
+      }
+      .ig-col:last-child {
+        border-right: none;
+      }
+
+      /* Section Headers */
+      .ig-sec-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+      .ig-sec-icon {
+        height: 60px;
+        width: auto;
+        max-width: 150px;
+        object-fit: contain;
+      }
+      .ig-sec-title h3 {
+        font-size: 18px;
+        font-weight: 800;
+        color: #1e293b;
+        margin-top: 2px;
+        margin-bottom: 4px;
+      }
+      .ig-sec-title p {
+        font-size: 13px;
+        color: #475569;
+        line-height: 1.4;
+      }
+
+      /* Left Column Content (Local Sourcing) */
+      .ig-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 35px;
+      }
+      .ig-card {
+        text-align: center; /* เปลี่ยนเป็นกึ่งกลาง */
+      }
+      .ig-card img {
+        width: 100%;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+      .ig-card h4 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 5px;
+        text-align: center;
+        color: #1e293b; /* บังคับหัวข้อเป็นสีดำ */
+      }
+      .ig-card p {
+        font-size: 12px;
+        color: #1e293b; /* บังคับเนื้อหาเป็นสีดำ */
+        line-height: 1.4;
+      }
+
+      /* สำหรับรูปล่างซ้าย 3 รูป (Plant-based, Seasonal, Low-Carbon) */
+      .ig-card-bottom {
+        text-align: center;
+      }
+      .ig-bottom-img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        margin: 0 auto 10px;
+        display: block;
+      }
+      .ig-card-bottom h4 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 8px;
+      }
+      .ig-card-bottom p {
+        font-size: 12px;
+        color: #1e293b; /* บังคับเนื้อหาเป็นสีดำ */
+        line-height: 1.4;
+      }
+
+      /* Right Column Content (Sustainable Packaging) */
+      .ig-flow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 45px;
+        padding: 0 5px;
+      }
+      .ig-flow-item {
+        text-align: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: #334155;
+        flex: 1;
+      }
+      /* รูปภาพสำหรับ Flow */
+      .ig-flow-img {
+        width: 55px;
+        height: 55px;
+        object-fit: contain;
+        margin: 0 auto 10px;
+        display: block;
+      }
+      .ig-arrow {
+        width: 25px;
+        height: auto;
+        opacity: 0.5;
+        margin-bottom: 25px;
+      }
+
+      .ig-5r {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+      }
+      .ig-5r-item {
+        text-align: center;
+      }
+      /* รูปภาพสำหรับ 5Rs */
+      .ig-5r-img {
+        width: 55px;
+        height: 55px;
+        object-fit: contain;
+        margin: 0 auto 10px;
+        display: block;
+      }
+      .ig-5r-item h4 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 6px;
+      }
+      .ig-5r-item p {
+        font-size: 12px;
+        color: #475569;
+        line-height: 1.4;
+      }
+      .ig-text-pink {
+        color: #475569;
+      }
+
+      /* Footer Light Green */
+      .ig-footer {
+        background-color: #d1e9d9;
+        padding: 20px 32px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .ig-footer img {
+        height: 65px;
+        object-fit: contain;
+      }
+      .ig-footer-text h4 {
+        color: #064e3b;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .ig-footer-text p {
+        font-size: 20px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+      .ig-footer-desc {
+        margin-left: auto;
+        font-size: 14px;
+        font-weight: 600;
+        color: #065f46;
+      }
+
+      /* Modals */
       .modal {
         display: none;
         position: fixed;
@@ -424,6 +595,10 @@
                   src="images/นโยบายการจัดงานอย่างยั่งยืน.png"
                   alt="นโยบายการจัดงานอย่างยั่งยืน"
                   class="sustain-img"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/180x200/f1f5f9/94a3b8?text=Image'
+                  "
                 />
               </div>
               <div class="sustain-text">นโยบายการจัดงาน<br />อย่างยั่งยืน</div>
@@ -442,6 +617,10 @@
                   src="images/การให้บริการการจัดเลี้ยงอย่างยั่งยืน.png"
                   alt="การให้บริการการจัดเลี้ยงอย่างยั่งยืน"
                   class="sustain-img"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/180x200/f1f5f9/94a3b8?text=Image'
+                  "
                 />
               </div>
               <div class="sustain-text">
@@ -451,129 +630,324 @@
           </div>
 
           <div class="sustain-service-info">
-            <img
-              src="images/service-sustainability-detail.png"
-              alt="บริการอาหารและเครื่องดื่มกับการจัดการงานอย่างยั่งยืน"
-              class="sustain-full-img"
-              onclick="openFullImage(this.src)"
-            />
-          </div>
-
-          <div
-            style="
-              background-color: var(--impact-green);
-              color: white;
-              padding: 25px;
-              border-radius: 8px;
-              margin-top: 40px;
-            "
-          >
-            <h2 style="font-size: 22px; margin-bottom: 10px">
-              IMPACT เมืองทองธานี
-            </h2>
-            <p style="font-size: 14px; font-weight: 300">
-              มุ่งยกระดับอาหารและเครื่องดื่มในทุกอีเวนต์ ด้วยวัตถุดิบท้องถิ่น
-              ลดของเสียอย่างเป็นระบบ และขับเคลื่อนอุตสาหกรรม MICE สู่ความยั่งยืน
-            </p>
-          </div>
-
-          <div class="info-card-container">
-            <div class="info-card">
-              <div class="card-header">
-                <img src="images/sdg2.png" alt="SDG 2" />
-                <h3>LOCAL SOURCING</h3>
-              </div>
-              <p style="font-size: 13px; margin-bottom: 15px; color: #64748b">
-                ใช้วัตถุดิบจากชุมชนใกล้เคียง ลดมลพิษขนส่ง
-                ส่งเสริมเศรษฐกิจท้องถิ่น
-              </p>
-              <div class="data-grid">
-                <div class="data-item">
-                  <img src="images/impact-farm.png" alt="IMPACT Farm" />
-                  <p>IMPACT Farm</p>
+            <div class="ig-container">
+              <div class="ig-header">
+                <div class="ig-header-left">
+                  <h2>
+                    บริการอาหารและเครื่องดื่ม<br />กับการจัดการงานอย่างยั่งยืน
+                  </h2>
                 </div>
-                <div class="data-item">
-                  <img src="images/local-non.png" alt="ของดีเมืองนนท์" />
-                  <p>ของดีเมืองนนท์</p>
+                <div class="ig-header-center">
+                  <img
+                    src="images/header-logos.png"
+                    alt="SDG Header Logos"
+                    onerror="this.style.display = 'none'"
+                  />
                 </div>
-                <div class="data-item">
-                  <img src="images/small-biz.png" alt="ร้านเด็ดเมืองทอง" />
-                  <p>ร้านเด็ดเมืองทอง</p>
-                </div>
-                <div class="data-item">
-                  <img src="images/plant-based.png" alt="Plant Based" />
-                  <p>Plant-Based</p>
-                </div>
-                <div class="data-item">
-                  <img src="images/seasonal.png" alt="Seasonal" />
-                  <p>ตามฤดูกาล</p>
-                </div>
-                <div class="data-item">
-                  <img src="images/low-carbon.png" alt="Low Carbon" />
-                  <p>เมนูคาร์บอนต่ำ</p>
+                <div class="ig-header-right">
+                  <h3>IMPACT เมืองทองธานี</h3>
+                  <p>
+                    มุ่งยกระดับอาหารและเครื่องดื่มในทุกอีเวนต์
+                    ด้วยวัตถุดิบท้องถิ่น ลดของเสียอย่างเป็นระบบ
+                    และขับเคลื่อนอุตสาหกรรม MICE สู่ความยั่งยืน
+                  </p>
                 </div>
               </div>
-            </div>
 
-            <div class="info-card">
-              <div class="card-header">
-                <img src="images/sdg12.png" alt="SDG 12" />
-                <h3>SUSTAINABLE PACKAGING</h3>
+              <div class="ig-body">
+                <div class="ig-col">
+                  <div class="ig-sec-header">
+                    <img
+                      src="images/2 Zero hunger.png"
+                      alt="SDG 2"
+                      class="ig-sec-icon"
+                      onerror="
+                        this.src =
+                          'https://placehold.co/80x80/d97706/ffffff?text=SDG2'
+                      "
+                    />
+                    <div class="ig-sec-title">
+                      <h3>LOCAL SOURCING</h3>
+                      <p>
+                        ใช้วัตถุดิบที่มาจากชุมชนใกล้เคียงเพื่อลดการปล่อยมลพิษจากการขนส่ง
+                        พร้อมส่งเสริมเศรษฐกิจท้องถิ่นให้เติบโตอย่างยั่งยืน
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="ig-grid-3">
+                    <div class="ig-card">
+                      <img
+                        src="images/IMPACT FARM.jpg"
+                        alt="IMPACT Farm"
+                        onerror="
+                          this.src =
+                            'https://placehold.co/150x90/f1f5f9/94a3b8?text=Image'
+                        "
+                      />
+                      <h4>IMPACT FARM</h4>
+                      <p>
+                        (ตลาดร่วมใจ / สวนคุณอนันต์)<br />เริ่มปี 2565
+                        สนับสนุนชุมชนผ่านผลผลิตออร์แกนิก
+                        ขยายเครือข่ายทั่วประเทศเพื่อส่งวัตถุดิบสดใหม่สู่บริการอาหาร
+                      </p>
+                    </div>
+                    <div class="ig-card">
+                      <img
+                        src="images/ของดีเมืองนนท์-02.jpg"
+                        alt="ของดีเมืองนนท์"
+                        onerror="
+                          this.src =
+                            'https://placehold.co/150x90/f1f5f9/94a3b8?text=Image'
+                        "
+                      />
+                      <h4>ของดีเมืองนนท์</h4>
+                      <p>
+                        (Khong Dee Muang Non)<br />ร่วมกับร้านอาหารท้องถิ่น 8
+                        ร้าน ในโครงการ Nont Premium Selection
+                        มอบอาหารท้องถิ่นแท้ พร้อมสร้างรายได้ยั่งยืน
+                      </p>
+                    </div>
+                    <div class="ig-card">
+                      <img
+                        src="images/ร้านเด็ดเมืองทอง.jpg"
+                        alt="ร้านเด็ดเมืองทอง"
+                        onerror="
+                          this.src =
+                            'https://placehold.co/150x90/f1f5f9/94a3b8?text=Image'
+                        "
+                      />
+                      <h4>ร้านเด็ดเมืองทอง</h4>
+                      <p>
+                        (Raan Ded Muangthong)<br />โครงการสนับสนุนผู้ค้าท้องถิ่นในเมืองทองธานี
+                        เสริมธุรกิจขนาดเล็ก และสร้างรายได้ที่มั่นคงให้ชุมชน
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="ig-grid-3">
+                    <div class="ig-card-bottom">
+                      <img
+                        class="ig-bottom-img"
+                        src="images/Plant-Based Vegetarian.png"
+                        alt="Plant Based"
+                        onerror="
+                          this.src =
+                            'https://placehold.co/80x80/22c55e/ffffff?text=Image'
+                        "
+                      />
+                      <h4>Plant-Based<br />Vegetarian</h4>
+                      <p>
+                        <span style="font-weight: bold">🌱 อาหารจากพืช</span
+                        ><br />
+                        ส่งเสริมสุขภาพ ลดการปล่อยก๊าซ
+                        และสนับสนุนระบบอาหารยั่งยืน
+                      </p>
+                    </div>
+                    <div class="ig-card-bottom">
+                      <img
+                        class="ig-bottom-img"
+                        src="images/Seasonal Fruits & Vegetables.png"
+                        alt="Seasonal"
+                        onerror="
+                          this.src =
+                            'https://placehold.co/80x80/f59e0b/ffffff?text=Image'
+                        "
+                      />
+                      <h4>Seasonal Fruits<br />& Vegetables</h4>
+                      <p>
+                        <span style="font-weight: bold"
+                          >🥦 วัตถุดิบตามฤดูกาล</span
+                        ><br />
+                        คัดเลือกผักผลไม้ตามฤดูกาลเพื่อความสดใหม่ ลดพลังงาน
+                        และสนับสนุนเกษตรท้องถิ่น
+                      </p>
+                    </div>
+                    <div class="ig-card-bottom">
+                      <img
+                        class="ig-bottom-img"
+                        src="images/Low-Carbon Food.png"
+                        alt="Low Carbon"
+                        onerror="
+                          this.src =
+                            'https://placehold.co/80x80/0ea5e9/ffffff?text=Image'
+                        "
+                      />
+                      <h4>Low-Carbon<br />Food</h4>
+                      <p>
+                        <span style="font-weight: bold">🌍 เมนูคาร์บอนต่ำ</span
+                        ><br />
+                        เลือกวัตถุดิบและเมนูที่ปล่อยก๊าซเรือนกระจกต่ำตลอดวงจรชีวิต
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ig-col">
+                  <div class="ig-sec-header">
+                    <img
+                      src="images/12 responsible.png"
+                      alt="SDG 12"
+                      class="ig-sec-icon"
+                      onerror="
+                        this.src =
+                          'https://placehold.co/80x80/d97706/ffffff?text=SDG12'
+                      "
+                    />
+                    <div class="ig-sec-title">
+                      <h3>SUSTAINABLE PACKAGING</h3>
+                      <p>
+                        ลด-คัดแยก-นำกลับมาใช้ใหม่ ทั้งในกระบวนการผลิต
+                        บริโภคและบรรจุภัณฑ์
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="ig-flow">
+                    <div class="ig-flow-item">
+                      <img
+                        class="ig-flow-img"
+                        src="images/วางแผนลดส่วนเกิน.png"
+                        alt="วางแผนลด"
+                      />
+                      วางแผนลด<br />ส่วนเกิน
+                    </div>
+                    <img
+                      class="ig-arrow"
+                      src="https://cdn-icons-png.flaticon.com/512/109/109617.png"
+                      alt="arrow"
+                    />
+
+                    <div class="ig-flow-item">
+                      <img
+                        class="ig-flow-img"
+                        src="images/ทำปุ๋ยจากเศษวัตถุดิบ.png"
+                        alt="ทำปุ๋ย"
+                      />
+                      ทำปุ๋ยจาก<br />เศษวัตถุดิบ
+                    </div>
+                    <img
+                      class="ig-arrow"
+                      src="https://cdn-icons-png.flaticon.com/512/109/109617.png"
+                      alt="arrow"
+                    />
+
+                    <div class="ig-flow-item">
+                      <img
+                        class="ig-flow-img"
+                        src="images/คัดแยกรีไซเคิลอาหารสัตว์.png"
+                        alt="คัดแยก"
+                      />
+                      คัดแยกรีไซเคิล<br />อาหารสัตว์
+                    </div>
+                    <img
+                      class="ig-arrow"
+                      src="https://cdn-icons-png.flaticon.com/512/109/109617.png"
+                      alt="arrow"
+                    />
+
+                    <div class="ig-flow-item">
+                      <img
+                        class="ig-flow-img"
+                        src="images/บริจาคอาหารส่วนเกิน.png"
+                        alt="บริจาค"
+                      />
+                      บริจาคอาหาร<br />ส่วนเกิน
+                    </div>
+                  </div>
+
+                  <div class="ig-5r">
+                    <div class="ig-5r-item">
+                      <img
+                        class="ig-5r-img"
+                        src="images/ปฏิเสธ.png"
+                        alt="Refuse"
+                      />
+                      <h4>ปฏิเสธ<br />(Refuse)</h4>
+                      <p>
+                        งดใช้บรรจุภัณฑ์ย่อยสลายไม่ได้<br /><span
+                          class="ig-text-pink"
+                          >(โฟมและถุงพลาสติก)</span
+                        >
+                      </p>
+                    </div>
+                    <div class="ig-5r-item">
+                      <img
+                        class="ig-5r-img"
+                        src="images/ทดแทน.png"
+                        alt="Replace"
+                      />
+                      <h4>ทดแทน<br />(Replace)</h4>
+                      <p>
+                        ใช้วัสดุย่อยสลายได้<br /><span class="ig-text-pink"
+                          >ถุงกระดาษ และ<br />ภาชนะแก้ว</span
+                        >
+                      </p>
+                    </div>
+                    <div class="ig-5r-item">
+                      <img
+                        class="ig-5r-img"
+                        src="images/ลดลง.png"
+                        alt="Reduce"
+                      />
+                      <h4>ลดลง<br />(Reduce)</h4>
+                      <p>
+                        จัดสถานีน้ำดื่มและชามเครื่องปรุงแบบเติมได้<br /><span
+                          class="ig-text-pink"
+                          >เพื่อลดบรรจุภัณฑ์ที่ใช้ครั้งเดียว</span
+                        >
+                      </p>
+                    </div>
+                    <div class="ig-5r-item">
+                      <img
+                        class="ig-5r-img"
+                        src="images/ใช้ซ้ำ.png"
+                        alt="Reuse"
+                      />
+                      <h4>ใช้ซ้ำ<br />(Reuse)</h4>
+                      <p>
+                        ภาชนะแบบทนทานที่สามารถล้างและ<br /><span
+                          class="ig-text-pink"
+                          >นำกลับมาใช้ซ้ำได้ตลอดอายุการใช้งาน</span
+                        >
+                      </p>
+                    </div>
+                    <div class="ig-5r-item">
+                      <img
+                        class="ig-5r-img"
+                        src="images/รีไซเคิล.png"
+                        alt="Recycle"
+                      />
+                      <h4>รีไซเคิล<br />(Recycle)</h4>
+                      <p>
+                        <span class="ig-text-pink"
+                          >คัดแยกบรรจุภัณฑ์ที่รีไซเคิลได้อย่างถูกต้อง</span
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <p style="font-size: 13px; margin-bottom: 15px; color: #64748b">
-                ลด-คัดแยก-นำกลับมาใช้ใหม่ ในกระบวนการผลิตและบรรจุภัณฑ์
-              </p>
-              <div
-                class="data-grid"
-                style="grid-template-columns: repeat(2, 1fr)"
-              >
-                <div
-                  class="data-item"
-                  style="
-                    grid-column: span 2;
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    margin-bottom: 10px;
-                    background: #f8fafc;
-                    padding: 10px;
-                    border-radius: 8px;
+
+              <div class="ig-footer">
+                <img
+                  src="images/17 partnerships.png"
+                  alt="SDG 17"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/80x80/0f172a/ffffff?text=SDG17'
                   "
-                >
-                  <i class="fas fa-recycle" style="color: #059669"></i>
-                  <span style="font-weight: 700"
-                    >Refuse | Replace | Reduce | Reuse | Recycle</span
-                  >
+                />
+                <div class="ig-footer-text">
+                  <h4>FOOD SAFETY & SUSTAINABLE EVENT</h4>
+                  <p>ISO 22000 | ISO 20121</p>
                 </div>
-                <div class="data-item">
-                  <p><b>วางแผนลดส่วนเกิน</b></p>
-                </div>
-                <div class="data-item">
-                  <p><b>ทำปุ๋ยจากเศษอาหาร</b></p>
-                </div>
-                <div class="data-item">
-                  <p><b>คัดแยกอาหารสัตว์</b></p>
-                </div>
-                <div class="data-item">
-                  <p><b>บริจาคอาหารส่วนเกิน</b></p>
+                <div class="ig-footer-desc">
+                  มีระบบมาตรฐานที่ได้รับการรับรอง จึงมั่นใจได้ว่า<br />อาหารปลอดภัย
+                  ดีต่อสุขภาพ และเป็นมิตรต่อโลก
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="footer-banner">
-            <img src="images/sdg17.png" alt="SDG 17" style="height: 45px" />
-            <div style="flex: 1">
-              <h4 style="color: var(--impact-green); margin-bottom: 4px">
-                FOOD SAFETY & SUSTAINABLE EVENT
-              </h4>
-              <p style="font-weight: 800; font-size: 18px">
-                ISO 22000 | ISO 20121
-              </p>
-            </div>
-            <p style="font-size: 13px; max-width: 300px; text-align: right">
-              มั่นใจได้ว่าอาหารปลอดภัย ดีต่อสุขภาพ และเป็นมิตรต่อโลก
-            </p>
           </div>
         </div>
       </main>
