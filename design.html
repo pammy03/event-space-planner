@@ -1800,8 +1800,8 @@
         // ใส่ลิงก์ตัวเทส และ ตัวหลัก ที่คุณให้มา
         const scriptUrl = isTestMode
           ? "https://script.google.com/macros/s/AKfycbwdMZxue5bHst9pvuPfv8nY7qCGarL5zuZWs6j3pzBaAkH7ZjHmI7cz3WlY1lFM4YjI7A/exec"
-          : "https://script.google.com/macros/s/AKfycbwdMZxue5bHst9pvuPfv8nY7qCGarL5zuZWs6j3pzBaAkH7ZjHmI7cz3WlY1lFM4YjI7A/exec";
-        //
+          : "https://script.google.com/macros/s/AKfycbzScXBhp_2DxEd6VKSduOnY4PxdBpXb9u23B9VZydO7HzWJvAgMUzU_4inR_862NxeffQ/exec";
+        // : "https://script.google.com/macros/s/AKfycbwdMZxue5bHst9pvuPfv8nY7qCGarL5zuZWs6j3pzBaAkH7ZjHmI7cz3WlY1lFM4YjI7A/exec";
         const statusType = currentEditingId ? "อัพเดตข้อมูล" : "รายการใหม่";
 
         const url = `${scriptUrl}?eventID=${encodeURIComponent(eventId)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&eventName=${encodeURIComponent(eventName)}&eventType=${encodeURIComponent(eventType)}&totalCarbon=${encodeURIComponent(totalCarbon)}&status=${encodeURIComponent(statusType)}&selectedItems=${encodeURIComponent(itemArray.join(", "))}`;
