@@ -1,47 +1,52 @@
 // sidebar.js
 const sidebarHTML = `
   <style>
-    /* ปรับแต่งสไตล์ Submenu ให้สวยงามพรีเมียม (เฉพาะใน JS นี้) */
+    /* ปรับแต่งสไตล์ Submenu ให้สวยงามพรีเมียม */
+    .submenu-wrapper {
+      display: grid;
+      grid-template-rows: 0fr; /* เริ่มต้นที่พับไว้ */
+      transition: grid-template-rows 0.3s ease-out, opacity 0.3s ease;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    /* เมื่อเมนูกางออก */
+    .submenu-wrapper.expanded {
+      grid-template-rows: 1fr !important;
+      opacity: 1 !important;
+      padding-bottom: 10px;
+    }
+
     .submenu-inner {
-      padding-left: 10px !important; /* ลดระยะห่างจากเส้นคั่นซ้าย */
+      min-height: 0; /* จำเป็นสำหรับ CSS Grid Animation */
+      padding-left: 10px !important;
       padding-right: 10px !important;
       display: flex;
       flex-direction: column;
-      gap: 6px !important; /* ระยะห่างระหว่างเมนูย่อย */
+      gap: 6px !important;
     }
 
     .submenu-link {
       padding: 12px 18px !important;
-      border-radius: 12px !important; /* ความมนพรีเมียม */
+      border-radius: 12px !important;
       transition: all 0.2s ease !important;
       width: 100% !important;
       display: flex !important;
       align-items: center !important;
       gap: 14px !important;
-      color: #64748b !important; /* สีเทาเข้มสวยๆ */
+      color: #64748b !important;
       text-decoration: none !important;
     }
 
-    /* สไตล์ตอน Active (เลือกอยู่) - ขยายเต็มและสีชัดเจน */
     .submenu-link.active {
-      background-color: #eff6ff !important; /* พื้นหลังฟ้าอ่อนนุ่มๆ */
-      color: #1e52a8 !important; /* ข้อความสีน้ำเงินเข้ม */
+      background-color: #eff6ff !important;
+      color: #1e52a8 !important;
+      font-weight: 700;
     }
     
-    .submenu-link.active i {
-      color: #1e52a8 !important;
-    }
-
-    .submenu-link:hover:not(.active) {
-      background-color: #f8fafc !important;
-      color: #1e52a8 !important;
-    }
-
-    .submenu-link i {
-      font-size: 16px !important;
-      width: 20px !important;
-      text-align: center !important;
-    }
+    .submenu-link.active i { color: #1e52a8 !important; }
+    .submenu-link:hover:not(.active) { background-color: #f8fafc !important; }
+    .submenu-link i { font-size: 16px !important; width: 20px !important; text-align: center !important; }
   </style>
 
   <aside class="sidebar">
@@ -103,12 +108,14 @@ function loadSidebar() {
     container.innerHTML = sidebarHTML;
   }
 
-  const currentPage =
-    window.location.pathname.split("/").pop() || "network.html";
+  // หาชื่อไฟล์ปัจจุบัน
+  const path = window.location.pathname;
+  const currentPage = path.split("/").pop() || "index.html";
+
   const toggleBtn = document.getElementById("knowledgeToggleBtn");
   const submenu = document.getElementById("knowledgeSubmenu");
 
-  // ล้างสถานะเดิม
+  // ล้าง Active เก่า
   document
     .querySelectorAll(".submenu-link")
     .forEach((l) => l.classList.remove("active"));
@@ -116,38 +123,34 @@ function loadSidebar() {
     .querySelectorAll(".menu-btn")
     .forEach((b) => b.classList.remove("active"));
 
-  // เช็คว่าเป็นหน้าในเครือ "แหล่งความรู้" หรือไม่
+  // เช็คกลุ่ม "แหล่งความรู้"
   const isKnowledge =
-    currentPage.includes("network.html") ||
-    currentPage.includes("video.html") ||
-    currentPage.includes("law.html");
+    currentPage.includes("network") ||
+    currentPage.includes("video") ||
+    currentPage.includes("law");
 
   if (isKnowledge) {
     toggleBtn.classList.add("active");
-    submenu.classList.remove("collapsed");
-    submenu.style.display = "grid";
-    submenu.style.gridTemplateRows = "1fr";
-    submenu.style.opacity = "1";
+    toggleBtn.classList.remove("collapsed");
+    submenu.classList.add("expanded"); // สั่งกางออกด้วย Class แทน Inline style
 
-    if (currentPage.includes("network.html"))
+    if (currentPage.includes("network"))
       document.getElementById("side-learning").classList.add("active");
-    if (currentPage.includes("video.html"))
+    if (currentPage.includes("video"))
       document.getElementById("side-video").classList.add("active");
-    if (currentPage.includes("law.html"))
+    if (currentPage.includes("law"))
       document.getElementById("side-law").classList.add("active");
   } else {
     toggleBtn.classList.add("collapsed");
-    submenu.classList.add("collapsed");
-    submenu.style.gridTemplateRows = "0fr";
-    submenu.style.opacity = "0";
+    submenu.classList.remove("expanded"); // สั่งพับเข้า
 
-    if (currentPage.includes("sustainability.html"))
+    if (currentPage.includes("sustainability"))
       document.getElementById("side-sustainability").classList.add("active");
-    if (currentPage.includes("faq.html"))
+    if (currentPage.includes("faq"))
       document.getElementById("side-faq").classList.add("active");
-    if (currentPage.includes("about.html"))
+    if (currentPage.includes("about"))
       document.getElementById("side-about").classList.add("active");
-    if (currentPage.includes("reference.html"))
+    if (currentPage.includes("reference"))
       document.getElementById("side-reference").classList.add("active");
   }
 }
@@ -155,10 +158,9 @@ function loadSidebar() {
 function toggleKnowledgeMenu() {
   const btn = document.getElementById("knowledgeToggleBtn");
   const menu = document.getElementById("knowledgeSubmenu");
-  const isCollapsed = menu.classList.toggle("collapsed");
+
   btn.classList.toggle("collapsed");
-  menu.style.gridTemplateRows = isCollapsed ? "0fr" : "1fr";
-  menu.style.opacity = isCollapsed ? "0" : "1";
+  menu.classList.toggle("expanded"); // ใช้การ toggle class expanded แทน
 }
 
 document.addEventListener("DOMContentLoaded", loadSidebar);
