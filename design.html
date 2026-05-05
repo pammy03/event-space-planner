@@ -652,6 +652,82 @@
         padding: 10px 0;
       }
     </style>
+
+    <!-- 📱 ส่วนที่เพิ่มใหม่เฉพาะมือถือเท่านั้น (Desktop เหมือนเดิม 100%) -->
+    <style>
+      @media (max-width: 768px) {
+        body {
+          overflow: auto !important;
+          height: auto !important;
+        }
+        .top-nav {
+          padding: 0 15px;
+          height: 60px;
+          position: sticky;
+          top: 0;
+        }
+
+        /* ✅ ลบส่วนหัวข้อ IMPACT Carbon Calculator ออกในมือถือ */
+        .nav-center {
+          display: none !important;
+        }
+
+        .nav-logo-img {
+          height: 28px;
+        }
+        .nav-link span,
+        .btn-save span {
+          display: none;
+        }
+
+        /* ดันรูปขึ้นบนสุดและล็อกติดหนึบ (Mobile Only) */
+        .main-workspace {
+          flex-direction: column !important;
+          height: auto !important;
+        }
+        .viewer-right {
+          width: 100% !important;
+          height: 220px !important;
+          position: sticky !important;
+          top: 60px !important;
+          z-index: 500 !important;
+          background: #000;
+          order: -1; /* ย้ายรูปไปอยู่ข้างบน */
+        }
+        .sidebar-left {
+          width: 100% !important;
+          border-right: none !important;
+        }
+        .scrollable-content {
+          padding: 20px 15px 120px !important;
+        }
+
+        .sticky-total-wrapper {
+          position: fixed !important;
+          bottom: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          padding: 10px !important;
+          z-index: 600 !important;
+          background: #fff;
+          border-top: 1px solid var(--border-color);
+        }
+        .total-box {
+          flex-direction: row !important;
+          justify-content: space-between !important;
+          align-items: center !important;
+        }
+        .btn-clear {
+          position: relative !important;
+          top: 0 !important;
+          right: 0 !important;
+          font-size: 11px !important;
+        }
+        .modal-box {
+          width: 95% !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <nav class="top-nav">
@@ -667,7 +743,7 @@
       </div>
       <div class="nav-right">
         <a href="index.html" class="nav-link"
-          ><i class="fas fa-home"></i> หน้าหลัก</a
+          ><i class="fas fa-home"></i> <span>หน้าหลัก</span></a
         >
         <a
           class="nav-link"
@@ -903,10 +979,12 @@
         <div class="sticky-total-wrapper">
           <div class="total-box">
             <button class="btn-clear" onclick="clearSelections()">
-              <i class="fas fa-trash-alt"></i> ล้างค่า
+              <i class="fas fa-trash-alt"></i> <span>ล้างค่า</span>
             </button>
-            <div class="total-label">Total Carbon Footprint</div>
-            <div class="total-num" id="grand-total">0.00 kgCO₂eq</div>
+            <div style="text-align: right">
+              <div class="total-label">Total Carbon Footprint</div>
+              <div class="total-num" id="grand-total">0.00 kgCO₂eq</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1731,10 +1809,6 @@
         document.getElementById("saveModal").style.display = "flex";
       }
 
-      function closeSaveModal() {
-        document.getElementById("saveModal").style.display = "none";
-      }
-
       function confirmSave() {
         const eventId = document.getElementById("event-id").value;
         const name = document.getElementById("cust-name").value;
@@ -1854,5 +1928,81 @@
 
       window.onload = initApp;
     </script>
+
+    <!-- 📱 ส่วนที่เพิ่มใหม่เฉพาะมือถือเท่านั้น (Desktop เหมือนเดิม 100%) -->
+    <style>
+      @media (max-width: 768px) {
+        body {
+          overflow: auto !important;
+          height: auto !important;
+        }
+        .top-nav {
+          padding: 0 15px;
+          height: 60px;
+          position: sticky;
+          top: 0;
+        }
+
+        /* ✅ ลบส่วนหัวข้อ IMPACT Carbon Calculator ออกเฉพาะในมือถือตามรูปที่ 1 */
+        .nav-center {
+          display: none !important;
+        }
+
+        .nav-logo-img {
+          height: 28px;
+        }
+        .nav-link span,
+        .btn-save span {
+          display: none;
+        }
+
+        /* ดันรูปขึ้นบนสุดและล็อกติดหนึบ (Mobile Only) */
+        .main-workspace {
+          flex-direction: column !important;
+          height: auto !important;
+        }
+        .viewer-right {
+          width: 100% !important;
+          height: 220px !important;
+          position: sticky !important;
+          top: 60px !important;
+          z-index: 500 !important;
+          background: #000;
+          order: -1; /* ย้ายรูปไปอยู่ข้างบน */
+        }
+        .sidebar-left {
+          width: 100% !important;
+          border-right: none !important;
+        }
+        .scrollable-content {
+          padding: 20px 15px 120px !important;
+        }
+
+        .sticky-total-wrapper {
+          position: fixed !important;
+          bottom: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          padding: 10px !important;
+          z-index: 600 !important;
+          background: #fff;
+          border-top: 1px solid var(--border-color);
+        }
+        .total-box {
+          flex-direction: row !important;
+          justify-content: space-between !important;
+          align-items: center !important;
+        }
+        .btn-clear {
+          position: relative !important;
+          top: 0 !important;
+          right: 0 !important;
+          font-size: 11px !important;
+        }
+        .modal-box {
+          width: 95% !important;
+        }
+      }
+    </style>
   </body>
 </html>

@@ -36,7 +36,7 @@
         overflow: hidden;
       }
 
-      /* SIDEBAR */
+      /* SIDEBAR & LAYOUT */
       .main-content {
         display: flex;
         gap: 20px;
@@ -44,7 +44,20 @@
         flex: 1;
         overflow: hidden;
       }
-      .sidebar {
+
+      /* Wrapper สำหรับมือถือ (ในคอมซ่อนไว้) */
+      .mobile-sidebar-toggle {
+        display: none;
+      }
+      .close-sidebar-mobile {
+        display: none;
+      }
+      .sidebar-overlay {
+        display: none;
+      }
+
+      /* กล่องใส่ Sidebar ที่เราจะให้ JS มาแทรก */
+      #sidebar-container {
         width: 280px;
         flex-shrink: 0;
         display: flex;
@@ -54,15 +67,22 @@
         padding-right: 10px;
       }
 
-      .sidebar::-webkit-scrollbar,
+      /* สไตล์สำหรับ Sidebar Component */
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      #sidebar-container::-webkit-scrollbar,
       .main-area::-webkit-scrollbar {
         width: 6px;
       }
-      .sidebar::-webkit-scrollbar-track,
+      #sidebar-container::-webkit-scrollbar-track,
       .main-area::-webkit-scrollbar-track {
         background: transparent;
       }
-      .sidebar::-webkit-scrollbar-thumb,
+      #sidebar-container::-webkit-scrollbar-thumb,
       .main-area::-webkit-scrollbar-thumb {
         background: #cbd5e1;
         border-radius: 10px;
@@ -179,6 +199,7 @@
         font-size: 18px;
       }
 
+      /* การ์ดกฎหมาย */
       .resource-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -214,7 +235,7 @@
       }
       .law-icon {
         font-size: 50px;
-        color: #ef4444; /* สีแดงแบบไฟล์ PDF */
+        color: #ef4444;
       }
       .law-details {
         padding: 20px;
@@ -251,108 +272,135 @@
         background-color: var(--impact-blue);
         color: white;
       }
+
+      /* =========================================
+         ===== MOBILE RESPONSIVE (เพิ่มระบบลิ้นชัก) ======
+         ========================================= */
+      @media (max-width: 768px) {
+        body {
+          overflow: auto;
+          height: auto;
+        }
+
+        .main-content {
+          flex-direction: column;
+          padding: 15px 20px;
+          overflow: visible;
+        }
+
+        .main-area {
+          overflow: visible;
+          padding-right: 0;
+        }
+
+        .resource-grid {
+          grid-template-columns: 1fr;
+        }
+
+        /* ปุ่มเปิดเมนูหมวดหมู่ (แสดงเฉพาะมือถือ) */
+        .mobile-sidebar-toggle {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          background-color: var(--impact-blue);
+          color: #fff;
+          border: none;
+          padding: 14px;
+          border-radius: 8px;
+          font-family: inherit;
+          font-size: 16px;
+          font-weight: 700;
+          cursor: pointer;
+          margin-bottom: 20px;
+          box-shadow: 0 4px 12px rgba(35, 84, 162, 0.2);
+          width: 100%;
+        }
+
+        /* กล่องคลุม Sidebar แปลงร่างเป็นลิ้นชักซ่อนข้างจอ */
+        #mobile-sidebar-wrapper {
+          position: fixed;
+          top: 0;
+          left: -100%;
+          width: 300px;
+          height: 100vh;
+          background: #ffffff;
+          z-index: 2000;
+          padding: 20px 10px 20px 20px;
+          box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+          transition: left 0.3s ease;
+          display: flex;
+          flex-direction: column;
+        }
+
+        #mobile-sidebar-wrapper.active {
+          left: 0;
+        }
+
+        .close-sidebar-mobile {
+          display: flex;
+          align-self: flex-end;
+          background: none;
+          border: none;
+          font-size: 24px;
+          color: var(--text-main);
+          cursor: pointer;
+          margin-bottom: 15px;
+          padding: 5px 10px;
+        }
+
+        .sidebar-overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(15, 23, 42, 0.6);
+          backdrop-filter: blur(2px);
+          z-index: 1999;
+        }
+
+        .sidebar-overlay.active {
+          display: block;
+        }
+
+        #sidebar-container {
+          width: 100%;
+          height: 100%;
+          overflow-y: auto;
+          padding-right: 10px;
+        }
+      }
     </style>
   </head>
   <body>
-    <header class="navbar">
-      <div class="nav-left">
-        <img
-          src="images/logo-impact.svg"
-          alt="IMPACT"
-          onerror="
-            this.src =
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/IMPACT_Muang_Thong_Thani_Logo.png/800px-IMPACT_Muang_Thong_Thani_Logo.png'
-          "
-        />
-      </div>
-
-      <div class="nav-menu">
-        <a href="index.html" class="nav-link">
-          <i class="fas fa-home"></i> หน้าหลัก
-        </a>
-
-        <a href="calculator.html" class="nav-link">
-          <i class="fas fa-leaf"></i>
-          <span>
-            <span style="color: #28a745">S</span>ustainable Event Design
-          </span>
-        </a>
-
-        <a href="event.html" class="nav-link">
-          <i class="fas fa-images"></i>
-          <span>
-            <span style="color: #f26f21">E</span>vent Succession Showcase
-          </span>
-        </a>
-
-        <a href="network.html" class="nav-link active">
-          <i class="fas fa-network-wired"></i>
-          <span>
-            <span style="color: #2354a2">N</span>etwork for Knowledge
-          </span>
-        </a>
-      </div>
-    </header>
+    <!-- เรียกใช้ Navbar Component จาก navbar.js -->
 
     <div class="main-content">
-      <aside class="sidebar">
-        <div class="sidebar-item">
-          <button
-            class="menu-btn active"
-            id="knowledgeToggleBtn"
-            onclick="toggleKnowledgeMenu()"
-          >
-            <div class="menu-left">
-              <i class="fas fa-book-open"></i> แหล่งความรู้ทั้งหมด
-            </div>
-            <i class="fas fa-chevron-down icon-arrow"></i>
-          </button>
-          <div class="submenu-wrapper" id="knowledgeSubmenu">
-            <div class="submenu-inner">
-              <a href="network.html" class="submenu-link"
-                ><i class="far fa-lightbulb"></i> สื่อการเรียนรู้</a
-              >
-              <a href="video.html" class="submenu-link"
-                ><i class="fab fa-youtube"></i> วิดีโอ</a
-              >
-              <a href="law.html" class="submenu-link active"
-                ><i class="fas fa-gavel"></i> กฎหมายที่เกี่ยวข้อง</a
-              >
-            </div>
-          </div>
-        </div>
-        <div class="sidebar-item">
-          <a href="sustainability.html" class="menu-btn"
-            ><div class="menu-left">
-              <i class="fas fa-leaf" style="color: #4caf50"></i>
-              อิมแพ็คกับความยั่งยืน
-            </div></a
-          >
-        </div>
-        <div class="sidebar-item">
-          <a href="faq.html" class="menu-btn"
-            ><div class="menu-left">
-              <i class="fas fa-question-circle"></i> คำถามที่พบบ่อย
-            </div></a
-          >
-        </div>
-        <div class="sidebar-item">
-          <a href="about.html" class="menu-btn"
-            ><div class="menu-left">
-              <i class="fas fa-info-circle"></i> เกี่ยวกับเรา
-            </div></a
-          >
-        </div>
-        <div class="sidebar-item">
-          <a href="reference.html" class="menu-btn"
-            ><div class="menu-left">
-              <i class="fas fa-link"></i> แหล่งอ้างอิง
-            </div></a
-          >
-        </div>
-      </aside>
+      <!-- Overlay พื้นหลังสีดำ (คลิกเพื่อปิดเมนูได้) -->
+      <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="toggleMobileSidebar()"
+      ></div>
 
+      <!-- กล่องห่อหุ้ม Sidebar (ทำหน้าที่เป็นลิ้นชักซ่อนบนมือถือ) -->
+      <div id="mobile-sidebar-wrapper">
+        <button class="close-sidebar-mobile" onclick="toggleMobileSidebar()">
+          <i class="fas fa-times"></i>
+        </button>
+        <!-- ตำแหน่งที่ sidebar.js จะนำเมนูมาใส่ -->
+        <div id="sidebar-container"></div>
+      </div>
+
+      <!-- ส่วนเนื้อหาหลักด้านขวา -->
       <main class="main-area">
+        <!-- ปุ่มกดเปิด Sidebar (จะโชว์เฉพาะในมือถือเท่านั้น) -->
+        <button class="mobile-sidebar-toggle" onclick="toggleMobileSidebar()">
+          <i class="fas fa-list-ul"></i> เลือกหมวดหมู่
+        </button>
+
         <div class="content-box">
           <div class="box-title box-title-blue">
             <i class="fas fa-gavel"></i> กฎหมายที่เกี่ยวข้อง
@@ -423,14 +471,26 @@
         </div>
       </main>
     </div>
+
+    <!-- เรียกใช้ Component ทั้ง Navbar และ Sidebar -->
+    <script src="navbar.js"></script>
+    <script src="sidebar.js"></script>
+
+    <!-- Script สำหรับเปิด-ปิดเมนูบนมือถือ -->
     <script>
-      function toggleKnowledgeMenu() {
-        document
-          .getElementById("knowledgeToggleBtn")
-          .classList.toggle("collapsed");
-        document
-          .getElementById("knowledgeSubmenu")
-          .classList.toggle("collapsed");
+      function toggleMobileSidebar() {
+        const wrapper = document.getElementById("mobile-sidebar-wrapper");
+        const overlay = document.getElementById("sidebarOverlay");
+
+        wrapper.classList.toggle("active");
+        overlay.classList.toggle("active");
+
+        // ล็อกไม่ให้จอหลังเลื่อนเวลาเปิดเมนู
+        if (wrapper.classList.contains("active")) {
+          document.body.style.overflow = "hidden";
+        } else {
+          document.body.style.overflow = "auto";
+        }
       }
     </script>
   </body>

@@ -6,39 +6,37 @@
     <title>IMPACT - หน้าหลัก</title>
 
     <link rel="stylesheet" href="style.css" />
-
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 
     <style>
-      /* ❗ เหลือเฉพาะ layout หน้านี้ */
+      /* ===== BASE (Desktop) ตัด CSS ส่วน Navbar ออกไปแล้ว ===== */
       body {
         margin: 0;
         padding: 0;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        background-color: #ffffff; /* ปรับพื้นหลังเป็นสีขาวให้กลืนกับรูป */
+        background-color: #ffffff;
         overflow-x: hidden;
       }
 
       main {
         flex: 1;
         display: flex;
-        align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้งของจอ */
+        align-items: center;
         justify-content: center;
         width: 100%;
-        padding: 50px 10%; /* เว้นขอบซ้าย-ขวาให้สวยงาม */
+        padding: 50px 10%;
+        box-sizing: border-box;
       }
 
-      /* Container สำหรับจัด Layout แบบ 2 คอลัมน์ ซ้าย-ขวา */
       .hero-wrapper {
         display: flex;
         align-items: center;
@@ -48,123 +46,109 @@
         gap: 60px;
       }
 
-      /* ฝั่งซ้าย: โลโก้ และ ข้อความ */
       .hero-text-col {
         flex: 1;
         display: flex;
         flex-direction: column;
-        align-items: flex-start; /* ข้อความชิดซ้าย */
-        gap: 20px; /* เพิ่มระยะห่างระหว่างโลโก้กับข้อความ */
+        align-items: flex-start;
+        gap: 20px;
         max-width: 550px;
       }
 
-      /* === ปรับโลโก้ให้อยู่ตรงกลางของพื้นที่ฝั่งซ้าย === */
       .sen-logo-img {
-        width: 280px; /* ปรับขนาดให้ใหญ่ขึ้นตามรูป */
+        width: 280px;
         height: auto;
-        margin: 0 auto; /* บังคับให้รูปภาพอยู่กึ่งกลาง */
-        display: block; /* จำเป็นต้องมี display: block เพื่อให้ margin: 0 auto ทำงาน */
+        margin: 0 auto;
+        display: block;
       }
 
       .sen-description {
         color: #4a4a4a;
-        font-size: 22px; /* ปรับขนาดให้ใกล้เคียงรูป */
+        font-size: 22px;
         line-height: 1.6;
         font-family: "Sarabun", sans-serif;
       }
 
       .sen-description .highlight-red {
         color: #cc0000;
-        font-weight: 600; /* ทำให้สีแดงดูหนาขึ้นตามรูปภาพ */
+        font-weight: 600;
       }
 
-      /* ฝั่งขวา: รูปภาพ */
       .hero-img-col {
-        flex: 1.2; /* ให้พื้นที่ฝั่งรูปภาพกว้างกว่าเล็กน้อย */
+        flex: 1.2;
         display: flex;
         justify-content: flex-end;
       }
 
       .sen-illustration-img {
         width: 100%;
-        max-width: 600px; /* กำหนดขนาดสูงสุดของรูปภาพ */
+        max-width: 600px;
         height: auto;
         display: block;
         object-fit: contain;
       }
 
-      /* 📱 รองรับการแสดงผลบน มือถือ / แท็บเล็ต 📱 */
-      @media (max-width: 992px) {
+      /* ===== MOBILE ONLY (max 768px) ===== */
+      @media (max-width: 768px) {
+        body {
+          min-height: unset;
+        }
+
+        main {
+          flex: unset;
+          align-items: flex-start;
+          padding: 28px 20px 36px;
+        }
+
         .hero-wrapper {
           flex-direction: column;
+          align-items: center;
           text-align: center;
-          margin-top: 40px;
+          gap: 18px;
         }
 
         .hero-text-col {
           align-items: center;
-          text-align: center; /* ให้ข้อความบนมือถือจัดกลางด้วย */
+          text-align: center;
           max-width: 100%;
-        }
-
-        .sen-description {
-          font-size: 20px;
+          gap: 14px;
         }
 
         .sen-logo-img {
-          width: 280px;
+          width: 200px;
+          margin: 0 auto;
+        }
+
+        .sen-description {
+          font-size: 16px;
+          line-height: 1.85;
+          text-align: center;
+          color: #3a3a3a;
         }
 
         .hero-img-col {
           justify-content: center;
           width: 100%;
-          margin-top: 20px;
+        }
+        .sen-illustration-img {
+          max-width: 100%;
+          width: 100%;
+          border-radius: 12px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .sen-logo-img {
+          width: 175px;
+        }
+        .sen-description {
+          font-size: 15px;
         }
       }
     </style>
   </head>
 
   <body>
-    <header class="navbar">
-      <div class="nav-left">
-        <img
-          src="images/logo-impact.svg"
-          alt="IMPACT"
-          onerror="
-            this.src =
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/IMPACT_Muang_Thong_Thani_Logo.png/800px-IMPACT_Muang_Thong_Thani_Logo.png'
-          "
-        />
-      </div>
-
-      <div class="nav-menu">
-        <a href="index.html" class="nav-link active">
-          <i class="fas fa-home"></i> หน้าหลัก
-        </a>
-
-        <a href="calculator.html" class="nav-link">
-          <i class="fas fa-leaf"></i>
-          <span>
-            <span style="color: #28a745">S</span>ustainable Event Design
-          </span>
-        </a>
-
-        <a href="event.html" class="nav-link">
-          <i class="fas fa-images"></i>
-          <span>
-            <span style="color: #f26f21">E</span>vent Succession Showcase
-          </span>
-        </a>
-
-        <a href="network.html" class="nav-link">
-          <i class="fas fa-network-wired"></i>
-          <span>
-            <span style="color: #2354a2">N</span>etwork for Knowledge
-          </span>
-        </a>
-      </div>
-    </header>
-
     <main>
       <div class="hero-wrapper">
         <div class="hero-text-col">
@@ -191,5 +175,8 @@
         </div>
       </div>
     </main>
+
+    <!-- เรียกใช้ไฟล์ Navbar ที่เราสร้างไว้ (ใส่ไว้ก่อนปิด body) -->
+    <script src="navbar.js"></script>
   </body>
 </html>

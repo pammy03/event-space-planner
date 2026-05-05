@@ -17,8 +17,6 @@
     />
 
     <style>
-      /* ลบ CSS ที่ไปแทรกแซง Navbar ออกทั้งหมด ให้ style.css คุม 100% */
-
       /* --- CSS เนื้อหาหน้า Showcase (Modern UI - No Bounce/Scale Effects) --- */
       :root {
         --impact-blue: #1e52a8;
@@ -195,6 +193,26 @@
         color: var(--text-muted);
         line-height: 1.6;
         margin-bottom: 0px;
+      }
+
+      /* --- ปุ่มย้อนกลับ (ใส่ในฝั่งซ้ายเท่านั้น) --- */
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-main);
+        font-size: 14px; /* ขนาด 14px ตามที่กำหนดเป๊ะ */
+        font-weight: 700;
+        text-decoration: none;
+        margin-bottom: 24px; /* ดันเนื้อหาฝั่งซ้ายลงมา */
+        transition: color 0.2s ease;
+        align-self: flex-start;
+      }
+      .back-btn:hover {
+        color: var(--impact-blue);
+      }
+      .back-btn i {
+        font-size: 14px;
       }
 
       /* --- Left Column (Featured) --- */
@@ -587,48 +605,64 @@
       .close-modal:hover {
         opacity: 1;
       }
+
+      /* ====================================================
+         ==== ส่วนเพิ่มใหม่: Responsive สำหรับหน้าจอมือถือ ====
+         ==================================================== */
+      @media (max-width: 768px) {
+        .hero {
+          padding: 40px 24px; /* ลด Padding บนมือถือ */
+        }
+        .hero-title {
+          font-size: 28px; /* ลดขนาด Header ลงให้พอดีจอ */
+        }
+        .hero-desc {
+          font-size: 14px;
+        }
+
+        .page-body {
+          grid-template-columns: 1fr; /* ปรับ Layout เป็น 1 คอลัมน์ (บน-ล่าง) */
+          gap: 40px;
+          padding: 32px 24px 60px; /* ลดขอบให้เต็มจอมากขึ้น */
+        }
+
+        .col-left,
+        .col-right {
+          width: 100%; /* ให้เต็มความกว้างจอ */
+        }
+
+        .mini-row {
+          grid-template-columns: 1fr; /* การ์ดเล็กเรียงแนวตั้ง */
+        }
+
+        .framework-grid {
+          grid-template-columns: 1fr; /* การ์ด Legacy เรียงแนวตั้ง */
+        }
+
+        .fw-card {
+          flex-direction: column; /* ให้กล่องสีส้มกับเนื้อหาอยู่บน-ล่าง */
+        }
+
+        .fw-emoji {
+          width: 100%;
+          height: 120px; /* กล่องสีส้มสูง 120px */
+          border-right: none;
+          border-bottom: 1px solid var(--border-color);
+        }
+
+        .doc-grid {
+          grid-template-columns: 1fr; /* ใบ Certificate เรียงแนวตั้ง */
+          gap: 16px;
+        }
+
+        .feat-img {
+          height: 200px; /* ลดความสูงภาพหน้าปกเล็กน้อยบนมือถือ */
+        }
+      }
     </style>
   </head>
   <body>
-    <header class="navbar">
-      <div class="nav-left">
-        <img
-          src="images/logo-impact.svg"
-          alt="IMPACT"
-          onerror="
-            this.src =
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/IMPACT_Muang_Thong_Thani_Logo.png/800px-IMPACT_Muang_Thong_Thani_Logo.png'
-          "
-        />
-      </div>
-
-      <div class="nav-menu">
-        <a href="index.html" class="nav-link">
-          <i class="fas fa-home"></i> หน้าหลัก
-        </a>
-
-        <a href="calculator.html" class="nav-link">
-          <i class="fas fa-leaf"></i>
-          <span>
-            <span style="color: #28a745">S</span>ustainable Event Design
-          </span>
-        </a>
-
-        <a href="event.html" class="nav-link active">
-          <i class="fas fa-images"></i>
-          <span>
-            <span style="color: #f26f21">E</span>vent Succession Showcase
-          </span>
-        </a>
-
-        <a href="network.html" class="nav-link">
-          <i class="fas fa-network-wired"></i>
-          <span>
-            <span style="color: #2354a2">N</span>etwork for Knowledge
-          </span>
-        </a>
-      </div>
-    </header>
+    <!-- นำ Navbar เดิมออก แล้วเรียกใช้ผ่าน Component navbar.js แทน -->
 
     <section class="hero">
       <div class="hero-circle-1"></div>
@@ -648,6 +682,11 @@
 
     <main class="page-body">
       <div class="col-left">
+        <!-- ปุ่มย้อนกลับ แทรกเฉพาะในฝั่งซ้าย ทำให้ฝั่งขวาอยู่ตำแหน่งเดิมเป๊ะๆ -->
+        <a href="index.html" class="back-btn">
+          <i class="fas fa-arrow-left"></i> กลับหน้าหลัก
+        </a>
+
         <div>
           <div class="label-tag">Featured Case</div>
           <p class="sec-sub">
@@ -872,6 +911,9 @@
       <span class="close-modal" onclick="closeModal()">&times;</span>
       <img class="modal-content" id="modalImg" />
     </div>
+
+    <!-- เรียกใช้ไฟล์ Navbar -->
+    <script src="navbar.js"></script>
 
     <script>
       function openModal(imgSrc) {
